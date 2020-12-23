@@ -1,0 +1,5 @@
+<h2>Videos</h2>
+<button (click) = "onSearch()">Search</button>
+<div *ngFor="let video of videos">
+    <app-video-panel [video] = video></app-video-panel>
+</div>
