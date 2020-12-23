@@ -1,0 +1,5 @@
+<h2>Notes</h2>
+<button (click) = "onSearch()">Search</button>
+<div *ngFor="let note of notes">
+    <app-note-panel [note] = note></app-note-panel>
+</div>
