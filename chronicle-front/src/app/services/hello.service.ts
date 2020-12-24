@@ -27,7 +27,6 @@ export class HelloService {
 
  
 
-
   getHello(token: any): Observable<String> {
 
     let headers = new HttpHeaders();
@@ -36,6 +35,7 @@ export class HelloService {
     console.log(this.http.get<String>(this.helloUrl));
     return this.http.get<String>(this.helloUrl, {headers: headers});
   }
+  
 
 
 
