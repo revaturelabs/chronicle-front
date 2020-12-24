@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private afAuth: AngularFireAuth) {
 
-    this.afAuth.currentUser
+    
   } 
 
   successCallback(signInSuccessData: FirebaseUISignInSuccessWithAuthResult) {
