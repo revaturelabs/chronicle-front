@@ -11,9 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-
 import {firebase, firebaseui, FirebaseUIModule} from 'firebaseui-angular';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+//import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 
@@ -79,8 +79,7 @@ const firebaseUiAuthConfig2: firebaseui.auth.Config = {
   declarations: [
     AppComponent,
     LoginComponent,
-    HomepageComponent,
-    NavbarComponent
+    HomepageComponent
   ],
   imports: [
     AngularFireModule.initializeApp(firebaseConfig),
@@ -89,10 +88,11 @@ const firebaseUiAuthConfig2: firebaseui.auth.Config = {
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSliderModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    HttpClientModule
 
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
