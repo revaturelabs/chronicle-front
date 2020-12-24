@@ -21,6 +21,9 @@ import { NotespageComponent } from './components/notespage/notespage.component';
 import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
+import { UploadpageComponent } from './components/pages/uploadpage/uploadpage.component';
+import { UploadformComponent } from './components/uploadform/uploadform.component';
+import { UploadfileComponent } from './components/uploadfile/uploadfile.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     VideopageComponent,
     NotespageComponent,
     VideoPanelComponent,
-    NotePanelComponent
+    NotePanelComponent,
+    UploadpageComponent,
+    UploadformComponent,
+    UploadfileComponent
   ],
   imports: [
     BrowserModule,
