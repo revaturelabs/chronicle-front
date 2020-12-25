@@ -17,7 +17,14 @@ export class HomepageComponent implements OnInit {
 
   displayName?: any;
 
+
+  
+
   token?: any;
+
+  token2?: any;
+
+  actualtoken?: any;
 
 /*
 
@@ -52,15 +59,23 @@ export class HomepageComponent implements OnInit {
 
   ahhh() {
 
-    console.log(this.afAuth.idToken.subscribe(data => {console.log(data), () => this.getHello()}, error => {console.log(error)}, () => this.getHello()));
+    console.log(this.afAuth.idToken.subscribe(data => {(this.token = data), () => this.getHello()}, error => {console.log(error)}, () => this.getHello()));
     console.log(this.afAuth.user.subscribe((data => {console.log(data?.displayName)})));
 
+
+    console.log(this.afAuth.idToken.subscribe(data => {console.log(data)}));
     //customer_id => {this.customer_id = customer_id.body.customer_id}, error => {console.log(error)}, () => this.submitOrderData(this.customer_id))
     // console.log(this.afAuth.currentUser.then(data => this.displayName = data?.displayName?.toString));
     // console.log(this.afAuth.currentUser.then(data => console.log(data?.email)));
     // console.log(this.afAuth.currentUser);
       
-    
+
+    //console.log(this.afAuth.idToken.toPromise().then(data => {console.log(data)}))
+
+    //this.afAuth.idToken.toPromise().then(data => {this.token2 = data});
+
+    //this.afAuth.idToken.pipe()
+
 
   }
 
@@ -76,7 +91,9 @@ export class HomepageComponent implements OnInit {
 
     console.log("This should be getting called");
 
-    this.helloService.getHello("eyJhbGciOiJSUzI1NiIsImtpZCI6IjNjYmM4ZjIyMDJmNjZkMWIxZTEwMTY1OTFhZTIxNTZiZTM5NWM2ZDciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiSnVzdGluIEtyb2giLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vdGVzdC1hMGJmMSIsImF1ZCI6InRlc3QtYTBiZjEiLCJhdXRoX3RpbWUiOjE2MDg4MjE3MzIsInVzZXJfaWQiOiJzdUVyVzZTd3BST0phajB5b0YxWGxvS2JWTTAyIiwic3ViIjoic3VFclc2U3dwUk9KYWoweW9GMVhsb0tiVk0wMiIsImlhdCI6MTYwODgyMTczMiwiZXhwIjoxNjA4ODI1MzMyLCJlbWFpbCI6Imp1c3Rpbmtyb2gyMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsianVzdGlua3JvaDIyQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.qLOxsqLMkd1ugDWSYHrh2LEgSi779SFeY9UCRf9FGBBpV7bvQYp1WeJSr2MJPWWX5OVXFIDDZogQm4NHhEa_yrcw-8XTt37e9r6eDJh9iPdMrTtLMgTpT12Acp3YSso5Duc96qR9kjkd9XbiWcr9XKQn1pAddM2lcIiRIu_d9DVcTfg1tZERpAQpR2_GTIGgVUF0xOtzXOsYIwZbldu70Pg45eM5367KnNb6xQXcJk7eYTL8WFQn19Y2i1BsgS2Qv4Fgr4iuaIQJ_JVf1vwOJnzQK6MVHzWsLjWGIQe7hZlRCstiuQ4mJpVFr0A8nc-98aCXosviGVHULJJRkeEoIw")
+    
+
+    this.helloService.getHello(this.token)
     .subscribe(data => {console.log(data), console.log("this also should be getting called")});
 
 
@@ -87,7 +104,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit(): void {
 
     this.ahhh();
-    this.getHello();
+    //this.getHello();
 
 
   }
