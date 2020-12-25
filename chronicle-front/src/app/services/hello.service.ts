@@ -27,13 +27,18 @@ export class HelloService {
 
  
 
-  getHello(token: any): Observable<String> {
+  getHello(token: any): Observable<any> {
+
+    console.log(token);
 
     let headers = new HttpHeaders();
-    headers = headers.set('Authorization', token)
+    headers = headers.set('Authorization', 'Bearer ' + token);
 
-    console.log(this.http.get<String>(this.helloUrl));
-    return this.http.get<String>(this.helloUrl, {headers: headers});
+    console.log(headers);
+
+
+    console.log(this.http.get<any>(this.helloUrl, {headers: headers}));
+    return this.http.get<any>(this.helloUrl, {headers: headers});
   }
   
 

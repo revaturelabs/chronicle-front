@@ -1,4 +1,9 @@
 <p>homepage works!</p>
 
 
-<h4 *ngIf="displayName">{{displayName}}</h4>
+<h4 *ngIf="token">{{token}}</h4>
+
+<h4 *ngIf="token2">{{token2}}</h4>
+
+
+<button *ngIf="token"(click)="getHello();">Get Hello</button>
