@@ -3,4 +3,4 @@
     (signInFailure)="errorCallback()"
     ></firebase-ui>
 
-<button (click)="logout();">Logout</button>
+<button *ngIf="isSignedIn" (click)="logout();">Logout</button>

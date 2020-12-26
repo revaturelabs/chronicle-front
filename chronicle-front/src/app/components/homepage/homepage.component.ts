@@ -12,7 +12,7 @@ export class HomepageComponent implements OnInit {
 
   constructor(private helloService : HelloService) { }
   ngOnInit(): void {
-    this.getHello();
+    //this.getHello();
   }
 
   getHello() {

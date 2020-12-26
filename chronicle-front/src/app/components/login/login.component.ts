@@ -9,8 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  public isSignedIn:boolean;
 
-  constructor( private router: Router) { }  
+  constructor( private router: Router) {
+    this.isSignedIn = false;
+   }  
 
   ngOnInit(): void {
     
@@ -18,6 +21,7 @@ export class LoginComponent implements OnInit {
 
   successCallback() {
     console.log('LoginComponent:: emailPasswordLogin:: successful login');
+    this.isSignedIn = true;
     console.log(firebase.auth().currentUser?.email);
     console.log(firebase.auth().currentUser?.displayName);
     console.log(firebase.auth().currentUser?.uid);
@@ -29,11 +33,15 @@ export class LoginComponent implements OnInit {
   }   
 
   logout(){     
-    firebase.auth().signOut();
-    console.log("User logged out");
-    console.log(firebase.auth().currentUser?.email);
-    console.log(firebase.auth().currentUser?.displayName);
-    console.log(firebase.auth().currentUser?.uid);
-    console.log(firebase.auth().currentUser?.emailVerified); 
+    firebase.auth().signOut().then(function() {
+      console.log("User logged out");
+      console.log(firebase.auth().currentUser?.email);
+      console.log(firebase.auth().currentUser?.displayName);
+      console.log(firebase.auth().currentUser?.uid);
+      console.log(firebase.auth().currentUser?.emailVerified); 
+    }).catch(function(error) {
+      // An error happened.
+    });
+    this.isSignedIn = false; 
   }
 }
