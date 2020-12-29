@@ -6,6 +6,8 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatFormField } from '@angular/material/form-field';
 
 
 
@@ -21,6 +23,9 @@ import { NotespageComponent } from './components/notespage/notespage.component';
 import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
+import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
+import { from } from 'rxjs';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
 
 
 @NgModule({
@@ -32,7 +37,9 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     VideopageComponent,
     NotespageComponent,
     VideoPanelComponent,
-    NotePanelComponent
+    NotePanelComponent,
+    ViewvideopageComponent,
+    SearchbarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,9 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule,
+    MatFormField
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]

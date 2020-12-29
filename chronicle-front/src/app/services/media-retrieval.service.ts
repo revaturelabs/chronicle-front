@@ -29,13 +29,28 @@ export class MediaRetrievalService {
   getVideos() : Observable<Video[]> {
     let v : Video = {
       id : 1,
-      description : "Note",
-      userId : "",
-      url : "url",
-      tags : []};
-      let videos : Video[] = [v,v,v];
+      description : "Take On Me",
+      userId : "a-ha",
+      url : "https://www.youtube.com/watch?v=djV11Xbc914",
+      tags : [{tagid: "1",name : "Dank", value : "val"}]
+    };
+    let b : Video = {
+      id : 1,
+      description : "Big Buck Bunny",
+      userId : "a-ha",
+      url : "https://www.youtube.com/watch?v=djV11Xbc914",
+      tags : [{tagid: "1",name : "Dank", value : "val"}]
+    };
+      
+      
+      
+      
+      let videos : Video[] = [v,b];
       return from([videos]);
   }
+
+
+
 
 
 }

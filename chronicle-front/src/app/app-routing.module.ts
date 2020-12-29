@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
+import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
 
 const routes: Routes = [{
   path:'',
@@ -13,6 +14,10 @@ const routes: Routes = [{
 },{
   path:'notes',
   component: NotespageComponent
+},
+{
+  path:'video',
+  component: ViewvideopageComponent
 }];
 
 @NgModule({
