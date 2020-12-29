@@ -60,11 +60,15 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatButtonModule,
     MatMenuModule,
     MatCardModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig), // imports firebase/app needed for everything    
+    AngularFireModule.initializeApp(environment.firebaseConfig), // imports firebase/app needed for everything  ,  
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(){
+    firebase.initializeApp(environment.firebaseConfig);  
+  }
+ }

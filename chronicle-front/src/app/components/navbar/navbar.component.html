@@ -1,4 +1,4 @@
-<mat-toolbar>
+<mat-toolbar *ngIf="isLoggedIn$ | async"> 
     <a routerLink="">
     <img src="../../../assets/images/revature-logo.jpg" routerLink="home" class="logo">
     </a>
@@ -10,5 +10,6 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>perm_identity</mat-icon>      
     </button>
-  </mat-toolbar>
+    <button (click)="onLogout()" *ngIf="isLoggedIn$ | async">Logout</button>
+</mat-toolbar>
   
