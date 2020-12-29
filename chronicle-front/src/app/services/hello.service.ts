@@ -11,7 +11,11 @@ export class HelloService {
   constructor(private http: HttpClient) { }
 
 
+
   private helloUrl = 'http://localhost:8080/ROOT_war/hello';
+
+
+  private helloUrl2 = 'http://localhost:8080/hello';
 
   //private var token = '';
 
@@ -22,7 +26,9 @@ export class HelloService {
       'Content-Type': 'application/json'
     }),
     observe: 'response'
+
   }; 
+
 
   getHello(token: any): Observable<any> {
 
@@ -32,9 +38,18 @@ export class HelloService {
     headers = headers.set('Authorization', 'Bearer ' + token);
 
     console.log(headers);
-
+  
 
     console.log(this.http.get<any>(this.helloUrl, {headers: headers}));
+
+    // return this.http.get<any>(this.helloUrl, {headers: headers});
     return this.http.get<any>(this.helloUrl/*, {headers: headers, responseType: 'text'}*/);
+  }
+  
+  
 }
-}
+
+   
+
+  
+
