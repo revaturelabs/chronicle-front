@@ -7,9 +7,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -21,6 +18,10 @@ import { NotespageComponent } from './components/notespage/notespage.component';
 import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
+import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
+import { UploadfilePanelComponent } from './components/panels/uploadfile-panel/uploadfile-panel.component';
+import { UploadformPanelComponent } from './components/panels/uploadform-panel/uploadform-panel.component';
+import { UploadService } from './services/upload.service';
 
 
 @NgModule({
@@ -32,7 +33,10 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     VideopageComponent,
     NotespageComponent,
     VideoPanelComponent,
-    NotePanelComponent
+    NotePanelComponent,
+    UploadpageComponent,
+    UploadfilePanelComponent,
+    UploadformPanelComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,9 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     MatMenuModule,
     MatCardModule
   ],
-  providers: [MediaRetrievalService],
+  providers: [
+    UploadService,
+    MediaRetrievalService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
