@@ -37,7 +37,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
 };
 
-
 @NgModule({
   declarations: [
     AppComponent,
