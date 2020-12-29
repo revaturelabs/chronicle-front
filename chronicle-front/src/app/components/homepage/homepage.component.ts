@@ -1,9 +1,10 @@
+import { Component, OnInit } from '@angular/core';
+import { HelloService } from 'src/app/services/hello.service';
+import firebase from 'firebase/app'
+import 'firebase/auth'
 import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { HelloService } from 'src/app/services/hello.service';
-//import 'firebase/auth';
-//import './Init';
-//import firebase from 'firebase/app';
 
 
 @Component({
@@ -13,6 +14,11 @@ import { HelloService } from 'src/app/services/hello.service';
 })
 
 export class HomepageComponent implements OnInit {
+
+
+  constructor(private helloService : HelloService) { }
+  ngOnInit(): void {
+    //this.getHello();
 
 
   displayName?: any;
@@ -53,7 +59,7 @@ export class HomepageComponent implements OnInit {
 
 
 
-
+/*
   constructor(private afAuth: AngularFireAuth, private helloService: HelloService) { }
 
 
@@ -86,7 +92,7 @@ export class HomepageComponent implements OnInit {
 
   }
 
-
+*/
   getHello() {
 
     console.log("This should be getting called");
@@ -101,12 +107,18 @@ export class HomepageComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-
-    this.ahhh();
-    //this.getHello();
-
 
   }
 
+  getHello() {
+
+    console.log("This should be getting called");    
+
+    this.helloService.getHello(firebase.auth().currentUser?.displayName)
+    .subscribe(data => {
+      console.log(data);
+      console.log("this also should be getting called");
+      alert(data);
+    });
+}
 }
