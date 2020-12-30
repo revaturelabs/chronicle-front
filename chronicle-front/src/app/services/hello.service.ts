@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import firebase from 'firebase/app'
 
 
 @Injectable({
@@ -11,7 +12,7 @@ export class HelloService {
   constructor(private http: HttpClient) { }
 
 
-  private helloUrl = 'http://localhost:8080/ROOT_war/hello';
+  private helloUrl = 'http://localhost:8080/hello';
 
   //private var token = '';
 
@@ -24,7 +25,7 @@ export class HelloService {
     observe: 'response'
   }; 
 
-  getHello(token: any): Observable<any> {
+   getHello(token: any): Observable<any> {
 
     console.log(token);
 
@@ -35,6 +36,14 @@ export class HelloService {
 
 
     console.log(this.http.get<any>(this.helloUrl, {headers: headers}));
-    return this.http.get<any>(this.helloUrl/*, {headers: headers, responseType: 'text'}*/);
-}
+    return this.http.get<any>(this.helloUrl, {headers: headers});
+  } 
+
+  /*getHello():Observable<any>{
+    firebase.auth().currentUser?.getIdToken().then(token=>{
+      let headers = new HttpHeaders().set('Authorization', 'Bearer '+token);
+      return this.http.get<any>(this.helloUrl, {headers: headers});
+    })
+  }
+  */
 }

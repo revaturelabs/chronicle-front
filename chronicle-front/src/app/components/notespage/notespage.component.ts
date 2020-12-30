@@ -16,8 +16,6 @@ export class NotespageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-
   }
 
   onSearch(){

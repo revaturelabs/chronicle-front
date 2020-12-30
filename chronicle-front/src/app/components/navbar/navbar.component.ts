@@ -21,6 +21,8 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn$ = this.authService.isLoggedIn;
   }
 
+  
+
   onLogout(){     
     firebase.auth().signOut().then(function() {
       console.log("User logged out");
