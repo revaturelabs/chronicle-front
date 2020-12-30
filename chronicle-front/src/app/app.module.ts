@@ -7,9 +7,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatFormField } from '@angular/material/form-field';
-
-
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,8 +24,8 @@ import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
 import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
-import { from } from 'rxjs';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
 
 
 @NgModule({
@@ -39,7 +39,8 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     VideoPanelComponent,
     NotePanelComponent,
     ViewvideopageComponent,
-    SearchbarComponent
+    SearchbarComponent,
+    VjsPlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +53,9 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
     MatMenuModule,
     MatCardModule,
     MatChipsModule,
-    MatFormField
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]

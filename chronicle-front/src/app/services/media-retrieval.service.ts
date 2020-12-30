@@ -10,43 +10,45 @@ export class MediaRetrievalService {
 
   constructor() { }
 
-  
+  v : Video = {
+    id : 1,
+    description : "Routing with Angular",
+    userId : "1",
+    url : "https://www.w3schools.com/html/mov_bbb.mp4",
+    tags : [{tagid: "1",name : "topic", value : "Angular"}]
+  };
+  b : Video = {
+    id : 2,
+    description : "Introduction to OOP",
+    userId : "1",
+    url : "https://www.w3schools.com/html/mov_bbb.mp4",
+    tags : [{tagid: "2",name : "topic", value : "Java"}]
+  };
 
-
-  getNotes() : Observable<Note[]> {
-
-  let n : Note = {
+  n : Note = {
     id : 1,
     description : "Note",
     userId : "",
     url : "url",
     tags : []};
-    let notes : Note[] = [n,n,n];
+
+
+  getNotes() : Observable<Note[]> {
+
+  
+    let notes : Note[] = [this.n];
     return from([notes]);
   } 
 
 
   getVideos() : Observable<Video[]> {
-    let v : Video = {
-      id : 1,
-      description : "Take On Me",
-      userId : "a-ha",
-      url : "https://www.youtube.com/watch?v=djV11Xbc914",
-      tags : [{tagid: "1",name : "Dank", value : "val"}]
-    };
-    let b : Video = {
-      id : 1,
-      description : "Big Buck Bunny",
-      userId : "a-ha",
-      url : "https://www.youtube.com/watch?v=djV11Xbc914",
-      tags : [{tagid: "1",name : "Dank", value : "val"}]
-    };
-      
-      
-      
-      
-      let videos : Video[] = [v,b];
+    
+      let videos : Video[] = [this.v,this.b];
       return from([videos]);
+  }
+
+  getVideoById(id : number) : Observable<Video> {
+    return from([this.v]);
   }
 
 

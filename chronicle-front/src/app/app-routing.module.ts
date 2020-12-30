@@ -16,9 +16,9 @@ const routes: Routes = [{
   component: NotespageComponent
 },
 {
-  path:'video',
+  path:'videos/:id',
   component: ViewvideopageComponent
-}];
+},];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
