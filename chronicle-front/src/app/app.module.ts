@@ -19,9 +19,9 @@ import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
 import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
-import { UploadfilePanelComponent } from './components/panels/uploadfile-panel/uploadfile-panel.component';
-import { UploadformPanelComponent } from './components/panels/uploadform-panel/uploadform-panel.component';
 import { UploadService } from './services/upload.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -34,9 +34,7 @@ import { UploadService } from './services/upload.service';
     NotespageComponent,
     VideoPanelComponent,
     NotePanelComponent,
-    UploadpageComponent,
-    UploadfilePanelComponent,
-    UploadformPanelComponent
+    UploadpageComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +45,10 @@ import { UploadService } from './services/upload.service';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     UploadService,
