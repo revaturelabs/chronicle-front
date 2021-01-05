@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
+import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
-import { UploadpageComponent } from './components/pages/uploadpage/uploadpage.component';
 
 const routes: Routes = [{
   path:'',
