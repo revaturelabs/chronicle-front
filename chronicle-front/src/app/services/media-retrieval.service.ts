@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
+import { concatMap, map, switchMap } from 'rxjs/operators';
 import { Note } from '../models/Note';
+import { Tag } from '../models/Tag';
 import { Video } from '../models/Video';
 
 @Injectable({
@@ -8,7 +11,7 @@ import { Video } from '../models/Video';
 })
 export class MediaRetrievalService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   v : Video = {
     id : 1,
@@ -40,11 +43,37 @@ export class MediaRetrievalService {
     return from([notes]);
   } 
 
+  public getAllNotes() : Observable<any> {
+    return this.httpClient.get('http://localhost:8080/myapp/notes/all')
+  }
+
+  public getNotesByTag(tags: Tag[]) : Observable<any> {
+    let tagPath: string = "";
+    tags.forEach(tag => {
+      tagPath += `${tag.name}:${tag.value}+`;
+    })
+    tagPath = tagPath.slice(0,-1);
+    return this.httpClient.get(`http://localhost:8080/myapp/videos/${tagPath}`)
+  }
+
 
   getVideos() : Observable<Video[]> {
     
       let videos : Video[] = [this.v,this.b];
       return from([videos]);
+  }
+
+  public getAllVideos() : Observable<any> {
+    return this.httpClient.get('http://localhost:8080/myapp/videos/all')
+  }
+
+  public getVideosByTag(tags: Tag[]) : Observable<any> {
+    let tagPath: string = "";
+    tags.forEach(tag => {
+      tagPath += `${tag.name}:${tag.value}+`;
+    })
+    tagPath = tagPath.slice(0,-1);
+    return this.httpClient.get(`http://localhost:8080/myapp/notes/${tagPath}`)
   }
 
   getVideoById(id : number) : Observable<Video> {
