@@ -4,16 +4,17 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './components/login/login.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 const routes: Routes = [{
   path:'',
-  component: HomepageComponent
+  component: HomepageComponent, canActivate: [AngularFireAuthGuard]
 },{
   path:'videos',
-  component: VideopageComponent
+  component: VideopageComponent, canActivate: [AngularFireAuthGuard]
 },{
   path:'notes',
-  component: NotespageComponent
+  component: NotespageComponent, canActivate: [AngularFireAuthGuard]
 },{ path: 'login', component: LoginComponent }
 ];
 

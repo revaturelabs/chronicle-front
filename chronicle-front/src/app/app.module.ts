@@ -24,6 +24,7 @@ import {AngularFireModule}                from '@angular/fire';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
 import {environment}                            from '../environments/environment';
 
+
 import {HttpClientModule} from '@angular/common/http';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -66,6 +67,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
   constructor(){
     firebase.initializeApp(environment.firebaseConfig);  

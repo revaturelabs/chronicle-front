@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloService } from 'src/app/services/hello.service';
+import { AuthService } from 'src/app/services/auth.service';
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
@@ -11,57 +12,34 @@ import 'firebase/auth'
 export class HomepageComponent implements OnInit {
   public myUser: any = null;
   
-  constructor(private helloService : HelloService) { }
+  constructor(private helloService : HelloService, public authService: AuthService) { }
   ngOnInit(): void {
     //this.getHello();
+    this.getHelloTest();
     
-    firebase.auth().onAuthStateChanged(user=>{
-      if(user){
-
-        this.myUser = user;
-
-        user.getIdToken().then(token=>{
-          console.log("getIdToken " + token)
-          this.helloService.getHello(token)
-            .subscribe(data => {
-              console.log(data);
-              console.log("this also should be getting called");
-              alert(data);
-            });
-        })
-      }
-      else{
-        console.log("oh no!!!!!!!!!!!")
-      }
-    })
   }
   
 
-  
-  
-  getHello() {
+ async getHelloTest() {
 
     console.log("This should be getting called");
     
-       firebase.auth().currentUser?.getIdToken().then(token=>{
-        console.log("getIdToken " + token)
-        this.helloService.getHello(token)
-          .subscribe(data => {
-            console.log(data);
-            console.log("this also should be getting called");
-            alert(data);
-          });
-      }); 
-      //this.helloService.getHello().subscribe()
-      /*
-      //console.log("homepage getHello jwt: "+jwt);
-      this.helloService.getHello(jwt)
-      .subscribe(data => {
-        console.log(data);
-        console.log("this also should be getting called");
-        alert(data);
-      });
-      */
-    
-  }
+    let userToken = await this.authService.getSyncToken();
+    let uID = await this.authService.getSyncUID();
+    let email = await this.authService.getSyncEmail();
+    let displayName = await this.authService.getSyncDisplayName();
+    let metadata = await this.authService.getSyncMetaData();
+
+    console.log(userToken);
+    console.log(uID);
+    console.log(email);
+    console.log(displayName);
+    console.log(metadata);
+
+    this.helloService.getHello(userToken)
+    .subscribe(data => {console.log(data), console.log("this also should be getting called")});
+
+  
+    }
+
 }

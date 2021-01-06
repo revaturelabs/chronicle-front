@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Injectable({
@@ -9,12 +10,11 @@ import firebase from 'firebase/app'
 })
 export class HelloService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
 
   private helloUrl = 'http://localhost:8080/hello';
 
-  //private var token = '';
 
   //This is how it is done to grab respone data from posts
   httpOptions: any = {
@@ -39,11 +39,4 @@ export class HelloService {
     return this.http.get<any>(this.helloUrl, {headers: headers});
   } 
 
-  /*getHello():Observable<any>{
-    firebase.auth().currentUser?.getIdToken().then(token=>{
-      let headers = new HttpHeaders().set('Authorization', 'Bearer '+token);
-      return this.http.get<any>(this.helloUrl, {headers: headers});
-    })
-  }
-  */
 }
