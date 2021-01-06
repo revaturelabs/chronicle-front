@@ -5,7 +5,7 @@ import videojs from 'video.js';
 @Component({
   selector: 'app-vjsplayer',
   template: `
-    <video #target class="video-js" controls muted playsinline preload="none"></video>
+    <video #target class="video-js videoPanel" controls muted playsinline preload="none"></video>
   `,
   styleUrls: [
     './vjsplayer.component.css'
