@@ -43,17 +43,41 @@ export class MediaRetrievalService {
     return from([notes]);
   } 
 
-  public getAllNotes() : Observable<any> {
+  public getAllNotes() : Observable<Note[]> {
     return this.httpClient.get('http://localhost:8080/myapp/notes/all')
+    .pipe(map((resp:any) => {
+      return resp.map((note:any) => {
+        let newNote: Note = {
+          id : note.noteID,
+          description : note.description,
+          userId : note.user,
+          url : note.ur,
+          tags : note.noteTags
+        };
+        return newNote;
+      })
+    }));
   }
 
-  public getNotesByTag(tags: Tag[]) : Observable<any> {
+  public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
       tagPath += `${tag.name}:${tag.value}+`;
-    })
+    });
     tagPath = tagPath.slice(0,-1);
-    return this.httpClient.get(`http://localhost:8080/myapp/videos/${tagPath}`)
+    return this.httpClient.get(`http://localhost:8080/myapp/notes/${tagPath}`)
+    .pipe(map((resp:any) => {
+      return resp.map((note:any) => {
+        let newNote: Note = {
+          id : note.noteID,
+          description : note.description,
+          userId : note.user,
+          url : note.ur,
+          tags : note.noteTags
+        };
+        return newNote;
+      })
+    }));
   }
 
 
@@ -63,17 +87,41 @@ export class MediaRetrievalService {
       return from([videos]);
   }
 
-  public getAllVideos() : Observable<any> {
+  public getAllVideos() : Observable<Video[]> {
     return this.httpClient.get('http://localhost:8080/myapp/videos/all')
+    .pipe(map((resp:any) => {
+      return resp.map((video:any) => {
+        let newVideo: Video = {
+          id : video.videoID,
+          description : video.description,
+          userId : video.user,
+          url : video.ur,
+          tags : video.videoTags
+        };
+        return newVideo;
+      })
+    }));
   }
 
-  public getVideosByTag(tags: Tag[]) : Observable<any> {
+  public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
       tagPath += `${tag.name}:${tag.value}+`;
     })
     tagPath = tagPath.slice(0,-1);
-    return this.httpClient.get(`http://localhost:8080/myapp/notes/${tagPath}`)
+    return this.httpClient.get(`http://localhost:8080/myapp/videos/${tagPath}`)
+    .pipe(map((resp:any) => {
+      return resp.map((video:any) => {
+        let newVideo: Video = {
+          id : video.videoID,
+          description : video.description,
+          userId : video.user,
+          url : video.ur,
+          tags : video.videoTags
+        };
+        return newVideo;
+      })
+    }));
   }
 
   getVideoById(id : number) : Observable<Video> {
