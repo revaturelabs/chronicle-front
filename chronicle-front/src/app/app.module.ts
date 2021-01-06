@@ -7,9 +7,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -22,6 +19,24 @@ import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
 
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+
+
+import {HttpClientModule} from '@angular/common/http';
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+
+  signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: 'https://revature.com/',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+};
 
 @NgModule({
   declarations: [
@@ -35,6 +50,7 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     NotePanelComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -43,9 +59,18 @@ import { NotePanelComponent } from './components/panels/note-panel/note-panel.co
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+
+export class AppModule {
+  constructor(){
+    firebase.initializeApp(environment.firebaseConfig);
+  }
+ }

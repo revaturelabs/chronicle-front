@@ -11,19 +11,19 @@ export class VideopageComponent implements OnInit {
 
   constructor(private mediaService: MediaRetrievalService) { }
 
-  videos? : Video[];
+  videos?: Video[];
 
 
   ngOnInit(): void {
 
-    
+
 
   }
 
-  onSearch(){
+  onSearch(): void {
     this.mediaService.getVideos().subscribe(resp => {
       this.videos = resp;
-    })
+    });
   }
 
 
