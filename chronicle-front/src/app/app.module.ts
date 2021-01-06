@@ -27,6 +27,24 @@ import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
 
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+
+
+import {HttpClientModule} from '@angular/common/http';
+
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+
+  signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: 'https://revature.com/',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+};
 
 @NgModule({
   declarations: [
@@ -43,6 +61,7 @@ import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
     VjsPlayerComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -52,6 +71,9 @@ import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
     MatButtonModule,
     MatMenuModule,
     MatCardModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     MatChipsModule,
     MatFormFieldModule,
     MatAutocompleteModule,
@@ -60,4 +82,10 @@ import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+
+export class AppModule {
+  constructor(){
+    firebase.initializeApp(environment.firebaseConfig);
+  }
+ }

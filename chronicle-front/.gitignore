@@ -40,6 +40,8 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+fbconfig.service.ts
+fbconfig.service.spec.ts
 
 # System Files
 .DS_Store
