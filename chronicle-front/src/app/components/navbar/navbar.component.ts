@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,17 +10,17 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-    
-  
-  constructor(public authService: AuthService) {       
+
+
+  constructor(public authService: AuthService) {
 
   }
 
   ngOnInit(): void {
   }
 
-  onLogout(){     
+  onLogout(): void {
 
-    this.authService.logout();      
+    this.authService.logout();
   }
 }

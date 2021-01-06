@@ -13,17 +13,16 @@ export class HelloService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
 
-  private helloUrl = 'http://localhost:8080/hello';
+  private helloUrl = 'http://localhost:8080/test/hello';
 
 
-  //This is how it is done to grab respone data from posts
   httpOptions: any = {
     headers: new HttpHeaders({
-      //'Authorization': 
+      // 'Authorization':
       'Content-Type': 'application/json'
     }),
     observe: 'response'
-  }; 
+  };
 
    getHello(token: any): Observable<any> {
 
@@ -35,8 +34,8 @@ export class HelloService {
     console.log(headers);
 
 
-    console.log(this.http.get<any>(this.helloUrl, {headers: headers}));
-    return this.http.get<any>(this.helloUrl, {headers: headers});
-  } 
+    console.log(this.http.get<any>(this.helloUrl, {headers}));
+    return this.http.get<any>(this.helloUrl, {headers});
+  }
 
 }

@@ -7,15 +7,15 @@ import { VideopageComponent } from './components/videopage/videopage.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 const routes: Routes = [{
-  path:'',
+  path: '',
   component: HomepageComponent, canActivate: [AngularFireAuthGuard]
-},{
-  path:'videos',
+}, {
+  path: 'videos',
   component: VideopageComponent, canActivate: [AngularFireAuthGuard]
-},{
-  path:'notes',
+}, {
+  path: 'notes',
   component: NotespageComponent, canActivate: [AngularFireAuthGuard]
-},{ path: 'login', component: LoginComponent }
+}, { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({

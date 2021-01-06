@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 
@@ -7,7 +7,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'chronicle-front';
 
 
@@ -17,9 +17,9 @@ export class AppComponent {
 
 
 
-ngOnInit() {
+ngOnInit(): void {
 
-    
+
     this.afAuth.onAuthStateChanged(user => {
 
       if (user) {
@@ -27,12 +27,11 @@ ngOnInit() {
           this.authService.getSyncDisplayName().then(result => this.authService.displayName = result);
           this.authService.getSyncEmail().then(result => this.authService.email = result);
           this.authService.getSyncUID().then(result => this.authService.uID = result);
-         // this.authService.getSyncToken().then(result => this.authService.token = result);
 
-        
+
       }
-      
-    })
+
+    });
 
   }
 }

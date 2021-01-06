@@ -9,19 +9,19 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
 })
 export class NotespageComponent implements OnInit {
 
-  constructor(private mediaService : MediaRetrievalService) { }
+  constructor(private mediaService: MediaRetrievalService) { }
 
-  notes? : Note[];
+  notes?: Note[];
 
 
   ngOnInit(): void {
 
   }
 
-  onSearch(){
+  onSearch(): void {
     this.mediaService.getNotes().subscribe(resp => {
       this.notes = resp;
-    })
+    });
   }
 
 
