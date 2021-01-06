@@ -2,7 +2,7 @@
     <div class="box" id="upload-box">
         <form action="post" class="form" id="upload-form">
             <div class="form" id="upload-form">
-                <label for="file-title">Title:</label>
+                <label for="file-title">Videos:</label>
                 <input type="text" id="file-title" name="file-title" [(ngModel)]="title" required>
 
                 <label for="file-creator">Created By:</label>
@@ -14,12 +14,12 @@
                 <label for="file-subject">Subject:</label>
                 <input type="text" id="file-subject" name="file-subject" [(ngModel)]="subject" required>
             </div>
-            <div class="form" id="file-uploader">
-                <input type="file" name="file" [(ngModel)]="uploadFile" (change)="onChange()" required>
+            <div class="formtwo">
+                <input type="file"  id="file-uploader" name="file" [(ngModel)]="uploadFile" (change)="onChange()" required>
             </div>
             <br>
-            <div class="form" id="upload-bttn">
-                <button id="upload-submit" (click)="onSubmit()">Submit</button>
+            <div class="formthree" id="upload-bttn">
+                <button class="button" id="upload-submit" (click)="onSubmit()">Submit</button>
             </div>
         </form>
     </div>

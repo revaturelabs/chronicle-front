@@ -21,10 +21,10 @@ export class UploadpageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //unused
-  // onChange() {
-  //   console.log(this.uploadFile);
-  // }
+  
+  onChange() {
+    console.log(this.uploadFile);
+  }
 
   //stores form data as JSON
   onSubmit() {

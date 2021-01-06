@@ -30,7 +30,7 @@ export class UploadService {
 /*
 this makes the call to the Spring boot Application
 */
-  upload(data:any){
+  upload(data:any) {
     console.log(data.title);
     this.http.post('${this.baseURL}/submit', data, {observe: 'response'})
     .subscribe((response) => {
