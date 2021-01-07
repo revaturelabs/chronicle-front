@@ -5,6 +5,9 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import { OnInit } from '@angular/core';
+import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
+import { Tag } from 'src/app/models/Tag';
 
 /**
  * @title Chips Autocomplete
@@ -14,60 +17,74 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
   templateUrl: 'searchbar.component.html',
   styleUrls: ['searchbar.component.css'],
 })
-export class SearchbarComponent {
+export class SearchbarComponent implements OnInit {
   visible = true;
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = [];
-  allFruits: string[] = ['Java', 'Angular', 'C#', 'SQL', 'HTML'];
+  tagCtrl = new FormControl();
+  filteredTags: any;
+  tags: Tag[] = [];
+  technologyTags: Tag[] = [];
 
-  @ViewChild('fruitInput') fruitInput?: ElementRef<HTMLInputElement>;
+  @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete?: MatAutocomplete;
 
-  constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+  constructor(private mediaRetrievalService: MediaRetrievalService) {}
+
+  ngOnInit(): void {
+    this.mediaRetrievalService.getAllTags().subscribe(resp => {
+      console.log(resp)
+      this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
+      this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+        map((tagValue: string | null) => tagValue ? this._filter(tagValue) : this.technologyTags.slice()));
+      console.log(this.filteredTags)  
+    });
   }
 
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
+  // add(event: MatChipInputEvent): void {
+  //   const input = event.input;
+  //   const value = event.value;
+  //   console.log(event);
+  //   console.log(input);
+  //   console.log(value)
 
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push(value.trim());
-    }
+  //   // Add our tag
+  //   if ((value || '').trim()) {
+  //     this.tags.push(value.trim());
+  //   }
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
+  //   // Reset the input value
+  //   if (input) {
+  //     input.value = '';
+  //   }
 
-    this.fruitCtrl.setValue(null);
-  }
+  //   this.tagCtrl.setValue(null);
+  // }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(tag: Tag): void {
+    const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.tags.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    if (this.fruitInput)
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this.tags.push(event.option.value);
+    console.log(this.tags)
+    if (this.tagInput)
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allFruits.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  private _filter(tagValue: string): Tag[] {
+    if(tagValue) {
+      let filterValue = tagValue.toString().toLowerCase();
+      return this.technologyTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);
+    } else {
+      return this.technologyTags;
+    }
   }
 }

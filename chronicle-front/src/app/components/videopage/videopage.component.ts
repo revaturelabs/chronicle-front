@@ -16,8 +16,6 @@ export class VideopageComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-
   }
 
   onSearch(): void {

@@ -13,7 +13,16 @@ export const environment = {
     messagingSenderId: '492701958610',
     appId: '1:492701958610:web:4a30a1be93803701d3480b',
     measurementId: 'G-DP6XDH9DTW'
-}
+  },
+  serverApiUrls: {
+    getTags: 'http://localhost:8080/myapp/videos/available-tags',
+    getAllVideos: 'http://localhost:8080/myapp/videos/all',
+    getVideosByTag: 'http://localhost:8080/myapp/videos/',
+    getVideoById: 'http://localhost:8080/myapp/videos/id/',
+    getAllNotes: 'http://localhost:8080/myapp/notes/all',
+    getNotesByTag: 'http://localhost:8080/myapp/notes/',
+    getNoteById: 'http://localhost:8080/myapp/notes/id/'
+  }
 };
 
 /*

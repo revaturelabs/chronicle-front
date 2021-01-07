@@ -1,17 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { concatMap, map, switchMap } from 'rxjs/operators';
 import { Note } from '../models/Note';
 import { Tag } from '../models/Tag';
 import { Video } from '../models/Video';
+import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaRetrievalService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+
+  private requestHeaders = new HttpHeaders();
 
   v : Video = {
     id : 1,
@@ -35,9 +39,20 @@ export class MediaRetrievalService {
     url : 'url',
     tags : []};
 
+  // ====== Utility ============  
+
+  async setHeaders() {
+    const authToken = await this.authService.getSyncToken();
+    this.requestHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`
+    })
+  }
+
 
   public getAllTags() : Observable<Tag[]>{
-    return this.httpClient.get('http://localhost:8080/myapp/videos/available-tags')
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getTags, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((tag:any) => {
         let newTag: Tag = {
@@ -50,7 +65,11 @@ export class MediaRetrievalService {
     }));
   }
 
-//====================================
+  public filterTags(allTags: Tag[], tagName: string): Tag[] {
+    return allTags.filter(tag => tag.name == tagName);
+  }
+
+//============ Notes ===================
   getNotes() : Observable<Note[]> {
 
   
@@ -59,7 +78,7 @@ export class MediaRetrievalService {
   } 
 
   public getAllNotes() : Observable<Note[]> {
-    return this.httpClient.get('http://localhost:8080/myapp/notes/all')
+    return this.httpClient.get(environment.serverApiUrls.getAllNotes)
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -80,7 +99,7 @@ export class MediaRetrievalService {
       tagPath += `${tag.name}:${tag.value}+`;
     });
     tagPath = tagPath.slice(0,-1);
-    return this.httpClient.get(`http://localhost:8080/myapp/notes/${tagPath}`)
+    return this.httpClient.get(environment.serverApiUrls.getNotesByTag + tagPath)
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -95,8 +114,8 @@ export class MediaRetrievalService {
     }));
   }
 
-  public getNoteByID(id: number) : Observable<Note> {
-    return this.httpClient.get(`http://localhost:8080/myapp/notes/id/${id}`)
+  public getNoteById(id: number) : Observable<Note> {
+    return this.httpClient.get(environment.serverApiUrls.getNoteById + id)
     .pipe(map((note:any) => {
       let newNote: Note = {
         id : note.noteID,
@@ -109,7 +128,7 @@ export class MediaRetrievalService {
     }));
   }
 
-//=========================================
+//================= Videos ================
   getVideos() : Observable<Video[]> {
     
       let videos : Video[] = [this.v,this.b];
@@ -117,7 +136,7 @@ export class MediaRetrievalService {
   }
 
   public getAllVideos() : Observable<Video[]> {
-    return this.httpClient.get('http://localhost:8080/myapp/videos/all')
+    return this.httpClient.get(environment.serverApiUrls.getAllVideos)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -138,7 +157,7 @@ export class MediaRetrievalService {
       tagPath += `${tag.name}:${tag.value}+`;
     })
     tagPath = tagPath.slice(0,-1);
-    return this.httpClient.get(`http://localhost:8080/myapp/videos/${tagPath}`)
+    return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -153,8 +172,8 @@ export class MediaRetrievalService {
     }));
   }
 
-  public getVideoByID(id: number) : Observable<Video> {
-    return this.httpClient.get(`http://localhost:8080/myapp/videos/id/${id}`)
+  public getVideoById(id: number) : Observable<Video> {
+    return this.httpClient.get(environment.serverApiUrls.getVideoById + id)
     .pipe(map((video:any) => {
       let newVideo: Video = {
         id : video.videoID,
