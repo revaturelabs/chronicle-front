@@ -6,6 +6,11 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +23,9 @@ import { NotespageComponent } from './components/notespage/notespage.component';
 import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
+import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
 
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
 import {AngularFireModule} from '@angular/fire';
@@ -47,7 +55,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     VideopageComponent,
     NotespageComponent,
     VideoPanelComponent,
-    NotePanelComponent
+    NotePanelComponent,
+    ViewvideopageComponent,
+    SearchbarComponent,
+    VjsPlayerComponent
   ],
   imports: [
     HttpClientModule,
@@ -62,7 +73,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    FirebaseUIModule.forRoot(firebaseUiAuthConfig)
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    MatChipsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]

@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
 
 const routes: Routes = [{
   path: '',
@@ -15,7 +16,11 @@ const routes: Routes = [{
 }, {
   path: 'notes',
   component: NotespageComponent, canActivate: [AngularFireAuthGuard]
-}, { path: 'login', component: LoginComponent }
+}, { path: 'login', component: LoginComponent },
+{
+  path:'videos/:id',
+  component: ViewvideopageComponent
+}
 ];
 
 @NgModule({
