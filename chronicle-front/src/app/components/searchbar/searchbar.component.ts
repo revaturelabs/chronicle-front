@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -24,7 +24,10 @@ export class SearchbarComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
   filteredTags: any;
-  tags: Tag[] = [];
+
+  @Input()
+  tags: Tag[] = this.mediaRetrievalService.selectedTags;
+  
   technologyTags: Tag[] = [];
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
@@ -64,16 +67,16 @@ export class SearchbarComponent implements OnInit {
   // }
 
   remove(tag: Tag): void {
-    const index = this.tags.indexOf(tag);
+    const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
 
     if (index >= 0) {
-      this.tags.splice(index, 1);
+      this.mediaRetrievalService.selectedTags.splice(index, 1);
     }
   }
-
+// addiotnal functionality: remove option form list once selected
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.value);
-    console.log(this.tags)
+    this.mediaRetrievalService.selectedTags.push(event.option.value);
+    console.log(this.mediaRetrievalService.selectedTags)
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);

@@ -9,7 +9,7 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
 })
 export class VideopageComponent implements OnInit {
 
-  constructor(private mediaService: MediaRetrievalService) { }
+  constructor(private mediaRetrievalService: MediaRetrievalService) { }
 
   videos?: Video[];
 
@@ -19,9 +19,11 @@ export class VideopageComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.mediaService.getVideos().subscribe(resp => {
+    this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.selectedTags).subscribe(resp => {
       this.videos = resp;
+      console.log(resp)
     });
+    
   }
 
 

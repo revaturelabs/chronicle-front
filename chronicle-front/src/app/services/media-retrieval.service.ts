@@ -17,6 +17,8 @@ export class MediaRetrievalService {
 
   private requestHeaders = new HttpHeaders();
 
+  public selectedTags: Tag[] = [];
+
   v : Video = {
     id : 1,
     description : "Routing with Angular",
@@ -78,7 +80,8 @@ export class MediaRetrievalService {
   } 
 
   public getAllNotes() : Observable<Note[]> {
-    return this.httpClient.get(environment.serverApiUrls.getAllNotes)
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getAllNotes, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -96,10 +99,11 @@ export class MediaRetrievalService {
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
-      tagPath += `${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
     });
     tagPath = tagPath.slice(0,-1);
-    return this.httpClient.get(environment.serverApiUrls.getNotesByTag + tagPath)
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getNotesByTag + tagPath, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -115,7 +119,8 @@ export class MediaRetrievalService {
   }
 
   public getNoteById(id: number) : Observable<Note> {
-    return this.httpClient.get(environment.serverApiUrls.getNoteById + id)
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getNoteById + id, {headers: this.requestHeaders})
     .pipe(map((note:any) => {
       let newNote: Note = {
         id : note.noteID,
@@ -136,7 +141,8 @@ export class MediaRetrievalService {
   }
 
   public getAllVideos() : Observable<Video[]> {
-    return this.httpClient.get(environment.serverApiUrls.getAllVideos)
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getAllVideos, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -154,10 +160,11 @@ export class MediaRetrievalService {
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
-      tagPath += `${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
     })
     tagPath = tagPath.slice(0,-1);
-    return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath)
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -173,7 +180,8 @@ export class MediaRetrievalService {
   }
 
   public getVideoById(id: number) : Observable<Video> {
-    return this.httpClient.get(environment.serverApiUrls.getVideoById + id)
+    this.setHeaders();
+    return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
     .pipe(map((video:any) => {
       let newVideo: Video = {
         id : video.videoID,
