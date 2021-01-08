@@ -3,10 +3,10 @@
       <mat-card-title><a routerLink="{{video?.id}}">{{video?.description}}</a></mat-card-title>
       <mat-card-subtitle>Video</mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{video?.url}}" alt="Video URL">
     <mat-card-content>
         <div *ngFor="let tag of video?.tags">
-           <button mat-button>{{tag.name}}</button>
+           <button mat-button>{{tag.value}}</button>
         </div>
     </mat-card-content>
     <mat-card-actions>
