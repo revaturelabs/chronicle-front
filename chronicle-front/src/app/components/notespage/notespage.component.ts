@@ -9,7 +9,7 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
 })
 export class NotespageComponent implements OnInit {
 
-  constructor(private mediaService: MediaRetrievalService) { }
+  constructor(private mediaRetrievalService: MediaRetrievalService) { }
 
   notes?: Note[];
 
@@ -19,10 +19,13 @@ export class NotespageComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.mediaService.getNotes().subscribe(resp => {
+    this.mediaRetrievalService.getNotesByTag(this.mediaRetrievalService.selectedTags).subscribe(resp => {
       this.notes = resp;
+      console.log(resp);
     });
   }
 
+  
 
 }
+

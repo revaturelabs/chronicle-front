@@ -161,7 +161,7 @@ export class MediaRetrievalService {
     let tagPath: string = "";
     tags.forEach(tag => {
       tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
-    })
+    });
     tagPath = tagPath.slice(0,-1);
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath, {headers: this.requestHeaders})
