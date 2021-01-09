@@ -6,6 +6,8 @@ import { Note } from 'src/app/models/Note';
   templateUrl: './note-panel.component.html',
   styleUrls: ['./note-panel.component.css']
 })
+
+// loops over notes and displays them
 export class NotePanelComponent implements OnInit {
 
 

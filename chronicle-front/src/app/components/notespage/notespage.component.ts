@@ -17,7 +17,7 @@ export class NotespageComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+  // Recieves the tags selected by the user in the search bar and finds notes with those tags
   onSearch(): void {
     this.mediaRetrievalService.getNotesByTag(this.mediaRetrievalService.selectedTags).subscribe(resp => {
       this.notes = resp;

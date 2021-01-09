@@ -36,9 +36,12 @@ export class SearchbarComponent implements OnInit {
   constructor(private mediaRetrievalService: MediaRetrievalService) {}
 
   ngOnInit(): void {
+    //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       console.log(resp)
+      // Filters tags to be only ones with a key of "Technology"
       this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
+      //
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filter(tagValue) : this.technologyTags.slice()));
@@ -46,26 +49,7 @@ export class SearchbarComponent implements OnInit {
     });
   }
 
-  // add(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
-  //   console.log(event);
-  //   console.log(input);
-  //   console.log(value)
-
-  //   // Add our tag
-  //   if ((value || '').trim()) {
-  //     this.tags.push(value.trim());
-  //   }
-
-  //   // Reset the input value
-  //   if (input) {
-  //     input.value = '';
-  //   }
-
-  //   this.tagCtrl.setValue(null);
-  // }
-
+    //Allows a user to remove a selected tag
   remove(tag: Tag): void {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
 
@@ -73,16 +57,18 @@ export class SearchbarComponent implements OnInit {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
     }
   }
-// addiotnal functionality: remove option form list once selected
+  // Adds selected tags to the search bar in the form of 'chips'
   selected(event: MatAutocompleteSelectedEvent): void {
     this.mediaRetrievalService.selectedTags.push(event.option.value);
     console.log(this.mediaRetrievalService.selectedTags)
+    // removes a tag from the list if it has already been selected
     this.technologyTags.splice(event.option.value, 1);
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
   }
 
+  //filters typed text to match with a tag from the list of tags
   private _filter(tagValue: string): Tag[] {
     if(tagValue) {
       let filterValue = tagValue.toString().toLowerCase();
