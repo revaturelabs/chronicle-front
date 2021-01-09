@@ -77,6 +77,7 @@ export class SearchbarComponent implements OnInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.mediaRetrievalService.selectedTags.push(event.option.value);
     console.log(this.mediaRetrievalService.selectedTags)
+    this.technologyTags.splice(event.option.value, 1);
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
