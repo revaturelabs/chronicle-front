@@ -7,9 +7,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -58,7 +60,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NotePanelComponent,
     ViewvideopageComponent,
     SearchbarComponent,
-    VjsPlayerComponent
+    VjsPlayerComponent,
   ],
   imports: [
     HttpClientModule,
@@ -76,7 +78,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     MatChipsModule,
     MatFormFieldModule,
+    MatGridListModule,
     MatAutocompleteModule,
+    FlexLayoutModule,
     FormsModule, ReactiveFormsModule
   ],
   providers: [MediaRetrievalService],

@@ -15,7 +15,18 @@ export class VideopageComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    this.videos = [];
+    //Demo
+    let video : Video = {
+      id: 1,
+      description: 'a video',
+      userId: '123',
+      url: 'https://via.placeholder.com/600x400',
+      tags: []
+    }
+    for(let i = 0; i < 10; i++){
+      console.log(this.videos?.push(video));
+    }
   }
 
   onSearch(): void {
