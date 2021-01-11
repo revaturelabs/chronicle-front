@@ -3,3 +3,9 @@
 @import '~firebaseui/dist/firebaseui.css';
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.center-chips {
+    /* is there a better way to center the chips? */
+    margin: auto;
+    width: 50%;    
+  }
