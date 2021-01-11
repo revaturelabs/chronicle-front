@@ -9,3 +9,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: auto;
     width: 50%;    
   }
+/* Add application styles & imports to this file! */
+
+h2.page-title{
+    text-align: center;
+    margin-top: 26px;
+}
+
+.page {
+    margin-left: 10%;
+    margin-right: 10%;
+}
