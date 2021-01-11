@@ -5,6 +5,7 @@
         </div>
         <div fxFlex="10" fxFlexAlign="center">
             <app-searchbar></app-searchbar>
+            <button mat-flat-button color="primary" (click)="onSearch()">Search</button>
         </div>
         <div fxFlex="10" fxLayoutAlign="center" fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let video of videos">
