@@ -35,6 +35,7 @@ import {environment} from '../environments/environment';
 
 import {HttpClientModule} from '@angular/common/http';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -79,7 +80,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatChipsModule,
     MatFormFieldModule,
     MatAutocompleteModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, 
+    ReactiveFormsModule,
+    NgxDocViewerModule
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]
