@@ -36,6 +36,7 @@ import {environment} from '../environments/environment';
 
 
 import {HttpClientModule} from '@angular/common/http';
+import { AttributionComponent } from './components/attribution/attribution.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -61,6 +62,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ViewvideopageComponent,
     SearchbarComponent,
     VjsPlayerComponent,
+    AttributionComponent,
   ],
   imports: [
     HttpClientModule,

@@ -3,9 +3,9 @@
         <div fxFlex="10" fxFlexAlign="center">
             <h2 class="page-title">Videos</h2>
         </div>
-        <div fxFlex="10" fxFlexAlign="center">
+        <div fxFlex="10" fxFlexAlign="center" fxLayout="row">
             <app-searchbar></app-searchbar>
-            <button mat-flat-button color="primary" (click)="onSearch()">Search</button>
+            <button class="search-btn" mat-flat-button color="primary" (click)="onSearch()">Search</button>
         </div>
         <div fxFlex="10" fxLayoutAlign="center" fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let video of videos">
