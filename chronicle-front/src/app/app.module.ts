@@ -1,16 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -27,13 +26,17 @@ import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
 
-import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
-import {environment} from '../environments/environment';
+import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
+import { UploadfilePanelComponent } from './components/panels/uploadfile-panel/uploadfile-panel.component';
+import { UploadformPanelComponent } from './components/panels/uploadform-panel/uploadform-panel.component';
+import { UploadService } from './services/upload.service';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -58,7 +61,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NotePanelComponent,
     ViewvideopageComponent,
     SearchbarComponent,
-    VjsPlayerComponent
+    VjsPlayerComponent,
+    UploadpageComponent,
+    UploadfilePanelComponent,
+    UploadformPanelComponent
   ],
   imports: [
     HttpClientModule,
@@ -79,7 +85,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatAutocompleteModule,
     FormsModule, ReactiveFormsModule
   ],
-  providers: [MediaRetrievalService],
+  providers: [
+    UploadService,
+    MediaRetrievalService],
   bootstrap: [AppComponent]
 })
 
