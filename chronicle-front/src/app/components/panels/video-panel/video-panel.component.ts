@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Video } from 'src/app/models/Video';
-import { VideoPageTransferService } from 'src/app/services/video-page-transfer.service';
+import { MediaTransferService } from 'src/app/services/media-transfer.service';
 
 @Component({
   selector: 'app-video-panel',
@@ -14,7 +14,7 @@ export class VideoPanelComponent implements OnInit {
 
  @Input() video?: Video;
 
-  constructor(private transfer : VideoPageTransferService, private router : Router) { }
+  constructor(private transfer : MediaTransferService, private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +23,4 @@ export class VideoPanelComponent implements OnInit {
     this.transfer.video = this.video;
     this.router.navigateByUrl("videos/" + this.video?.id)
   }
-
-
 }
