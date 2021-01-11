@@ -1,7 +1,16 @@
 @import '~video.js/dist/video-js.css';
+@import '@videojs/themes/dist/forest/index.css';
+@import '@videojs/themes/dist/sea/index.css';
 
 .videoPanel {
-    width: 640px;
-    height: 360px;
+    width: 75vw;
+    height: 39.375vw;
+    min-width: 640px;
+    min-height: 360px;
+    margin: auto;
 }
+
+
+
+
 

@@ -1,11 +1,12 @@
 
 
 <h2>{{video?.description}}</h2>
+
+<div :*ngIf= video >
+  <app-vjsplayer [options]="{fluid: false, height: 360, width : 640, muted : false, autoplay: false, playbackRates:[0.5, 1, 2], sources: [{ src: video.url, type: 'video/mp4' }]}"></app-vjsplayer>
+</div>
+
 <h4>Tags</h4>
 <mat-chip-list aria-label="Tags">
   <div :*ngFor="let tag of video?.tags"><mat-chip>{{tag.value}}</mat-chip></div>
 </mat-chip-list>
-
-<div :*ngIf= video>
-  <app-vjsplayer [options]="{fluid: false, height: 180, width : 320, autoplay: true, sources: [{ src: video.url, type: 'video/mp4' }]}"></app-vjsplayer>
-</div>

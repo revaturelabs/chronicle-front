@@ -34,7 +34,6 @@ import {environment} from '../environments/environment';
 
 
 import {HttpClientModule} from '@angular/common/http';
-import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -59,8 +58,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NotePanelComponent,
     ViewvideopageComponent,
     SearchbarComponent,
-    VjsPlayerComponent,
-    ViewnotepageComponent
+    VjsPlayerComponent
   ],
   imports: [
     HttpClientModule,
