@@ -17,7 +17,13 @@ const routes: Routes = [{
 }, {
   path: 'notes',
   component: NotespageComponent, canActivate: [AngularFireAuthGuard]
-}, { path: 'login', component: LoginComponent },
+}, { 
+  path: 'login', 
+  component: LoginComponent 
+}, {
+  path:'upload',
+  component: UploadpageComponent
+},
 {
   path:'videos/:id',
   component: ViewvideopageComponent

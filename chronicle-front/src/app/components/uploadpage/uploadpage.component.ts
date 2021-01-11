@@ -17,10 +17,17 @@ export class UploadpageComponent implements OnInit {
   createdBy: string = "";
   creationDate: Date = new Date();
   subject: string = "";
+<<<<<<< HEAD
   uploadFile: File | any;
 
   selectedFiles!: FileList;
   currentFile: File | any;
+=======
+  uploadFile!: File;
+
+  selectedFiles!: FileList;
+  currentFile!: File;
+>>>>>>> 3e31cc9226ead8a57c649cc5b8cb4a69e224936d
   progress = 0;
   message = '';
 
@@ -38,7 +45,11 @@ export class UploadpageComponent implements OnInit {
   /*
   This allows us to see our selected files and upload them to our back end.
   */
+<<<<<<< HEAD
   selectFile(event:any) {
+=======
+  selectFile(event: Event) {
+>>>>>>> 3e31cc9226ead8a57c649cc5b8cb4a69e224936d
     this.selectedFiles = event.target.files;
   }
 
@@ -74,9 +85,15 @@ export class UploadpageComponent implements OnInit {
       err =>{
         this.progress = 0;
         this.message = 'Failed to upload your file.';
+<<<<<<< HEAD
         this.currentFile = this.currentFile;
       });
       // this.selectedFiles = undefined;
+=======
+        //this.currentFile = undefined;
+      });
+      //this.selectedFiles = undefined;
+>>>>>>> 3e31cc9226ead8a57c649cc5b8cb4a69e224936d
   }
 
   //stores form data as JSON, replaced this with upload
