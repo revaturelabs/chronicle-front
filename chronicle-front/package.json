@@ -26,6 +26,7 @@
     "firebase": "^8.2.2",
     "firebaseui": "^4.7.1",
     "firebaseui-angular": "^5.1.1",
+    "ngx-doc-viewer": "^1.4.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.10.2"

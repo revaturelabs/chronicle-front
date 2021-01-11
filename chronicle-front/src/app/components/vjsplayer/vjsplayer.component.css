@@ -1,6 +1,7 @@
 @import '~video.js/dist/video-js.css';
 
 .videoPanel {
-    width: 500px;
-    height: 500px;
+    width: 640px;
+    height: 360px;
 }
+

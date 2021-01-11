@@ -17,7 +17,8 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
 
   @Input() options?: {
       fluid: boolean,
-      aspectRatio: string,
+      width: number,
+      height : number,
       autoplay: boolean,
       sources: {
           src: string,
