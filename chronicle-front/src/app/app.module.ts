@@ -6,6 +6,11 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatFormFieldModule} from '@angular/material/form-field'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,11 +23,30 @@ import { NotespageComponent } from './components/notespage/notespage.component';
 import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
+import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
+import { SearchbarComponent } from './components/searchbar/searchbar.component';
+import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
+
+import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+
+
+import {HttpClientModule} from '@angular/common/http';
 import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
 import { UploadService } from './services/upload.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 
+const firebaseUiAuthConfig: firebaseui.auth.Config = {
+  signInFlow: 'popup',
+
+  signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  tosUrl: 'https://revature.com/',
+  privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
+  credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
+};
 
 @NgModule({
   declarations: [
@@ -34,9 +58,13 @@ import { HttpClientModule } from '@angular/common/http';
     NotespageComponent,
     VideoPanelComponent,
     NotePanelComponent,
-    UploadpageComponent
+    UploadpageComponent,
+    ViewvideopageComponent,
+    SearchbarComponent,
+    VjsPlayerComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -48,11 +76,24 @@ import { HttpClientModule } from '@angular/common/http';
     MatCardModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
+    FirebaseUIModule.forRoot(firebaseUiAuthConfig),
+    MatChipsModule,
+    MatFormFieldModule,
+    MatAutocompleteModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [
     UploadService,
     MediaRetrievalService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+
+export class AppModule {
+  constructor(){
+    firebase.initializeApp(environment.firebaseConfig);
+  }
+ }

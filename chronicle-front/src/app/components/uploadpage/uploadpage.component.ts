@@ -2,6 +2,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 import { UploadService } from 'src/app/services/upload.service';
 
 @Component({
@@ -16,24 +17,28 @@ export class UploadpageComponent implements OnInit {
   createdBy: string = "";
   creationDate: Date = new Date();
   subject: string = "";
-  uploadFile: File;
+  uploadFile: File | any;
 
-  selectedFiles: FileList;
-  currentFile: File;
+  selectedFiles!: FileList;
+  currentFile: File | any;
   progress = 0;
   message = '';
 
   fileInfos!: Observable<any>;
 
-  constructor(private uploadService: UploadService, ) { }
+  constructor(private uploadService: UploadService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.fileInfos = this.uploadService.getFiles();
+    this.getFiles();
+  }
+  async getFiles(){
+    let token = await this.authService.getSyncToken();
+    this.fileInfos = this.uploadService.getFiles(token)
   }
   /*
   This allows us to see our selected files and upload them to our back end.
   */
-  selectFile(event) {
+  selectFile(event:any) {
     this.selectedFiles = event.target.files;
   }
 
@@ -50,25 +55,28 @@ export class UploadpageComponent implements OnInit {
   After the progress has finished the event will be an HttpResponse object which we can then assign
   its contents to the fileInfos variable after calling the getFiles() method.
   */
-  upload(){
+  async upload(){
+    let token = await this.authService.getSyncToken();
     this.progress = 0;
     this.currentFile = this.selectedFiles.item(0);
-    this.uploadService.upload(this.currentFile).subscribe(
+    this.uploadService.upload(this.currentFile, token).subscribe(
       event =>{
         if (event.type === HttpEventType.UploadProgress){
+          if (event.total != undefined){
           this.progress = Math.round(100* event.loaded / event.total);
+          }
         } else if (event instanceof HttpResponse) {
           this.message = event.body.message;
           //make get files in upload.service.ts
-          this.fileInfos = this.uploadService.getFiles();
+          this.fileInfos = this.uploadService.getFiles(token);
         }
       },
       err =>{
         this.progress = 0;
         this.message = 'Failed to upload your file.';
-        this.currentFile = undefined;
+        this.currentFile = this.currentFile;
       });
-      this.selectedFiles = undefined;
+      // this.selectedFiles = undefined;
   }
 
   //stores form data as JSON, replaced this with upload

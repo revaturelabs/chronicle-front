@@ -9,7 +9,7 @@ import { Video } from 'src/app/models/Video';
 export class VideoPanelComponent implements OnInit {
 
 
- @Input() video? : Video;
+ @Input() video?: Video;
 
   constructor() { }
 
