@@ -1,4 +1,15 @@
+<div style="margin-left: 4em; margin-right: 4em;">
+  <!--(How have we not added titles!)-->
+  <h2 style="text-align: center; margin-top: 1em;">Video Title</h2>
 
+  <div class ="center-chips" style="margin-bottom: 1em;">
+    <!-- <h4>Tags:</h4> (no heading I think)-->
+    <mat-chip-list aria-label="Tags">
+      <div :*ngFor="let tag of video?.tags">
+        <mat-chip>{{tag.value}}</mat-chip>
+      </div>
+    </mat-chip-list>
+  </div>
 
 <h2>{{video?.description}}</h2>
 

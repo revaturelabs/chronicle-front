@@ -27,10 +27,12 @@ export class VideoPanelComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.video) {
+      console.log(this.video)
       this.technologies = this.mediaService.filterTags(this.video.tags, 'Technology');
       this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
       this.date = this.mediaService.filterTags(this.video.tags, 'Date')[0].value;
       this.title = this.mediaService.filterTags(this.video.tags, 'Title')[0].value;
+      console.log(this.video.tags)
     }
   }
 
