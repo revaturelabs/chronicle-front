@@ -7,10 +7,12 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field'; 
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -33,6 +35,8 @@ import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { environment } from '../environments/environment';
 
 
+import {HttpClientModule} from '@angular/common/http';
+import { AttributionComponent } from './components/attribution/attribution.component';
 import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
 import { UploadService } from './services/upload.service';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
@@ -63,6 +67,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ViewnotepageComponent,
     SearchbarComponent,
     VjsPlayerComponent,
+    AttributionComponent,
     UploadpageComponent
   ],
   imports: [
@@ -72,6 +77,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     BrowserAnimationsModule,
     MatSliderModule,
     MatToolbarModule,
+    MatTabsModule,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
@@ -81,8 +87,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     MatChipsModule,
     MatFormFieldModule,
+    MatGridListModule,
     MatAutocompleteModule,
-    FormsModule, 
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
     ReactiveFormsModule,
     NgxDocViewerModule
   ],

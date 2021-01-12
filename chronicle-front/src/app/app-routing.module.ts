@@ -7,11 +7,16 @@ import { UploadpageComponent } from './components/uploadpage/uploadpage.componen
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
+import { AttributionComponent } from './components/attribution/attribution.component';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 
 const routes: Routes = [{
   path: '',
   component: HomepageComponent, canActivate: [AngularFireAuthGuard]
+},
+{
+  path: 'attribution',
+  component: AttributionComponent, canActivate: [AngularFireAuthGuard]
 }, {
   path: 'videos',
   component: VideopageComponent, canActivate: [AngularFireAuthGuard]
