@@ -11,3 +11,8 @@
 .flexMargin {
     margin: 10px !important;
 }
+.search-btn{
+    height: 40px;
+    margin-top: 14px;
+    margin-left: 10px;
+}

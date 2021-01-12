@@ -60,11 +60,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.take(5).map((note:any) => {
         let newNote: Note = {
-          id : note.noteID,
+          id : note.id,
           description : note.description,
           userId : note.user,
           url : note.url,
-          tags : note.noteTags
+          tags : note.tags
         };
         return newNote;
       })
@@ -82,11 +82,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
-          id : note.noteID,
+          id : note.id,
           description : note.description,
           userId : note.user,
           url : note.url,
-          tags : note.noteTags
+          tags : note.tags
         };
         return newNote;
       })
@@ -99,11 +99,11 @@ export class MediaRetrievalService {
     return this.httpClient.get(environment.serverApiUrls.getNoteById + id, {headers: this.requestHeaders})
     .pipe(map((note:any) => {
       let newNote: Note = {
-        id : note.noteID,
+        id : note.id,
         description : note.description,
         userId : note.user,
         url : note.url,
-        tags : note.noteTags
+        tags : note.tags
       };
       return newNote;
     }));
@@ -118,11 +118,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.videoID,
+          id : video.id,
           description : video.description,
           userId : video.user,
           url : video.url,
-          tags : video.videoTags
+          tags : video.tags
         };
         return newVideo;
       })
@@ -141,11 +141,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.videoID,
+          id : video.id,
           description : video.description,
           userId : video.user,
           url : video.url,
-          tags : video.videoTags
+          tags : video.tags
         };
         return newVideo;
       })
@@ -158,11 +158,11 @@ export class MediaRetrievalService {
     return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
     .pipe(map((video:any) => {
       let newVideo: Video = {
-        id : video.videoID,
+        id : video.id,
         description : video.description,
         userId : video.user,
         url : video.url,
-        tags : video.videoTags
+        tags : video.tags
       };
       return newVideo;
     }));
