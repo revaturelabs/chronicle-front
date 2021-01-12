@@ -10,12 +10,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
@@ -27,15 +30,10 @@ import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
 
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 
-import { HttpClientModule } from '@angular/common/http';
 import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
-import { UploadfilePanelComponent } from './components/panels/uploadfile-panel/uploadfile-panel.component';
-import { UploadformPanelComponent } from './components/panels/uploadform-panel/uploadform-panel.component';
 import { UploadService } from './services/upload.service';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -62,9 +60,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ViewvideopageComponent,
     SearchbarComponent,
     VjsPlayerComponent,
-    UploadpageComponent,
-    UploadfilePanelComponent,
-    UploadformPanelComponent
+    UploadpageComponent
   ],
   imports: [
     HttpClientModule,

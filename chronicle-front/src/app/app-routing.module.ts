@@ -27,6 +27,10 @@ const routes: Routes = [{
 {
   path:'videos/:id',
   component: ViewvideopageComponent
+},
+{
+  path:'upload',
+  component: UploadpageComponent
 }
 ];
 
