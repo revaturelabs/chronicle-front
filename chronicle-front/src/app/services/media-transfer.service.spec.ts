@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { VideoPageTransferService } from './video-page-transfer.service';
+import { VideoPageTransferService } from './media-transfer.service';
 
 describe('VideoPageTransferService', () => {
   let service: VideoPageTransferService;

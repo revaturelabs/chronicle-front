@@ -7,6 +7,7 @@ import { UploadpageComponent } from './components/uploadpage/uploadpage.componen
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
+import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 
 const routes: Routes = [{
   path: '',
@@ -23,16 +24,16 @@ const routes: Routes = [{
 }, {
   path:'upload',
   component: UploadpageComponent
-},
-{
+}, {
   path:'videos/:id',
   component: ViewvideopageComponent
-},
-{
+}, {
   path:'upload',
   component: UploadpageComponent
-}
-];
+}, {
+  path:'notes/:id',
+  component: ViewnotepageComponent
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
