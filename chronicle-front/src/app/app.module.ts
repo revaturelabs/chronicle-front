@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {MatSliderModule} from '@angular/material/slider';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -13,13 +13,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
@@ -30,14 +31,16 @@ import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
 
-import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
-import {environment} from '../environments/environment';
+import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
+import { environment } from '../environments/environment';
 
 
 import {HttpClientModule} from '@angular/common/http';
 import { AttributionComponent } from './components/attribution/attribution.component';
+import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
+import { UploadService } from './services/upload.service';
+import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -61,9 +64,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     VideoPanelComponent,
     NotePanelComponent,
     ViewvideopageComponent,
+    ViewnotepageComponent,
     SearchbarComponent,
     VjsPlayerComponent,
     AttributionComponent,
+    UploadpageComponent
   ],
   imports: [
     HttpClientModule,
@@ -85,9 +90,14 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatGridListModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule,
+    NgxDocViewerModule
   ],
-  providers: [MediaRetrievalService],
+  providers: [
+    UploadService,
+    MediaRetrievalService],
   bootstrap: [AppComponent]
 })
 

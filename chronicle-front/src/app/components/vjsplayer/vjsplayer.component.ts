@@ -5,7 +5,7 @@ import videojs from 'video.js';
 @Component({
   selector: 'app-vjsplayer',
   template: `
-    <video #target class="video-js videoPanel" controls muted playsinline preload="none"></video>
+    <video #target class="video-js videoPanel vjs-theme-sea" controls muted playsinline preload="none"></video>
   `,
   styleUrls: [
     './vjsplayer.component.css'
@@ -17,12 +17,16 @@ export class VjsPlayerComponent implements OnInit, OnDestroy {
 
   @Input() options?: {
       fluid: boolean,
-      aspectRatio: string,
+      width: number,
+      height : number,
       autoplay: boolean,
       sources: {
           src: string,
           type: string,
       }[],
+      playbackRates: number[],
+      muted : boolean
+
   };
   player?: videojs.Player;
 

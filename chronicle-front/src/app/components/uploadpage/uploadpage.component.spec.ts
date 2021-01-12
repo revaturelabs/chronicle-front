@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VjsPlayerComponent } from './vjsplayer.component';
+import { UploadpageComponent } from './uploadpage.component';
 
-describe('VjsplayerComponent', () => {
-  let component: VjsPlayerComponent;
-  let fixture: ComponentFixture<VjsPlayerComponent>;
+describe('UploadpageComponent', () => {
+  let component: UploadpageComponent;
+  let fixture: ComponentFixture<UploadpageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VjsPlayerComponent ]
+      declarations: [ UploadpageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VjsPlayerComponent);
+    fixture = TestBed.createComponent(UploadpageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

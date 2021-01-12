@@ -11,15 +11,13 @@
     </mat-chip-list>
   </div>
 
-  <div :*ngIf=video>
-    <app-vjsplayer
-      [options]="{fluid: true, aspectRatio: '16:9', autoplay: true, sources: [{ src: video.url, type: 'video/mp4' }]}">
-    </app-vjsplayer>
-  </div>
+<h2>{{video?.description}}</h2>
 
-  <!--Should probably make a container for the description?-->
-  <p style="text-align: left; margin-top: 1em;">{{video?.description}}</p>
+<div :*ngIf= video >
+  <app-vjsplayer [options]="{fluid: false, height: 360, width : 640, muted : false, autoplay: false, playbackRates:[0.5, 1, 2], sources: [{ src: video.url, type: 'video/mp4' }]}"></app-vjsplayer>
 </div>
 
-<!--Think about using cards as containers?-->
-<!--Also the nav bar needs fixing-->
+<h4>Tags</h4>
+<mat-chip-list aria-label="Tags">
+  <div :*ngFor="let tag of video?.tags"><mat-chip>{{tag.value}}</mat-chip></div>
+</mat-chip-list>
