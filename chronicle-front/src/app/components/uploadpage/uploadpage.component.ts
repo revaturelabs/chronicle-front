@@ -1,9 +1,10 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UploadService } from 'src/app/services/upload.service';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-uploadpage',
@@ -13,21 +14,14 @@ import { UploadService } from 'src/app/services/upload.service';
 export class UploadpageComponent implements OnInit {
 
   //Form Fields
-  title: string = "";
-  createdBy: string = "";
-  creationDate: Date = new Date();
+  description: string = "";
+  createdBy: string | any = "";
+  creationDate: Date = new Date(); //Successfully sets the day's date without user input (automation)
   subject: string = "";
-<<<<<<< HEAD
   uploadFile: File | any;
 
   selectedFiles!: FileList;
   currentFile: File | any;
-=======
-  uploadFile!: File;
-
-  selectedFiles!: FileList;
-  currentFile!: File;
->>>>>>> 3e31cc9226ead8a57c649cc5b8cb4a69e224936d
   progress = 0;
   message = '';
 
@@ -36,20 +30,17 @@ export class UploadpageComponent implements OnInit {
   constructor(private uploadService: UploadService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.getFiles();
+    //this.getFiles();
+    this.createdBy = firebase.auth().currentUser?.uid; //Successfully pulled uid from firebase (automation)
   }
   async getFiles(){
     let token = await this.authService.getSyncToken();
-    this.fileInfos = this.uploadService.getFiles(token)
+    this.fileInfos = this.uploadService.getFiles(token);
   }
   /*
   This allows us to see our selected files and upload them to our back end.
   */
-<<<<<<< HEAD
-  selectFile(event:any) {
-=======
-  selectFile(event: Event) {
->>>>>>> 3e31cc9226ead8a57c649cc5b8cb4a69e224936d
+  selectFile(event: any) {
     this.selectedFiles = event.target.files;
   }
 
@@ -69,15 +60,25 @@ export class UploadpageComponent implements OnInit {
   async upload(){
     let token = await this.authService.getSyncToken();
     this.progress = 0;
+
+    const dataObj = {
+      description: this.description,
+      date: this.creationDate,
+      user: this.createdBy
+      //tags will have to be integrated into this dataObj. I am not sure how to do so without first implementing the tags in the form.
+      //fortunately, we don't really need tags for the http request to work.
+    }
+
     this.currentFile = this.selectedFiles.item(0);
-    this.uploadService.upload(this.currentFile, token).subscribe(
+    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile, token).subscribe(
       event =>{
         if (event.type === HttpEventType.UploadProgress){
           if (event.total != undefined){
           this.progress = Math.round(100* event.loaded / event.total);
           }
         } else if (event instanceof HttpResponse) {
-          this.message = event.body.message;
+          if(event.body)
+            this.message = event.body.message;
           //make get files in upload.service.ts
           this.fileInfos = this.uploadService.getFiles(token);
         }
@@ -85,15 +86,9 @@ export class UploadpageComponent implements OnInit {
       err =>{
         this.progress = 0;
         this.message = 'Failed to upload your file.';
-<<<<<<< HEAD
-        this.currentFile = this.currentFile;
-      });
-      // this.selectedFiles = undefined;
-=======
         //this.currentFile = undefined;
       });
       //this.selectedFiles = undefined;
->>>>>>> 3e31cc9226ead8a57c649cc5b8cb4a69e224936d
   }
 
   //stores form data as JSON, replaced this with upload
@@ -102,8 +97,7 @@ export class UploadpageComponent implements OnInit {
   //     title: this.title,
   //     user: this.createdBy,
   //     date: this.creationDate,
-  //     subject: this.subject,
-  //     file: this.uploadFile
+  //     subject: this.subject
   //   }
     
   //   this.uploadService.upload(dataObj);

@@ -11,42 +11,22 @@ export class UploadService {
 
   constructor(private http: HttpClient) { }
 
-  //HTTP Headers, unsure if this is needed in upload()
-  // const httpOptions = {
-  //   headers: new HttpHeaders({
-  //     header = Headers.set('Authorization', 'Bearer ' + token);
-  //     return
-  //     'Content-Type': 'application/json'
-  //   })
-  // }
-
-//not used
-  // uploadFile(file:File) {
-  //   const contentType = file.type;
-
-  //   const params = {
-  //     Key: file.name,
-  //     Body: file,
-  //     ACL: 'public-read',
-  //     ContentType: contentType
-  //   };
-  // }
-
   /*
   This method uses FormData to append the name of the file into a key value pair.
   FormData is a structure that is used to store infformation in key-value pairs.
   The append() method writes a new value onto the existing key inside the FormData object or
   adds a key if it does not already exist.
   */
- upload(file: File, token: any): Observable<HttpEvent<any>>{
+ upload(form: string, file: File, token: any): Observable<HttpEvent<any>>{
    const formData: FormData = new FormData();
+   formData.append('json',form);
    formData.append('file',file);
-   console.log(file);
+
+   console.log(formData);
 
    let httpOptions: any = {
     headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + token,
-      'Content-Type': 'multipart/form-data'
+      'Authorization': 'Bearer ' + token
     }),
     observe: 'response'
   };
@@ -69,8 +49,7 @@ export class UploadService {
     'Authorization': 'Bearer ' + token,
     'Content-Type': 'application/json'
   })
-   return this.http.get(this.baseURL + '/files');
-   
+   return this.http.get(this.baseURL + '/file'); //What is the point of this and where is the back-end part?
  }
 
   // Error handling
