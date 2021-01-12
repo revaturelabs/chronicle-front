@@ -50,11 +50,9 @@ Run `ng serve` and navigate to `http://localhost:4200/` to make sure the applica
 You should recieve a prompt to log in. Continue to next set of instructions if you see this prompt.
 
 ### Firebase
-In order to log into the application, you will need to create an account (DO NOT USE ACTUAL LOGIN CREDENTIALS YOU NORMALLY USE) when you login to the front end on localhost:4200 for the first time. This will create a user in the account on Google Firebase. Firebase manages the users and we call Firebase to get a token for a valid user on the front end when authentication occurs. Then, when we make a request to the backend, the backend only accepts requests with a valid token from the firebase environment. The JSON information in the "firebase-service-credentials.json" and in the "environment.ts" file ties the Google Firebase instance William created to our back and front ends.
+In order to log into the application, you will need to create an account (DO NOT USE ACTUAL LOGIN CREDENTIALS YOU NORMALLY USE) when you login to the front end on localhost:4200 for the first time. This will create a user in the account on Google Firebase. Firebase manages the users and we call Firebase to get a token for a valid user on the front end when authentication occurs. Then, when we make a request to the backend, the backend only accepts requests with a valid token from the firebase environment. The JSON information in the "firebase-service-credentials.json" allows our back-end to verify valid JWTs for the Firebase instance William created.  The information in the "environment.ts" file allows our front-end to authenticate with the Firebase instance.
 
 For asynchronous calls from the front end to the backend, follow the example of the hello.service.ts file.
-
-*credit to Mason for info*
 
 ### Cloning the backend to test authentication
 In order to properly test authentication, you will also need to clone the backend repo.
