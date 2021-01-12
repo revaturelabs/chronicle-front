@@ -6,6 +6,7 @@ import { NotespageComponent } from './components/notespage/notespage.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
+import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [{
 {
   path:'videos/:id',
   component: ViewvideopageComponent
+},
+{
+  path:'notes/:id',
+  component: ViewnotepageComponent
 }
 ];
 
