@@ -1,13 +1,12 @@
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, retry } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { environment } from '../../environments/environment'
 
 @Injectable({providedIn: 'root'})
 export class UploadService {
 
-  private baseURL = 'http://localhost:8080/myapp';
+  private baseURL = environment.apiBase;
 
   constructor(private http: HttpClient) { }
 
@@ -21,8 +20,6 @@ export class UploadService {
    const formData: FormData = new FormData();
    formData.append('json',form);
    formData.append('file',file);
-
-   console.log(formData);
 
    let httpOptions: any = {
     headers: new HttpHeaders({
