@@ -1,5 +1,5 @@
 
-  <nav mat-tab-nav-bar>
+  <nav mat-tab-nav-bar class="shadow">
     <a routerLink="">
     <img src="../../../assets/images/revature-logo.jpg" class="logo">
     </a>
@@ -10,7 +10,7 @@
     
     <span class="example-spacer"></span>
     
-    <button mat-button (click)="onLogout()" *ngIf="authService.displayName">Logout</button>
+    <a mat-tab-link  style="height: 66px" (click)="onLogout()" *ngIf="authService.displayName">Logout</a>
 </nav>
   
 
