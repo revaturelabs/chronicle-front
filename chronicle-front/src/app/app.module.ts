@@ -20,15 +20,16 @@ import { VideoPanelComponent } from './components/panels/video-panel/video-panel
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
 
 import {FirebaseUIModule, firebase, firebaseui} from 'firebaseui-angular';
-import {AngularFireModule}                from '@angular/fire';
+import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuth, AngularFireAuthModule} from '@angular/fire/auth';
-import {environment}                            from '../environments/environment';
+import {environment} from '../environments/environment';
+
 
 import {HttpClientModule} from '@angular/common/http';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
-  signInFlow: 'popup',  
-  
+  signInFlow: 'popup',
+
   signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID
   ],
@@ -36,7 +37,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   privacyPolicyUrl: '<your-privacyPolicyUrl-link>',
   credentialHelper: firebaseui.auth.CredentialHelper.GOOGLE_YOLO
 };
-
 
 @NgModule({
   declarations: [
@@ -60,15 +60,17 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatButtonModule,
     MatMenuModule,
     MatCardModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig), // imports firebase/app needed for everything  ,  
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig)
   ],
   providers: [MediaRetrievalService],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule {
   constructor(){
-    firebase.initializeApp(environment.firebaseConfig);  
+    firebase.initializeApp(environment.firebaseConfig);
   }
  }

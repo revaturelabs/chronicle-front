@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HelloService } from 'src/app/services/hello.service';
-import firebase from 'firebase/app'
-import 'firebase/auth'
+import { AuthService } from 'src/app/services/auth.service';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 @Component({
   selector: 'app-homepage',
@@ -9,21 +10,34 @@ import 'firebase/auth'
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  public myUser: any = null;
 
-  constructor(private helloService : HelloService) { }
+  constructor(private helloService: HelloService, public authService: AuthService) { }
   ngOnInit(): void {
-    //this.getHello();
+
   }
 
-  getHello() {
 
-    console.log("This should be getting called");    
+ async getHelloTest(): Promise<void> {
 
-    this.helloService.getHello(firebase.auth().currentUser?.displayName)
-    .subscribe(data => {
-      console.log(data);
-      console.log("this also should be getting called");
-      alert(data);
-    });
-}
+    console.log('This should be getting called');
+
+    const userToken = await this.authService.getSyncToken();
+    const uID = await this.authService.getSyncUID();
+    const email = await this.authService.getSyncEmail();
+    const displayName = await this.authService.getSyncDisplayName();
+    const metadata = await this.authService.getSyncMetaData();
+
+    console.log(userToken);
+    console.log(uID);
+    console.log(email);
+    console.log(displayName);
+    console.log(metadata);
+
+    this.helloService.getHello(userToken)
+    .subscribe(data => {console.log(data), console.log('this also should be getting called'); });
+
+
+    }
+
 }

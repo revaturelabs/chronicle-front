@@ -4,16 +4,16 @@
 
 export const environment = {
   production: false,
-  isSignedIn:false,
+  isSignedIn: false,
   firebaseConfig: {
-    apiKey: "AIzaSyAHsxoG0zAU57-OlvnVOeNWYwXathdQ3Lg",
-    authDomain: "p3jp-a4571.firebaseapp.com",
-    projectId: "p3jp-a4571",
-    storageBucket: "p3jp-a4571.appspot.com",
-    messagingSenderId: "476471448441",
-    appId: "1:476471448441:web:e13128de3a50af3eaf15a8",
-    measurementId: "G-4JLYMY9PP9"
-  }
+    apiKey: 'AIzaSyC4sxZlT-McTildwtxa8LV1lj7ZQhzOrs0',
+    authDomain: 'training-team-253916.firebaseapp.com',
+    projectId: 'training-team-253916',
+    storageBucket: 'training-team-253916.appspot.com',
+    messagingSenderId: '492701958610',
+    appId: '1:492701958610:web:4a30a1be93803701d3480b',
+    measurementId: 'G-DP6XDH9DTW'
+}
 };
 
 /*

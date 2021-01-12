@@ -1,15 +1,23 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+
 import { AppComponent } from './app.component';
+import { AngularFireModule } from '@angular/fire';
+import { LoginComponent } from './components/login/login.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterTestingModule,
+        // AngularFireAuthModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        LoginComponent
       ],
     }).compileComponents();
   });
@@ -26,10 +34,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('chronicle-front');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should render login component', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('chronicle-front app is running!');
+    const login = fixture.componentInstance;
+    expect(login).toBeTruthy();
   });
 });

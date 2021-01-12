@@ -9,7 +9,7 @@ import { Note } from 'src/app/models/Note';
 export class NotePanelComponent implements OnInit {
 
 
-  @Input() note? : Note;
+  @Input() note?: Note;
 
   constructor() { }
 

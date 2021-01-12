@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import firebase from 'firebase/app';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Injectable({
@@ -8,29 +10,21 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HelloService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
 
+  private helloUrl = 'http://localhost:8080/test/hello';
 
-  private helloUrl = 'http://localhost:8080/ROOT_war/hello';
 
-
-  private helloUrl2 = 'http://localhost:8080/hello';
-
-  //private var token = '';
-
-  //This is how it is done to grab respone data from posts
   httpOptions: any = {
     headers: new HttpHeaders({
-      //'Authorization': 
+      // 'Authorization':
       'Content-Type': 'application/json'
     }),
     observe: 'response'
+  };
 
-  }; 
-
-
-  getHello(token: any): Observable<any> {
+   getHello(token: any): Observable<any> {
 
     console.log(token);
 
@@ -40,16 +34,8 @@ export class HelloService {
     console.log(headers);
   
 
-    console.log(this.http.get<any>(this.helloUrl, {headers: headers}));
-
-    // return this.http.get<any>(this.helloUrl, {headers: headers});
-    return this.http.get<any>(this.helloUrl/*, {headers: headers, responseType: 'text'}*/);
+    console.log(this.http.get<any>(this.helloUrl, {headers}));
+    return this.http.get<any>(this.helloUrl, {headers});
   }
-  
-  
+
 }
-
-   
-
-  
-
