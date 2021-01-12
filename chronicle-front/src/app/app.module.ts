@@ -59,6 +59,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     VideoPanelComponent,
     NotePanelComponent,
     ViewvideopageComponent,
+    ViewnotepageComponent,
     SearchbarComponent,
     VjsPlayerComponent
   ],

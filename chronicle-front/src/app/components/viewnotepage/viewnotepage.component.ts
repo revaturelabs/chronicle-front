@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Note } from 'src/app/models/Note';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 import { MediaTransferService } from 'src/app/services/media-transfer.service';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @Component({
   selector: 'app-viewnotepage',
