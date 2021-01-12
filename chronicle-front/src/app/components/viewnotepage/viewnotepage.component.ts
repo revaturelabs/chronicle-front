@@ -11,8 +11,9 @@ import { MediaTransferService } from 'src/app/services/media-transfer.service';
 })
 export class ViewnotepageComponent implements OnInit {
 
-  url: string = 'http://www.africau.edu/images/default/sample.pdf'
-  
+  // url: string = 'http://www.africau.edu/images/default/sample.pdf'
+  url: string = 'https://www.w3.org/TR/PNG/iso_8859-1.txt'
+
   @Input()
   note?: Note;
   
