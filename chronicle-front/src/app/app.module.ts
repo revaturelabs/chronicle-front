@@ -36,6 +36,7 @@ import {environment} from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { FilterComponent } from './components/filter/filter.component';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -61,7 +62,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ViewvideopageComponent,
     ViewnotepageComponent,
     SearchbarComponent,
-    VjsPlayerComponent
+    VjsPlayerComponent,
+    FilterComponent
   ],
   imports: [
     HttpClientModule,

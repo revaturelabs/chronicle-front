@@ -30,7 +30,6 @@ export class SearchbarComponent implements OnInit {
   
   technologyTags: Tag[] = [];
   trainerTags: Tag[] = [];
-  batchTags: Tag[] = [];
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete?: MatAutocomplete;
@@ -43,13 +42,14 @@ export class SearchbarComponent implements OnInit {
       console.log(resp)
       // Filters tags to be only ones with a key of "Technology"
       this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
-      this.batchTags = this.mediaRetrievalService.filterTags(resp, 'Batch');
-      //
+      console.log(this.technologyTags);
+
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));
-      console.log(this.filteredTags)  
+      console.log(this.filteredTags);  
     });
+    console.log(this.mediaRetrievalService.selectedTags);
   }
 
     //Allows a user to remove a selected tag
@@ -58,13 +58,16 @@ export class SearchbarComponent implements OnInit {
 
     if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
+  
       if (this.technologyTags.indexOf(tag) == -1) {
         this.technologyTags.push(tag);
+        console.log(this.technologyTags);
       }
     }
   }
   // Adds selected tags to the search bar in the form of 'chips'
   selected(event: MatAutocompleteSelectedEvent): void {
+    console.log(this.technologyTags);
     this.mediaRetrievalService.selectedTags.push(event.option.value);
     console.log(this.mediaRetrievalService.selectedTags)
     // removes a tag from the list if it has already been selected
@@ -83,4 +86,6 @@ export class SearchbarComponent implements OnInit {
       return this.technologyTags;
     }
   }
+
+  
 }

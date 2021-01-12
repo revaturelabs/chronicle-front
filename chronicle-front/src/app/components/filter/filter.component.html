@@ -1,5 +1,5 @@
 <mat-form-field class="example-chip-list">
-    <mat-label>Search tags</mat-label>
+    <mat-label>Search batches</mat-label>
     <mat-chip-list #chipList aria-label="Tag selection">
       <mat-chip
         *ngFor="let tag of tags"
@@ -24,5 +24,4 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-
-  
+  <input type="date" class="date-picker" [ngModel]="date | date:'yyyy-MM-dd'"  (input)="getDate($event)">

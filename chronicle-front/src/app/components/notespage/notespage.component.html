@@ -4,6 +4,8 @@
     <span style="text-align: right;"><button mat-raised-button color="primary">Upload</button></span>
 </div>
 <app-searchbar></app-searchbar>
+<app-filter></app-filter>
+<br>
 <button mat-raised-button color="primary" (click) = "onSearch()">Search</button>
 <div style="display: flex;">
 <div *ngFor="let note of notes">

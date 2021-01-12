@@ -17,7 +17,9 @@ export class MediaRetrievalService {
 
   private requestHeaders = new HttpHeaders();
 
-  public selectedTags: Tag[] = [];
+  selectedTags: Tag[] = [];
+  selectedBatchTags: Tag[] =[];
+  allTags: Tag[] =[];
 
   // ====== Utility ============  
 

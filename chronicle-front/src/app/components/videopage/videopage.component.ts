@@ -20,15 +20,25 @@ export class VideopageComponent implements OnInit {
     // Recieves the tags selected by the user in the search bar and finds videos with those tags
   onSearch(): void {
     if(this.mediaRetrievalService.selectedTags.length > 0) {
-      this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.selectedTags).subscribe(resp => {
+      if(this.mediaRetrievalService.selectedBatchTags.length>0){
+        this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedBatchTags[0])
+      }
+      for(let i in this.mediaRetrievalService.selectedTags){
+        this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedTags[i])
+      }
+      console.log("All tags", this.mediaRetrievalService.allTags)
+      this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.allTags).subscribe(resp => {
         this.videos = resp;
-        console.log(resp)
+        console.log("Get Videos by Tag", resp)
       });
     } else {
       this.mediaRetrievalService.getAllVideos().subscribe(resp => {
         this.videos = resp;
-        console.log(resp)
+        console.log("Get All Videos",resp)
       });
     }
+     this.mediaRetrievalService.allTags= [];
+    // this.mediaRetrievalService.selectedTags= [];
+    // this.mediaRetrievalService.selectedBatchTags= [];
   }
 }
