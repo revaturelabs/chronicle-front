@@ -17,7 +17,7 @@ export class VideopageComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
+    // Recieves the tags selected by the user in the search bar and finds videos with those tags
   onSearch(): void {
     this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.selectedTags).subscribe(resp => {
       this.videos = resp;

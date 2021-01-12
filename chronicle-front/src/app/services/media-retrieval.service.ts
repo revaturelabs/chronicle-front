@@ -19,30 +19,9 @@ export class MediaRetrievalService {
 
   public selectedTags: Tag[] = [];
 
-  v : Video = {
-    id : 1,
-    description : "Routing with Angular",
-    userId : "1",
-    url : "https://www.w3schools.com/html/mov_bbb.mp4",
-    tags : [{tagid: "1",name : "topic", value : "Angular"}]
-  };
-  b : Video = {
-    id : 2,
-    description : "Introduction to OOP",
-    userId : "1",
-    url : "https://www.w3schools.com/html/mov_bbb.mp4",
-    tags : [{tagid: "2",name : "topic", value : "Java"}]
-  };
-
-  n : Note = {
-    id : 1,
-    description : 'Note',
-    userId : '',
-    url : 'url',
-    tags : []};
-
   // ====== Utility ============  
 
+  // Sets authentication headers
   async setHeaders() {
     const authToken = await this.authService.getSyncToken();
     this.requestHeaders = new HttpHeaders({
@@ -51,7 +30,7 @@ export class MediaRetrievalService {
     })
   }
 
-
+  // Retrieves all tags from the db and maps them to a Tag model
   public getAllTags() : Observable<Tag[]>{
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getTags, {headers: this.requestHeaders})
@@ -67,18 +46,14 @@ export class MediaRetrievalService {
     }));
   }
 
+  // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
     return allTags.filter(tag => tag.name == tagName);
   }
 
 //============ Notes ===================
-  getNotes() : Observable<Note[]> {
 
-  
-    let notes : Note[] = [this.n];
-    return from([notes]);
-  } 
-
+//Retrieves all notes from the DB and maps them to a Note model
   public getAllNotes() : Observable<Note[]> {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getAllNotes, {headers: this.requestHeaders})
@@ -95,7 +70,7 @@ export class MediaRetrievalService {
       })
     }));
   }
-
+ //Retrieves Notes by tag(s) from DB and maps them to a Note model
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
@@ -118,6 +93,7 @@ export class MediaRetrievalService {
     }));
   }
 
+  // Retrieves a note by ID and maps them to a Note model
   public getNoteById(id: number) : Observable<Note> {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getNoteById + id, {headers: this.requestHeaders})
@@ -134,12 +110,8 @@ export class MediaRetrievalService {
   }
 
 //================= Videos ================
-  getVideos() : Observable<Video[]> {
-    
-      let videos : Video[] = [this.v,this.b];
-      return from([videos]);
-  }
 
+// Retrieves all videos from the DB and maps them to a Video model
   public getAllVideos() : Observable<Video[]> {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getAllVideos, {headers: this.requestHeaders})
@@ -157,11 +129,12 @@ export class MediaRetrievalService {
     }));
   }
 
+  // Retrieves Videos by tag(s) from the DB and maps them to a Video model
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
       tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
-    })
+    });
     tagPath = tagPath.slice(0,-1);
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath, {headers: this.requestHeaders})
@@ -179,6 +152,7 @@ export class MediaRetrievalService {
     }));
   }
 
+  // Retrieves Video by ID from the DB and maps it to a Video model
   public getVideoById(id: number) : Observable<Video> {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
@@ -195,7 +169,4 @@ export class MediaRetrievalService {
   }
 
   
-
-
-
 }
