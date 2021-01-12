@@ -8,6 +8,7 @@ export class UploadService {
 
   private baseURL = environment.apiBase;
 
+
   constructor(private http: HttpClient) { }
 
   /*
