@@ -4,9 +4,9 @@
       <mat-card-subtitle>Video</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Taka_Shiba.jpg/1200px-Taka_Shiba.jpg" alt="Video URL">
-    <mat-card-content>
+    <mat-card-content style="display: flex;">
         <div *ngFor="let tag of video?.tags">
-           <button mat-button>{{tag.value}}</button>
+           <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)" style="margin: 2px;">{{tag.value}}</button>
         </div>
     </mat-card-content>
     <mat-card-actions>

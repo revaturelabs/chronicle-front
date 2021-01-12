@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Video } from 'src/app/models/Video';
 import { MediaTransferService } from 'src/app/services/media-transfer.service';
+import { TagColorService } from 'src/app/services/tag-color.service';
 
 @Component({
   selector: 'app-video-panel',
@@ -14,7 +15,7 @@ export class VideoPanelComponent implements OnInit {
 
  @Input() video?: Video;
 
-  constructor(private transfer : MediaTransferService, private router : Router) { }
+  constructor(private transfer : MediaTransferService, private router : Router, public colorservice : TagColorService) { }
 
   ngOnInit(): void {
   }

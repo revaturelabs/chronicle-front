@@ -1,0 +1,13 @@
+.demo {
+    display: table;
+    width: 100%;
+    table-layout: fixed;    /* For cells of equal size */
+}
+.demo span {
+    display: table-cell;
+    text-align: left;
+}
+
+.flexMargin {
+    margin: 10px !important;
+}

@@ -1,6 +1,14 @@
-<h2>Videos</h2>
-<app-searchbar></app-searchbar>
-<button (click) = "onSearch()">Search</button>
-<div *ngFor="let video of videos">
-    <app-video-panel [video] = video></app-video-panel>
+
+<div class="demo">
+    <span><h2>Videos</h2></span>
+    <span></span>
+    <span style="text-align: right;"><button mat-raised-button color="primary">Upload</button></span>
 </div>
+
+<app-searchbar></app-searchbar>
+<button mat-raised-button color="primary" (click) = "onSearch()">Search</button>
+<div style="display: flex;">
+<div *ngFor="let video of videos">
+    <app-video-panel [video] = video class="flexMargin"></app-video-panel>
+</div>
+</div>  
