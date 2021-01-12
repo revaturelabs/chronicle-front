@@ -11,7 +11,7 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
       <mat-icon>perm_identity</mat-icon>      
     </button>
-    <button (click)="onLogout()" *ngIf="authService.displayName">Logout</button>
+    <button mat-raised-button color="primary" (click)="onLogout()" *ngIf="authService.displayName">Logout</button>
 </mat-toolbar>
   
 

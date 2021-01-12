@@ -1,6 +1,12 @@
-<h2>Notes</h2>
+<div class="demo">
+    <span><h2>Notes</h2></span>
+    <span></span>
+    <span style="text-align: right;"><button mat-raised-button color="primary">Upload</button></span>
+</div>
 <app-searchbar></app-searchbar>
-<button (click) = "onSearch()">Search</button>
+<button mat-raised-button color="primary" (click) = "onSearch()">Search</button>
+<div style="display: flex;">
 <div *ngFor="let note of notes">
     <app-note-panel [note] = note></app-note-panel>
+</div>
 </div>

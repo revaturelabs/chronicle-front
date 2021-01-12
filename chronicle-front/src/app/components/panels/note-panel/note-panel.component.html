@@ -3,9 +3,9 @@
       <mat-card-title><a routerLink="{{note?.id}}">{{note?.description}}</a></mat-card-title>
       <mat-card-subtitle>Note</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content style="display: flex;">
         <div *ngFor="let tag of note?.tags">
-           <button mat-button>{{tag.value}}</button>
+           <button [ngStyle] =  "colorservice.getColorStringFromTag(tag)" style="margin: 2px;" mat-button>{{tag.value}}</button>
         </div>
     </mat-card-content>
     <mat-card-actions>
