@@ -15,9 +15,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -25,16 +22,21 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { VideopageComponent } from './components/videopage/videopage.component';
 import { NotespageComponent } from './components/notespage/notespage.component';
+import { MediaRetrievalService } from './services/media-retrieval.service';
 import { VideoPanelComponent } from './components/panels/video-panel/video-panel.component';
 import { NotePanelComponent } from './components/panels/note-panel/note-panel.component';
 import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
 import { SearchbarComponent } from './components/searchbar/searchbar.component';
 import { VjsPlayerComponent } from './components/vjsplayer/vjsplayer.component';
-import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
-import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
-import { MediaRetrievalService } from './services/media-retrieval.service';
-import { UploadService } from './services/upload.service';
+
+import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { environment } from '../environments/environment';
+
+
+import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
+import { UploadService } from './services/upload.service';
+import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',

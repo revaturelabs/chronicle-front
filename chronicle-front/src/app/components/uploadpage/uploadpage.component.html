@@ -1,31 +1,4 @@
-<!-- <div class="frame" id="upload-frame">
-    <div class="box" id="upload-box">
-        <form action="post" class="form" id="upload-form">
-            <div class="form" id="upload-form">
-                <label for="file-title">Videos:</label>
-                <input type="text" id="file-title" name="file-title" [(ngModel)]="title" required>
-
-                <label for="file-creator">Created By:</label>
-                <input type="text" id="file-creator" name="file-creator" [(ngModel)]="createdBy" required>
-
-                <label for="file-date">Date:</label>
-                <input type="date" id="file-date" name="file-date" [(ngModel)]="creationDate" required>
-
-                <label for="file-subject">Subject:</label>
-                <input type="text" id="file-subject" name="file-subject" [(ngModel)]="subject" required>
-            </div>
-            <div class="formtwo">
-                <input type="file"  id="file-uploader" name="file" [(ngModel)]="uploadFile" (change)="onChange()" required>
-            </div>
-            <br>
-            <div class="formthree" id="upload-bttn">
-                <button class="button" id="upload-submit" (click)="onSubmit()">Submit</button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
-
+<!-- Could probably afford to do away with this-->
 <div *ngIf="currentFile" class="progress">
     <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: progress + '%' }">
         {{ progress }}%
@@ -36,14 +9,15 @@
     <label for="file-title">Title:</label>
     <input type="text" id="file-title" name="file-title" [(ngModel)]="description" required>
 
+    <!-- This field will be removed / hidden and automatically filled-->
     <label for="file-creator">Created By:</label>
     <input type="text" id="file-creator" name="file-creator" [(ngModel)]="createdBy" required>
 
+    <!-- This field will be removed / hidden and automatically filled-->
     <label for="file-date">Date:</label>
     <input type="date" id="file-date" name="file-date" [(ngModel)]="creationDate" required>
 
-    <!-- <label for="file-subject">Subject:</label>
-    <input type="text" id="file-subject" name="file-subject" [(ngModel)]="subject" required> -->
+    <!-- This is where tags should be inserted into the upload file form-->
 
 
     <label class="btn btn-default">
@@ -63,4 +37,4 @@
             <a href="{{ file.url }}">{{ file.name }}</a>
         </li>
     </ul>
-</div>
+</div>  

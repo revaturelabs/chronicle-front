@@ -16,7 +16,7 @@ export class UploadpageComponent implements OnInit {
   //Form Fields
   description: string = "";
   createdBy: string | any = "";
-  creationDate: Date = new Date(); //Successfully sets the day's date without user input (automation)
+  creationDate: Date = new Date();
   subject: string = "";
   uploadFile: File | any;
 
@@ -30,12 +30,7 @@ export class UploadpageComponent implements OnInit {
   constructor(private uploadService: UploadService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    //this.getFiles();
-    this.createdBy = firebase.auth().currentUser?.uid; //Successfully pulled uid from firebase (automation)
-  }
-  async getFiles(){
-    let token = await this.authService.getSyncToken();
-    this.fileInfos = this.uploadService.getFiles(token);
+    this.createdBy = firebase.auth().currentUser?.uid;
   }
   /*
   This allows us to see our selected files and upload them to our back end.
@@ -43,11 +38,6 @@ export class UploadpageComponent implements OnInit {
   selectFile(event: any) {
     this.selectedFiles = event.target.files;
   }
-
-  // //not used
-  // onChange() {
-  //   console.log(this.uploadFile);
-  // }
 
   /*
   SelectedFiles is used to access the current file as our first item, and then call uploadService.upload()
@@ -86,20 +76,7 @@ export class UploadpageComponent implements OnInit {
       err =>{
         this.progress = 0;
         this.message = 'Failed to upload your file.';
-        //this.currentFile = undefined;
       });
-      //this.selectedFiles = undefined;
   }
 
-  //stores form data as JSON, replaced this with upload
-  // onSubmit() {
-  //   const dataObj = {
-  //     title: this.title,
-  //     user: this.createdBy,
-  //     date: this.creationDate,
-  //     subject: this.subject
-  //   }
-    
-  //   this.uploadService.upload(dataObj);
-  // }
 }
