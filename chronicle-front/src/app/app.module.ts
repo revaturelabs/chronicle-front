@@ -35,6 +35,16 @@ import {environment} from '../environments/environment';
 
 import {HttpClientModule} from '@angular/common/http';
 
+
+
+
+/**
+ * This renders the firebaseUI based on configuration. 
+ * Currently only set for email authentication.
+ * Refer to firebaseUI documentation on how to display other forms of auth
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * */
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
 

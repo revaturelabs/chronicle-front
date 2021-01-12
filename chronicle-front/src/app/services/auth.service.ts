@@ -6,11 +6,19 @@ import {shareReplay, tap} from 'rxjs/operators';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { first } from 'rxjs/operators';
-import { UserMetadata } from '@firebase/auth-types';
+import { UserMetadata, User } from '@firebase/auth-types';
+
 
 @Injectable({
   providedIn: 'root'
 })
+
+
+  /**
+ * The authService contains functionality for accessing Synchronous user data
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * */
 export class AuthService {
 
 
@@ -24,30 +32,88 @@ export class AuthService {
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
 
 
+
+/**
+ * Gets a user object synchronously, useful for reload on init
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * 
+ * @returns Promise of a Firebase User 
+ * */
+  async getSyncUser(): Promise<User | null> {
+    return await this.afAuth.user.pipe(first()).toPromise();
+  }
+
+/**
+ * Gets a synchrounous user token, needed for reload on init functionality
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * @returns Promise<string> of a token
+ * */
   async getSyncToken(): Promise<string | null | undefined> {
 
     return await this.afAuth.idToken.pipe(first()).toPromise();
 
   }
 
+  /**
+ * Gets a synchrounous user token, needed for reload on init functionality
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * @returns Promise<string> of a idtoken result
+ * */
+  async getSyncIDTokenResult() {
+
+    let user = await this.getSyncUser();
+
+   return await user?.getIdTokenResult();
+
+  }
+
+/**
+ * Gets a synchrounous user id, needed for reload on init functionality
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * @returns Promise<string> of a uID
+ * */
   async getSyncUID(): Promise<string | null | undefined> {
 
    return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.uid);
 
   }
 
+  /**
+ * Gets a synchrounous display name, needed for reload on init functionality
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * @returns Promise<string> of a display name
+ * */
   async getSyncDisplayName(): Promise<string | null | undefined> {
 
     return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.displayName);
 
    }
 
+
+/**
+ * Gets a synchrounous user email, needed for reload on init functionality
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * @returns Promise<string> of a email
+ * */
    async getSyncEmail(): Promise<string | null | undefined> {
 
     return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.email);
 
    }
 
+
+   /**
+ * Gets a synchrounous user MetaData object, needed for reload on init functionality
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * @returns Promise<UserMetadata> of type UserMetaData
+ * */
    async getSyncMetaData(): Promise<string | UserMetadata | null | undefined> {
 
     return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.metadata);
@@ -60,6 +126,12 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
+
+/**
+ * Logs out the user, destroys token in IndexedDB, nulls out asynchrounous values
+ * 
+ * @author Justin Kroh, **ADD YOUR NAMES**
+ * */
   logout(): void {
 
     this.router.navigate(['/login']);
