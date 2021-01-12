@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { concatMap, map, switchMap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { concatMap, map, switchMap, take } from 'rxjs/operators';
 import { Note } from '../models/Note';
 import { Tag } from '../models/Tag';
 import { Video } from '../models/Video';
@@ -58,7 +58,7 @@ export class MediaRetrievalService {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getAllNotes, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
-      return resp.map((note:any) => {
+      return resp.take(5).map((note:any) => {
         let newNote: Note = {
           id : note.noteID,
           description : note.description,

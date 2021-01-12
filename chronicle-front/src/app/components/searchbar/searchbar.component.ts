@@ -29,6 +29,8 @@ export class SearchbarComponent implements OnInit {
   tags: Tag[] = this.mediaRetrievalService.selectedTags;
   
   technologyTags: Tag[] = [];
+  trainerTags: Tag[] = [];
+  batchTags: Tag[] = [];
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete?: MatAutocomplete;
@@ -41,10 +43,11 @@ export class SearchbarComponent implements OnInit {
       console.log(resp)
       // Filters tags to be only ones with a key of "Technology"
       this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
+      this.batchTags = this.mediaRetrievalService.filterTags(resp, 'Batch');
       //
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tagValue: string | null) => tagValue ? this._filter(tagValue) : this.technologyTags.slice()));
+        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));
       console.log(this.filteredTags)  
     });
   }
@@ -53,8 +56,11 @@ export class SearchbarComponent implements OnInit {
   remove(tag: Tag): void {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
 
-    if (index >= 0) {
+    if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
+      if (this.technologyTags.indexOf(tag) == -1) {
+        this.technologyTags.push(tag);
+      }
     }
   }
   // Adds selected tags to the search bar in the form of 'chips'
@@ -69,7 +75,7 @@ export class SearchbarComponent implements OnInit {
   }
 
   //filters typed text to match with a tag from the list of tags
-  private _filter(tagValue: string): Tag[] {
+  private _filterTag(tagValue: string): Tag[] {
     if(tagValue) {
       let filterValue = tagValue.toString().toLowerCase();
       return this.technologyTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);
