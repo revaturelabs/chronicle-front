@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Tag } from 'src/app/models/Tag';
 import { Video } from 'src/app/models/Video';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 import { MediaTransferService } from 'src/app/services/media-transfer.service';
@@ -29,7 +30,12 @@ export class ViewvideopageComponent implements OnInit {
   }
 
 
-  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute) { }
+  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService)  { }
+
+  searchTag(tag : Tag) {
+    this.mediaService.searchVideoTag(tag)
+  }
+
 
   ngOnInit(): void {
     if (this.transfer.video) {

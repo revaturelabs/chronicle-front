@@ -46,6 +46,7 @@ export class SearchbarComponent implements OnInit {
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.topicTags.slice()));  
     });
+    
   }
 
     //Allows a user to remove a selected tag

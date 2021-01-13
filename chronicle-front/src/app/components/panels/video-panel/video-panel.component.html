@@ -9,11 +9,8 @@
     <mat-card-subtitle>Technologies:</mat-card-subtitle>
     <mat-card-content style="display: flex;">
         <div *ngFor="let tag of technologies">
-           <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)" style="margin: 2px;">{{tag.value}}</button>
+           <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)"  style="margin: 2px;">{{tag.value}}</button>
         </div>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
   </mat-card>
   

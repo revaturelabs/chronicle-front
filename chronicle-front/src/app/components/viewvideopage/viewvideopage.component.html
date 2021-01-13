@@ -6,7 +6,7 @@
     <!-- <h4>Tags:</h4> (no heading I think)-->
     <mat-chip-list aria-label="Tags">
       <div :*ngFor="let tag of video?.tags">
-        <mat-chip *ngIf="tag.name != 'Title'">{{tag.value}}</mat-chip>
+        <mat-chip *ngIf="tag.name != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>
       </div>
     </mat-chip-list>
   </div>

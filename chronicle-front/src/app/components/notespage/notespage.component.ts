@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Note } from 'src/app/models/Note';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 
@@ -7,7 +7,7 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
   templateUrl: './notespage.component.html',
   styleUrls: ['./notespage.component.css']
 })
-export class NotespageComponent implements OnInit {
+export class NotespageComponent implements OnInit, OnDestroy {
 
   constructor(private mediaRetrievalService: MediaRetrievalService) { }
 
@@ -15,6 +15,12 @@ export class NotespageComponent implements OnInit {
 
   @Input()
   noResults: boolean = false;
+
+   //Clears search tags on destroy
+   ngOnDestroy(): void {
+    this.mediaRetrievalService.selectedTags = [];
+    this.mediaRetrievalService.selectedBatchTags =[];
+  }
 
   ngOnInit(): void {
 

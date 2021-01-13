@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Video } from 'src/app/models/Video';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 

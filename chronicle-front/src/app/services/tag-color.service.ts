@@ -16,9 +16,15 @@ export class TagColorService {
       "background-color": '#1B93F3',
       "color": "white"
     }
-    else
+    else if (tag.name == "Date") {
+      return {
+      "background-color": '#22243F',
+      "color": "white"
+      }
+    } else
     return {
-      "background-color": "red"
+      "background-color": "#3A3E44",
+      "color" : "white"
     }
   }
 
