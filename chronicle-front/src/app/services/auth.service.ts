@@ -21,7 +21,9 @@ import { UserMetadata, User } from '@firebase/auth-types';
  * */
 export class AuthService {
 
-
+  /**
+ * Asynchronous Varaibles, use in HTML, but not in API calls
+ * */
   token?: any;
   displayName?: any;
   email?: any;
