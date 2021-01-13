@@ -141,7 +141,7 @@ $chronicle-warn:    mat-palette($chronicle-brand-warn, 600);
 $chronicle-theme: mat-light-theme($chronicle-primary, $chronicle-accent, $chronicle-warn);
 
 
-@function my-mat-light-theme-foreground($color) {
+@function light-foreground($color) {
     @return (
         base:              $color,
         divider:           $black-12-opacity,
@@ -161,9 +161,9 @@ $chronicle-theme: mat-light-theme($chronicle-primary, $chronicle-accent, $chroni
 };
 
 // You can put any color here. I've chosen mat-color($my-app-primary, 700)
-$my-foreground: my-mat-light-theme-foreground(mat-color($chronicle-primary));
+$chronicle-foreground: light-foreground(mat-color($chronicle-brand-text,800));
 
-$chronicle-theme-custom: map-merge($chronicle-theme, (foreground: $chronicle-brand-text));
+$chronicle-theme-custom: map-merge($chronicle-theme, (foreground: $chronicle-foreground));
 
 // Include your custom theme.
 @include angular-material-theme($chronicle-theme-custom);
