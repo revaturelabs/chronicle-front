@@ -86,7 +86,7 @@ export class FilterComponent implements OnInit {
         console.log(tag);
       }else{
          this.default = {
-          tagid: "-1",
+          tagID: "-1",
           name: "Date",
           value: "1-1-1900"
         };
