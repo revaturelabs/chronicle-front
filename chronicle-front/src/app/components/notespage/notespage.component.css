@@ -1,18 +1,23 @@
 .demo {
-    display: table;
-    width: 100%;
-    table-layout: fixed;    /* For cells of equal size */
+  display: table;
+  width: 100%;
+  table-layout: fixed; /* For cells of equal size */
 }
 .demo span {
-    display: table-cell;
-    text-align: left;
+  display: table-cell;
+  text-align: left;
 }
 
 .flexMargin {
-    margin: 10px !important;
+  margin: 10px !important;
 }
-.search-btn{
-    height: 40px;
-    margin-top: 14px;
-    margin-left: 10px;
+.search-btn {
+  height: 40px;
+  margin-top: 14px;
+  margin-left: 10px;
+}
+.no-results {
+  background-color: hsla(0, 100%, 50%, 0.397);
+  color: white;
+  padding: 20px;
 }

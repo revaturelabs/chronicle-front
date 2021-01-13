@@ -1,10 +1,12 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
 import { Tag } from 'src/app/models/Tag';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
+import { TagColorService } from 'src/app/services/tag-color.service';
 
 @Component({
   selector: 'app-filter',
@@ -18,7 +20,8 @@ export class FilterComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
   filteredTags: any;
-  date: any; 
+  dateTags: Tag[] =[]; 
+  default?: Tag;
 
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedBatchTags;
@@ -32,34 +35,31 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
-      console.log("response", resp);
       this.batchTags = this.mediaRetrievalService.filterTags(resp, 'Batch');
-
+      this.dateTags = this.mediaRetrievalService.filterTags(resp, 'Date');
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.batchTags.slice()));
-      console.log(this.filteredTags); 
     })
 
   }
 
   remove(tag: Tag): void {
-  
+    // gets the index of the tag to be removed
     const index = this.mediaRetrievalService.selectedBatchTags.indexOf(tag);
 
     if (index != -1) {
+      // removes tag
       this.mediaRetrievalService.selectedBatchTags.splice(index, 1);
       if (this.batchTags.indexOf(tag) == -1) {
+        // pushes tab back into the options list
         this.batchTags.push(tag);
-        console.log("batchTags", this.batchTags);
       }
     }
   }
   
   selected(event: MatAutocompleteSelectedEvent): void {
-    console.log("batchTags", this.batchTags);
     this.mediaRetrievalService.selectedBatchTags.push(event.option.value);
-    console.log("MRS Selected Batch Tags", this.mediaRetrievalService.selectedBatchTags)
     // removes a tag from the list if it has already been selected
     this.batchTags.splice(this.batchTags.indexOf(event.option.value), 1);
     if (this.tagInput)
@@ -77,7 +77,23 @@ export class FilterComponent implements OnInit {
   }
 
   getDate(input:any){
-    console.log(input)
+    let split = input.target.value.split("-");
+    let date = `${split[1]}-${split[2]}-${split[0]}`;
+    let finalDate = this.dateTags.forEach(tag => {
+      console.log(tag.value); 
+      if(tag.value == date){
+        this.mediaRetrievalService.date = tag
+        console.log(tag);
+      }else{
+         this.default = {
+          tagid: "-1",
+          name: "Date",
+          value: "1-1-1900"
+        };
+        this.mediaRetrievalService.date = this.default;
+      }
+      });
+    console.log(this.mediaRetrievalService.date)
   }
 
 }

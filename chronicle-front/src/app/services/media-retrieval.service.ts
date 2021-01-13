@@ -21,6 +21,8 @@ export class MediaRetrievalService {
   selectedTags: Tag[] = [];
   selectedBatchTags: Tag[] =[];
   allTags: Tag[] =[];
+  date?: Tag;
+
 
   // ====== Utility ============  
 
@@ -60,7 +62,6 @@ export class MediaRetrievalService {
 
   // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
-    console.log("returned filterd method", allTags.filter(tag => tag.name == tagName) )
     return allTags.filter(tag => tag.name == tagName);
   }
 
@@ -71,7 +72,7 @@ export class MediaRetrievalService {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getAllNotes, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
-      return resp.take(5).map((note:any) => {
+      return resp.map((note:any) => {
         let newNote: Note = {
           id : note.id,
           description : note.description,

@@ -41,7 +41,6 @@ export class SearchbarComponent implements OnInit {
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       // Filters tags to be only ones with a key of "Technology"
       this.technologyTags = resp.filter(tag => tag.name == 'Technology');
-      console.log("filters tech tags", this.technologyTags);
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
@@ -53,10 +52,8 @@ export class SearchbarComponent implements OnInit {
     //Allows a user to remove a selected tag
   remove(tag: Tag): void {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
-    console.log("Index", index)
     if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
-      console.log(this.technologyTags.indexOf(tag));
       if (this.technologyTags.indexOf(tag) == -1) {
         
         this.technologyTags.push(tag);

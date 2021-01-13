@@ -3,6 +3,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NavbarComponent implements OnInit {
 
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private mediaRetrievalService: MediaRetrievalService) {
 
   }
 
@@ -22,5 +23,12 @@ export class NavbarComponent implements OnInit {
   onLogout(): void {
 
     this.authService.logout();
+  }
+
+  onClick(): void {
+    this.mediaRetrievalService.selectedTags =[];
+    this.mediaRetrievalService.selectedBatchTags =[];
+    this.mediaRetrievalService.date = undefined;
+  
   }
 }

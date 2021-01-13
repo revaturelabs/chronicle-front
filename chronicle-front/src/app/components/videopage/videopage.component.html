@@ -11,6 +11,9 @@
         <div fxFlex="10" fxFlexAlign="center" fxLayout="row">
             <app-filter></app-filter>
         </div>
+        <div fxFlex="10" fxFlexAlign="center" fxLayout="row" class="no-results" *ngIf="noResults" >
+            No results found for selected criteria. Please try again!
+        </div>
         <div fxFlex="10" fxLayoutAlign="center" fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let video of videos">
                 <app-video-panel [video] = video></app-video-panel>
