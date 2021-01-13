@@ -19,8 +19,7 @@ export class VideoPanelComponent implements OnInit {
 
  technologies?: Tag[];
  batch?: string;
- date?: string;
- title?: string;
+ 
 
 
   constructor(private transfer : MediaTransferService, private router : Router, public colorservice : TagColorService, private mediaService: MediaRetrievalService) { }
@@ -30,8 +29,6 @@ export class VideoPanelComponent implements OnInit {
       console.log(this.video)
       this.technologies = this.mediaService.filterTags(this.video.tags, 'Technology');
       this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
-      this.date = this.mediaService.filterTags(this.video.tags, 'Date')[0].value;
-      this.title = this.mediaService.filterTags(this.video.tags, 'Title')[0].value;
       console.log(this.video.tags)
     }
   }

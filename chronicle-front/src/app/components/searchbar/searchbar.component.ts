@@ -28,7 +28,7 @@ export class SearchbarComponent implements OnInit {
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedTags;
   
-  technologyTags: Tag[] = [];
+  topicTags: Tag[] = [];
   
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
@@ -39,12 +39,12 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
     //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
-      // Filters tags to be only ones with a key of "Technology"
-      this.technologyTags = resp.filter(tag => tag.name == 'Technology');
+      // Filters tags to be only ones with a key of "topic"
+      this.topicTags = resp.filter(tag => tag.name == 'Topic');
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));  
+        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.topicTags.slice()));  
     });
   }
 
@@ -53,9 +53,9 @@ export class SearchbarComponent implements OnInit {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
     if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
-      if (this.technologyTags.indexOf(tag) == -1) {
+      if (this.topicTags.indexOf(tag) == -1) {
         
-        this.technologyTags.push(tag);
+        this.topicTags.push(tag);
       }
     }
   }
@@ -65,7 +65,7 @@ export class SearchbarComponent implements OnInit {
     this.mediaRetrievalService.selectedTags.push(event.option.value);
      // removes a tag from the list if it has already been selected
     
-    this.technologyTags.splice(this.technologyTags.indexOf(event.option.value), 1);
+    this.topicTags.splice(this.topicTags.indexOf(event.option.value), 1);
     
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
@@ -76,9 +76,9 @@ export class SearchbarComponent implements OnInit {
   private _filterTag(tagValue: string): Tag[] {
     if(tagValue) {
       let filterValue = tagValue.toString().toLowerCase();
-      return this.technologyTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);
+      return this.topicTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);
     } else {
-      return this.technologyTags;
+      return this.topicTags;
     }
   }
 

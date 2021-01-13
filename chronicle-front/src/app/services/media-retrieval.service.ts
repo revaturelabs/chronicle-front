@@ -20,7 +20,7 @@ export class MediaRetrievalService {
   selectedTags: Tag[] = [];
   selectedBatchTags: Tag[] =[];
   allTags: Tag[] =[];
-  date?: Tag;
+  date?: string;
 
 
   // ====== Utility ============  
@@ -35,6 +35,17 @@ export class MediaRetrievalService {
   }
 
   // Retrieves all tags from the db and maps them to a Tag model
+  // Utility function to filter tags by their 'name'
+  public filterTags(allTags: Tag[], tagName: string): Tag[] {
+    return allTags.filter(tag => tag.name == tagName);
+  }
+
+ public formatDate(input: string){
+   let split = input.split("T");
+   console.log();
+  return split[0];
+ }
+
   public getAllTags() : Observable<Tag[]>{
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getTags, {headers: this.requestHeaders})
@@ -50,10 +61,6 @@ export class MediaRetrievalService {
     }));
   }
 
-  // Utility function to filter tags by their 'name'
-  public filterTags(allTags: Tag[], tagName: string): Tag[] {
-    return allTags.filter(tag => tag.name == tagName);
-  }
 
 //============ Notes ===================
 
@@ -66,6 +73,8 @@ export class MediaRetrievalService {
         let newNote: Note = {
           id : note.id,
           description : note.description,
+          title: note.title,
+          date: note.date,
           userId : note.user,
           url : note.url,
           tags : note.tags
@@ -74,6 +83,7 @@ export class MediaRetrievalService {
       })
     }));
   }
+
  //Retrieves Notes by tag(s) from DB and maps them to a Note model
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
@@ -88,6 +98,8 @@ export class MediaRetrievalService {
         let newNote: Note = {
           id : note.id,
           description : note.description,
+          title: note.title,
+          date: note.date,
           userId : note.user,
           url : note.url,
           tags : note.tags
@@ -105,6 +117,8 @@ export class MediaRetrievalService {
       let newNote: Note = {
         id : note.id,
         description : note.description,
+        title: note.title,
+        date: note.date,
         userId : note.user,
         url : note.url,
         tags : note.tags
@@ -124,10 +138,13 @@ export class MediaRetrievalService {
         let newVideo: Video = {
           id : video.id,
           description : video.description,
+          title: video.title,
+          date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
           tags : video.tags
         };
+      
         return newVideo;
       })
     }));
@@ -147,6 +164,8 @@ export class MediaRetrievalService {
         let newVideo: Video = {
           id : video.id,
           description : video.description,
+          title: video.title,
+          date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
           tags : video.tags
@@ -164,6 +183,8 @@ export class MediaRetrievalService {
       let newVideo: Video = {
         id : video.id,
         description : video.description,
+        title: video.title,
+        date: video.date,
         userId : video.user,
         url : video.url,
         tags : video.tags

@@ -20,7 +20,6 @@ export class FilterComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
   filteredTags: any;
-  dateTags: Tag[] =[]; 
   default?: Tag;
 
   @Input()
@@ -36,7 +35,6 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       this.batchTags = this.mediaRetrievalService.filterTags(resp, 'Batch');
-      this.dateTags = this.mediaRetrievalService.filterTags(resp, 'Date');
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.batchTags.slice()));
@@ -77,22 +75,9 @@ export class FilterComponent implements OnInit {
   }
 
   getDate(input:any){
-    let split = input.target.value.split("-");
-    let date = `${split[1]}-${split[2]}-${split[0]}`;
-    let finalDate = this.dateTags.forEach(tag => {
-      console.log(tag.value); 
-      if(tag.value == date){
-        this.mediaRetrievalService.date = tag
-        console.log(tag);
-      }else{
-         this.default = {
-          tagid: "-1",
-          name: "Date",
-          value: "1-1-1900"
-        };
-        this.mediaRetrievalService.date = this.default;
-      }
-      });
+    
+    this.mediaRetrievalService.date = input.target.value;
+        
     console.log(this.mediaRetrievalService.date)
   }
 
