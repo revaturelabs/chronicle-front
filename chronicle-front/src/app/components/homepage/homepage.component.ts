@@ -15,9 +15,6 @@ import 'firebase/auth';
   /**
  * The home page component
  * 
- * **ADD INFO**
- * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
 export class HomepageComponent implements OnInit {
   public myUser: any = null;
@@ -36,7 +33,6 @@ export class HomepageComponent implements OnInit {
  * 
  * Contains examples of how to gather user data
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
  async getHelloTest(): Promise<void> {
 

@@ -17,7 +17,7 @@ import { UserMetadata, User } from '@firebase/auth-types';
   /**
  * The authService contains functionality for accessing Synchronous user data
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
+ * @author Justin Kroh
  * */
 export class AuthService {
 
@@ -36,7 +36,6 @@ export class AuthService {
 /**
  * Gets a user object synchronously, useful for reload on init
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * 
  * @returns Promise of a Firebase User 
  * */
@@ -47,7 +46,6 @@ export class AuthService {
 /**
  * Gets a synchrounous user token, needed for reload on init functionality
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * @returns Promise<string> of a token
  * */
   async getSyncToken(): Promise<string | null | undefined> {
@@ -59,7 +57,6 @@ export class AuthService {
   /**
  * Gets a synchrounous user token, needed for reload on init functionality
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * @returns Promise<string> of a idtoken result
  * */
   async getSyncIDTokenResult() {
@@ -73,7 +70,6 @@ export class AuthService {
 /**
  * Gets a synchrounous user id, needed for reload on init functionality
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * @returns Promise<string> of a uID
  * */
   async getSyncUID(): Promise<string | null | undefined> {
@@ -85,7 +81,6 @@ export class AuthService {
   /**
  * Gets a synchrounous display name, needed for reload on init functionality
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * @returns Promise<string> of a display name
  * */
   async getSyncDisplayName(): Promise<string | null | undefined> {
@@ -98,7 +93,6 @@ export class AuthService {
 /**
  * Gets a synchrounous user email, needed for reload on init functionality
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * @returns Promise<string> of a email
  * */
    async getSyncEmail(): Promise<string | null | undefined> {
@@ -111,7 +105,6 @@ export class AuthService {
    /**
  * Gets a synchrounous user MetaData object, needed for reload on init functionality
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * @returns Promise<UserMetadata> of type UserMetaData
  * */
    async getSyncMetaData(): Promise<string | UserMetadata | null | undefined> {
@@ -130,7 +123,6 @@ export class AuthService {
 /**
  * Logs out the user, destroys token in IndexedDB, nulls out asynchrounous values
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
   logout(): void {
 

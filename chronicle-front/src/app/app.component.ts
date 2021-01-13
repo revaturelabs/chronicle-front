@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
  * It is good to use to check ifLoggedIn or other asynchronous needs,
  * Do not use these user variables in ngOnInit Functions or they will not work on page reload.
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
 ngOnInit(): void {
 

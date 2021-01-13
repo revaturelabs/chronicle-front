@@ -14,10 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * Basic Example of a service
- * 
- * @author Justin Kroh, **ADD YOUR NAMES**
-
- 
+ *
  * */
 export class HelloService {
 

@@ -35,8 +35,5 @@ const routes: Routes = [{
  * Notes: Angular Fire Auth Guard checks against isLoggedIn by default,
  *  can add params to make it check custom claims as well
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
-
- 
  * */
 export class AppRoutingModule { }

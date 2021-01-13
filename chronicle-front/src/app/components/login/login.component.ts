@@ -15,7 +15,6 @@ import { AuthService } from 'src/app/services/auth.service';
  * The Login Component uses FirebaseUI for logging in
  * Configuration for FirebaseUI can be found in appmodule.ts
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
 export class LoginComponent implements OnInit {
 
@@ -31,7 +30,6 @@ export class LoginComponent implements OnInit {
  * The success callback is invoked on a successful login
  * Calls a login function in the authservice for added functionality post login 
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
   successCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: successful login');
@@ -48,7 +46,6 @@ export class LoginComponent implements OnInit {
     /**
  * This function is called on a login error
  * 
- * @author Justin Kroh, **ADD YOUR NAMES**
  * */
   errorCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: login failed:');
