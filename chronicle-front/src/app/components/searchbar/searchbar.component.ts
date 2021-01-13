@@ -44,7 +44,7 @@ export class SearchbarComponent implements OnInit {
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));
+        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));  
     });
   }
 
@@ -56,7 +56,6 @@ export class SearchbarComponent implements OnInit {
       if (this.technologyTags.indexOf(tag) == -1) {
         
         this.technologyTags.push(tag);
-        console.log(this.technologyTags);
       }
     }
   }

@@ -13,7 +13,8 @@ export class TagColorService {
 
     if (tag.name == "Technology")
     return {
-      "background-color": "blue"
+      "background-color": '#1B93F3',
+      "color": "white"
     }
     else
     return {
