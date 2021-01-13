@@ -1,4 +1,4 @@
-
+<div *ngIf="authService.displayName">
   <mat-toolbar>
     <a routerLink="">
     <img src="../../../assets/images/revature-logo.jpg" routerLink="" class="logo">
@@ -13,6 +13,7 @@
     </button>
     <button mat-raised-button color="primary" (click)="onLogout()" *ngIf="authService.displayName">Logout</button>
 </mat-toolbar>
+</div>
   
 
 
