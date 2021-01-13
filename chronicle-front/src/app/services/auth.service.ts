@@ -15,7 +15,11 @@ import { UserMetadata, User, IdTokenResult } from '@firebase/auth-types';
 
 
   /**
- * The authService contains functionality for accessing Synchronous user data
+ * The authService contains functionality for accessing Synchronous user data.
+ * This class is created to solve the issue of a Page Reload and the initialization of componenent happening at the same time.
+ * User data is null on the initialization of the app because the app reaches out to the google apis to either reverify the validility of the token or to get a new one.
+ * 
+ * Short term explanation - Avoid using firebase.auth().xx where possible
  * 
  * @author Justin Kroh
  * */
