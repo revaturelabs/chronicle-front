@@ -6,7 +6,7 @@ import {shareReplay, tap} from 'rxjs/operators';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { first } from 'rxjs/operators';
-import { UserMetadata, User } from '@firebase/auth-types';
+import { UserMetadata, User, IdTokenResult } from '@firebase/auth-types';
 
 
 @Injectable({
@@ -61,7 +61,7 @@ export class AuthService {
  * 
  * @returns Promise<string> of a idtoken result
  * */
-  async getSyncIDTokenResult() {
+  async getSyncIDTokenResult(): Promise<IdTokenResult | undefined> {
 
     let user = await this.getSyncUser();
 
