@@ -2,9 +2,9 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
-import { UploadService } from 'src/app/services/upload.service';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import { UploadService } from 'src/app/services/upload.service';
 
 // Chip-related imports 
 import { MatChipInputEvent } from '@angular/material/chips';
