@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {}
-
+   // If login is successful, a token is generated
   successCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: successful login');
     console.log(firebase.auth().currentUser?.email);
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     firebase.auth().currentUser?.getIdToken().then(token => console.log(token));
     this.authService.login();
   }
-
+  // logging an error if login fails
   errorCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: login failed:');
   }

@@ -1,1 +1,17 @@
-<p>{{note?.id}}</p>
+<mat-card class="note-card">
+    <mat-card-header>
+      <mat-card-title>{{note?.description}}</mat-card-title>
+      <mat-card-subtitle>Note</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://via.placeholder.com/600x400" height="210" width="310"/>
+    <mat-card-content>
+      <mat-chip-list>
+        <div *ngFor="let tag of note?.tags">
+          <mat-chip>{{tag.value}}</mat-chip>
+      </div>
+      </mat-chip-list>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+      <button mat-flat-button color="primary" routerLink="{{note?.id}}">View</button>
+    </mat-card-actions>
+  </mat-card>

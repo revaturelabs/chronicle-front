@@ -1,1 +1,19 @@
-<p>{{video?.id}}</p>
+<mat-card class="video-card shadow" routerLink="{{video?.id}}">
+  <video mat-card-image>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4#t=0.1" type="video/mp4">
+  </video>
+  <mat-card-header>
+    <mat-card-title>{{video?.description}}</mat-card-title>
+    <mat-card-subtitle>Video</mat-card-subtitle>
+  </mat-card-header>
+  <!--Tags quickly clutter view, hide on list and show when they click on video?
+    <mat-card-content>
+    <mat-chip-list>
+      <div *ngFor="let tag of video?.tags">
+        <mat-chip>{{tag.value}}</mat-chip>
+    </div>
+    </mat-chip-list>
+  </mat-card-content>
+  -->
+</mat-card>
+  

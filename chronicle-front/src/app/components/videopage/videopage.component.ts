@@ -9,21 +9,21 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
 })
 export class VideopageComponent implements OnInit {
 
-  constructor(private mediaService: MediaRetrievalService) { }
+  constructor(private mediaRetrievalService: MediaRetrievalService) { }
 
   videos?: Video[];
 
 
   ngOnInit(): void {
 
-
-
   }
-
+    // Recieves the tags selected by the user in the search bar and finds videos with those tags
   onSearch(): void {
-    this.mediaService.getVideos().subscribe(resp => {
+    this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.selectedTags).subscribe(resp => {
       this.videos = resp;
+      console.log(resp)
     });
+    
   }
 
 

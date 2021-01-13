@@ -1,0 +1,10 @@
+.video-card {
+    width: 350px;
+    margin-bottom: 10px;
+}
+
+/*What is this*/
+.example-header-image {
+  background-image: url('https://via.placeholder.com/600x400');
+  background-size: cover;
+}
