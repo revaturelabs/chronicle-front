@@ -8,6 +8,14 @@ import { AuthService } from 'src/app/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
+
+
+
+
+/**
+ * Basic Example of a service
+ *
+ * */
 export class HelloService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }

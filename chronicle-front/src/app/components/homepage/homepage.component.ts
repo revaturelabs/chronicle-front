@@ -9,6 +9,13 @@ import 'firebase/auth';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
+
+
+
+  /**
+ * The home page component
+ * 
+ * */
 export class HomepageComponent implements OnInit {
   public myUser: any = null;
 
@@ -18,6 +25,15 @@ export class HomepageComponent implements OnInit {
   }
 
 
+
+  
+
+/**
+ * Retrieves a hello string from the backend if endpoints exists on the backend
+ * 
+ * Contains examples of how to gather user data
+ * 
+ * */
  async getHelloTest(): Promise<void> {
 
     console.log('This should be getting called');

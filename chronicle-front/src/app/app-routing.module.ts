@@ -41,4 +41,13 @@ const routes: Routes = [{
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
+
+/**
+ * APP Routing Page:
+ * 
+ * Notes: Angular Fire Auth Guard checks against isLoggedIn by default,
+ *  can add params to make it check custom claims as well
+ * 
+ * */
 export class AppRoutingModule { }

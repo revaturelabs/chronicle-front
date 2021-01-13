@@ -9,6 +9,13 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+
+  /**
+ * The Login Component uses FirebaseUI for logging in
+ * Configuration for FirebaseUI can be found in appmodule.ts
+ * 
+ * */
 export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) {
@@ -16,7 +23,14 @@ export class LoginComponent implements OnInit {
    }
 
   ngOnInit(): void {}
-   // If login is successful, a token is generated
+
+
+/**
+ * The success callback is invoked on a successful login
+ * Calls a login function in the authservice for added functionality post login 
+ * 
+ * */
+
   successCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: successful login');
     console.log(firebase.auth().currentUser?.email);
@@ -26,7 +40,14 @@ export class LoginComponent implements OnInit {
     firebase.auth().currentUser?.getIdToken().then(token => console.log(token));
     this.authService.login();
   }
-  // logging an error if login fails
+
+
+    /**
+ * This function is called on a login error
+ * Console logs an error
+ * 
+ * */
+
   errorCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: login failed:');
   }
