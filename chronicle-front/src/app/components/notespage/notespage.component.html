@@ -1,12 +1,16 @@
-<div class="demo">
-    <span><h2>Notes</h2></span>
-    <span></span>
-    <span style="text-align: right;"><button mat-raised-button color="primary">Upload</button></span>
-</div>
-<app-searchbar></app-searchbar>
-<button mat-raised-button color="primary" (click) = "onSearch()">Search</button>
-<div style="display: flex;">
-<div *ngFor="let note of notes">
-    <app-note-panel [note] = note></app-note-panel>
-</div>
+<div class="page">
+	<div class="content" fxLayout="column" fxLayout.xs="column" fxFlexFill>
+        <div fxFlex="10" fxFlexAlign="center">
+            <h2 class="page-title">Notes</h2>
+        </div>
+        <div fxFlex="10" fxFlexAlign="center" fxLayout="row">
+            <app-searchbar></app-searchbar>
+            <button class="search-btn" mat-flat-button color="primary" (click)="onSearch()">Search</button>
+        </div>
+        <div fxFlex="10" fxLayoutAlign="center" fxLayout="row wrap" fxLayoutGap="10px">
+            <div *ngFor="let note of notes">
+                <app-note-panel [note] = note></app-note-panel>
+            </div>
+        </div>
+	</div>
 </div>

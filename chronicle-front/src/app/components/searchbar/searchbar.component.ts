@@ -29,6 +29,7 @@ export class SearchbarComponent implements OnInit {
   tags: Tag[] = this.mediaRetrievalService.selectedTags;
   
   technologyTags: Tag[] = [];
+  
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete?: MatAutocomplete;
@@ -40,36 +41,46 @@ export class SearchbarComponent implements OnInit {
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       console.log(resp)
       // Filters tags to be only ones with a key of "Technology"
-      this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
-      //
+      this.technologyTags = resp.filter(tag => tag.name == 'Technology');
+      console.log("filters tech tags", this.technologyTags);
+
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tagValue: string | null) => tagValue ? this._filter(tagValue) : this.technologyTags.slice()));
-      console.log(this.filteredTags)  
+        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));
+      console.log(this.filteredTags);  
     });
+    console.log(this.mediaRetrievalService.selectedTags);
   }
 
     //Allows a user to remove a selected tag
   remove(tag: Tag): void {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
-
-    if (index >= 0) {
+    console.log("Index", index)
+    if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
+      console.log(this.technologyTags.indexOf(tag));
+      if (this.technologyTags.indexOf(tag) == -1) {
+        
+        this.technologyTags.push(tag);
+        console.log(this.technologyTags);
+      }
     }
   }
   // Adds selected tags to the search bar in the form of 'chips'
   selected(event: MatAutocompleteSelectedEvent): void {
+    
     this.mediaRetrievalService.selectedTags.push(event.option.value);
-    console.log(this.mediaRetrievalService.selectedTags)
-    // removes a tag from the list if it has already been selected
-    this.technologyTags.splice(event.option.value, 1);
+     // removes a tag from the list if it has already been selected
+    
+    this.technologyTags.splice(this.technologyTags.indexOf(event.option.value), 1);
+    
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
   }
 
   //filters typed text to match with a tag from the list of tags
-  private _filter(tagValue: string): Tag[] {
+  private _filterTag(tagValue: string): Tag[] {
     if(tagValue) {
       let filterValue = tagValue.toString().toLowerCase();
       return this.technologyTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);
@@ -77,4 +88,6 @@ export class SearchbarComponent implements OnInit {
       return this.technologyTags;
     }
   }
+
+  
 }

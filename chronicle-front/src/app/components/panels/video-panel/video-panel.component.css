@@ -1,9 +1,10 @@
-.example-card {
-    max-width: 400px;
-    margin: 10px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+.video-card {
+    width: 350px;
+    margin-bottom: 10px;
+}
+
+/*What is this*/
+.example-header-image {
+  background-image: url('https://via.placeholder.com/600x400');
+  background-size: cover;
+}

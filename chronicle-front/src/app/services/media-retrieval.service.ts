@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { concatMap, map, switchMap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { concatMap, map, switchMap, take } from 'rxjs/operators';
 import { Note } from '../models/Note';
 import { Tag } from '../models/Tag';
 import { Video } from '../models/Video';
@@ -17,7 +17,9 @@ export class MediaRetrievalService {
 
   private requestHeaders = new HttpHeaders();
 
-  public selectedTags: Tag[] = [];
+  selectedTags: Tag[] = [];
+  selectedBatchTags: Tag[] =[];
+  allTags: Tag[] =[];
 
   // ====== Utility ============  
 
@@ -48,6 +50,7 @@ export class MediaRetrievalService {
 
   // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
+    console.log("returned filterd method", allTags.filter(tag => tag.name == tagName) )
     return allTags.filter(tag => tag.name == tagName);
   }
 
@@ -58,13 +61,13 @@ export class MediaRetrievalService {
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getAllNotes, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
-      return resp.map((note:any) => {
+      return resp.take(5).map((note:any) => {
         let newNote: Note = {
-          id : note.noteID,
+          id : note.id,
           description : note.description,
           userId : note.user,
           url : note.url,
-          tags : note.noteTags
+          tags : note.tags
         };
         return newNote;
       })
@@ -82,11 +85,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
-          id : note.noteID,
+          id : note.id,
           description : note.description,
           userId : note.user,
           url : note.url,
-          tags : note.noteTags
+          tags : note.tags
         };
         return newNote;
       })
@@ -99,11 +102,11 @@ export class MediaRetrievalService {
     return this.httpClient.get(environment.serverApiUrls.getNoteById + id, {headers: this.requestHeaders})
     .pipe(map((note:any) => {
       let newNote: Note = {
-        id : note.noteID,
+        id : note.id,
         description : note.description,
         userId : note.user,
         url : note.url,
-        tags : note.noteTags
+        tags : note.tags
       };
       return newNote;
     }));
@@ -118,11 +121,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.videoID,
+          id : video.id,
           description : video.description,
           userId : video.user,
           url : video.url,
-          tags : video.videoTags
+          tags : video.tags
         };
         return newVideo;
       })
@@ -141,11 +144,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.videoID,
+          id : video.id,
           description : video.description,
           userId : video.user,
           url : video.url,
-          tags : video.videoTags
+          tags : video.tags
         };
         return newVideo;
       })
@@ -158,11 +161,11 @@ export class MediaRetrievalService {
     return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
     .pipe(map((video:any) => {
       let newVideo: Video = {
-        id : video.videoID,
+        id : video.id,
         description : video.description,
         userId : video.user,
         url : video.url,
-        tags : video.videoTags
+        tags : video.tags
       };
       return newVideo;
     }));

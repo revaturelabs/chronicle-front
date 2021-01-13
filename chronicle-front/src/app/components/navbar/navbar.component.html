@@ -1,19 +1,16 @@
-<div *ngIf="authService.displayName">
-  <mat-toolbar>
+<nav mat-tab-nav-bar class="shadow">
     <a routerLink="">
-    <img src="../../../assets/images/revature-logo.jpg" routerLink="" class="logo">
+    <img src="../../../assets/images/revature-logo.jpg" class="logo">
     </a>
-    <a routerLink="" class="logo-text" mat-button>Chronicle</a>
-    <a mat-button routerLink="/videos">Videos</a>
-    <a mat-button routerLink="/notes">Notes</a>
+
+    <a mat-tab-link routerLink="/videos" style="height: 66px">Videos</a>
+    <a mat-tab-link routerLink="/notes" style="height: 66px">Notes</a>
+    <a mat-tab-link routerLink="/upload" style="height: 66px">Upload</a>
+    
     <span class="example-spacer"></span>
     
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>perm_identity</mat-icon>      
-    </button>
-    <button mat-raised-button color="primary" (click)="onLogout()" *ngIf="authService.displayName">Logout</button>
-</mat-toolbar>
-</div>
+    <a mat-tab-link  style="height: 66px" (click)="onLogout()" *ngIf="authService.displayName">Logout</a>
+</nav>
   
 
 
