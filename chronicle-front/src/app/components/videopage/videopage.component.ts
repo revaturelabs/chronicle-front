@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Video } from 'src/app/models/Video';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 
@@ -7,16 +7,30 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
   templateUrl: './videopage.component.html',
   styleUrls: ['./videopage.component.css']
 })
-export class VideopageComponent implements OnInit {
+export class VideopageComponent implements OnInit, OnDestroy {
 
   constructor(private mediaRetrievalService: MediaRetrievalService) { }
+  
+  
+  //Clears search tags on destroy
+  ngOnDestroy(): void {
+    this.mediaRetrievalService.selectedTags = [];
+    this.mediaRetrievalService.selectedBatchTags =[];
+  }
 
   videos?: Video[];
 
 
   ngOnInit(): void {
-
+    if (this.mediaRetrievalService.selectedTags.length > 0) {
+      this.mediaRetrievalService.selectedBatchTags = [];
+      this.onSearch();
+      console.log("Here");
+      console.log(this.mediaRetrievalService.selectedTags);
+    }
   }
+
+  
     // Recieves the tags selected by the user in the search bar and finds videos with those tags
   onSearch(): void {
     if(this.mediaRetrievalService.selectedTags.length > 0) {

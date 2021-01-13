@@ -7,13 +7,14 @@ import { Tag } from '../models/Tag';
 import { Video } from '../models/Video';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaRetrievalService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient, private authService: AuthService, private router: Router) { }
 
   private requestHeaders = new HttpHeaders();
 
@@ -31,6 +32,15 @@ export class MediaRetrievalService {
       'Authorization': `Bearer ${authToken}`
     })
   }
+
+
+  public searchVideoTag(tag : Tag){
+    if (tag.name == "Technology") {
+    this.selectedTags = [tag];
+    this.router.navigateByUrl('/videos');
+    }
+  }
+
 
   // Retrieves all tags from the db and maps them to a Tag model
   public getAllTags() : Observable<Tag[]>{
@@ -117,6 +127,7 @@ export class MediaRetrievalService {
 // Retrieves all videos from the DB and maps them to a Video model
   public getAllVideos() : Observable<Video[]> {
     this.setHeaders();
+    console.log("SearchAll")
     return this.httpClient.get(environment.serverApiUrls.getAllVideos, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
@@ -135,9 +146,13 @@ export class MediaRetrievalService {
   // Retrieves Videos by tag(s) from the DB and maps them to a Video model
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
+    console.log("search tags here")
+    console.log(tags)
     tags.forEach(tag => {
       tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
     });
+    console.log("SearchHere")
+    console.log("tagPath: " + tagPath);
     tagPath = tagPath.slice(0,-1);
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath, {headers: this.requestHeaders})
@@ -158,6 +173,8 @@ export class MediaRetrievalService {
   // Retrieves Video by ID from the DB and maps it to a Video model
   public getVideoById(id: number) : Observable<Video> {
     this.setHeaders();
+    console.log("SearchID");
+    
     return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
     .pipe(map((video:any) => {
       let newVideo: Video = {
