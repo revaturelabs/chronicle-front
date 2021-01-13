@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Video } from 'src/app/models/Video';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 import { MediaTransferService } from 'src/app/services/media-transfer.service';
+import { TagColorService } from 'src/app/services/tag-color.service';
 
 @Component({
   selector: 'app-viewvideopage',
@@ -16,6 +17,17 @@ export class ViewvideopageComponent implements OnInit {
 
   public errorMsg? : String = undefined;
   
+  public getTitleTag() : string {
+    if (this.video) {
+    for (var val of this.video?.tags) {
+      if (val.name == "Title") return val.value;
+    }
+  }
+
+  return "No Title";
+
+  }
+
 
   constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute) { }
 
