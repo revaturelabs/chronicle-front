@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VjsPlayerComponent } from './vjsplayer.component';
+import { ViewnotepageComponent } from './viewnotepage.component';
 
-describe('VjsplayerComponent', () => {
-  let component: VjsPlayerComponent;
-  let fixture: ComponentFixture<VjsPlayerComponent>;
+describe('ViewnotepageComponent', () => {
+  let component: ViewnotepageComponent;
+  let fixture: ComponentFixture<ViewnotepageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VjsPlayerComponent ]
+      declarations: [ ViewnotepageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VjsPlayerComponent);
+    fixture = TestBed.createComponent(ViewnotepageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VjsPlayerComponent } from './vjsplayer.component';
+import { AttributionComponent } from './attribution.component';
 
-describe('VjsplayerComponent', () => {
-  let component: VjsPlayerComponent;
-  let fixture: ComponentFixture<VjsPlayerComponent>;
+describe('AttributionComponent', () => {
+  let component: AttributionComponent;
+  let fixture: ComponentFixture<AttributionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VjsPlayerComponent ]
+      declarations: [ AttributionComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VjsPlayerComponent);
+    fixture = TestBed.createComponent(AttributionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

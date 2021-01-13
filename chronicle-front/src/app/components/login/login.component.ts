@@ -25,12 +25,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
 
-
 /**
  * The success callback is invoked on a successful login
  * Calls a login function in the authservice for added functionality post login 
  * 
  * */
+
   successCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: successful login');
     console.log(firebase.auth().currentUser?.email);
@@ -42,11 +42,12 @@ export class LoginComponent implements OnInit {
   }
 
 
-
     /**
  * This function is called on a login error
+ * Console logs an error
  * 
  * */
+
   errorCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: login failed:');
   }
