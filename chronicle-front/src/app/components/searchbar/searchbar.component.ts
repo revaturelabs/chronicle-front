@@ -39,26 +39,20 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
     //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
-      console.log(resp)
       // Filters tags to be only ones with a key of "Technology"
       this.technologyTags = resp.filter(tag => tag.name == 'Technology');
-      console.log("filters tech tags", this.technologyTags);
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));
-      console.log(this.filteredTags);  
     });
-    console.log(this.mediaRetrievalService.selectedTags);
   }
 
     //Allows a user to remove a selected tag
   remove(tag: Tag): void {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
-    console.log("Index", index)
     if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
-      console.log(this.technologyTags.indexOf(tag));
       if (this.technologyTags.indexOf(tag) == -1) {
         
         this.technologyTags.push(tag);

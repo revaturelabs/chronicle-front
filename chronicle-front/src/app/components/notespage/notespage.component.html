@@ -7,6 +7,12 @@
             <app-searchbar></app-searchbar>
             <button class="search-btn" mat-flat-button color="primary" (click)="onSearch()">Search</button>
         </div>
+        <div fxFlex="10" fxFlexAlign="center" fxLayout="row">
+            <app-filter></app-filter>
+        </div>
+        <div fxFlex="10" fxFlexAlign="center" fxLayout="row" class="no-results" *ngIf="noResults" >
+            No results found for selected criteria. Please try again!
+        </div>
         <div fxFlex="10" fxLayoutAlign="center" fxLayout="row wrap" fxLayoutGap="10px">
             <div *ngFor="let note of notes">
                 <app-note-panel [note] = note></app-note-panel>
