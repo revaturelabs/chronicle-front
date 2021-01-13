@@ -29,7 +29,7 @@ export class SearchbarComponent implements OnInit {
   tags: Tag[] = this.mediaRetrievalService.selectedTags;
   
   technologyTags: Tag[] = [];
-  trainerTags: Tag[] = [];
+  
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete?: MatAutocomplete;
@@ -41,8 +41,8 @@ export class SearchbarComponent implements OnInit {
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       console.log(resp)
       // Filters tags to be only ones with a key of "Technology"
-      this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
-      console.log(this.technologyTags);
+      this.technologyTags = resp.filter(tag => tag.name == 'Technology');
+      console.log("filters tech tags", this.technologyTags);
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
@@ -55,11 +55,12 @@ export class SearchbarComponent implements OnInit {
     //Allows a user to remove a selected tag
   remove(tag: Tag): void {
     const index = this.mediaRetrievalService.selectedTags.indexOf(tag);
-
+    console.log("Index", index)
     if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
-  
+      console.log(this.technologyTags.indexOf(tag));
       if (this.technologyTags.indexOf(tag) == -1) {
+        
         this.technologyTags.push(tag);
         console.log(this.technologyTags);
       }
@@ -67,11 +68,12 @@ export class SearchbarComponent implements OnInit {
   }
   // Adds selected tags to the search bar in the form of 'chips'
   selected(event: MatAutocompleteSelectedEvent): void {
-    console.log(this.technologyTags);
+    
     this.mediaRetrievalService.selectedTags.push(event.option.value);
-    console.log(this.mediaRetrievalService.selectedTags)
-    // removes a tag from the list if it has already been selected
-    this.technologyTags.splice(event.option.value, 1);
+     // removes a tag from the list if it has already been selected
+    
+    this.technologyTags.splice(this.technologyTags.indexOf(event.option.value), 1);
+    
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
