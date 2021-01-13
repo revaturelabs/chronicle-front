@@ -1,5 +1,5 @@
 <mat-form-field class="example-chip-list">
-    <mat-label>Search batches</mat-label>
+    <mat-label>Filters</mat-label>
     <mat-chip-list #chipList aria-label="Tag selection">
       <mat-chip
         *ngFor="let tag of tags"
@@ -9,14 +9,16 @@
         {{tag.value}}
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
-      <input
-        placeholder="Enter Tag"
-        #tagInput
-        [formControl]="tagCtrl"
-        [matAutocomplete]="auto"
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        > 
+      <div *ngIf="tags.length == 0">
+          <input
+            placeholder="Enter Batch"
+            #tagInput
+            [formControl]="tagCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            > 
+      </div>
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
       <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
@@ -24,4 +26,5 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <input type="date" class="date-picker" [ngModel]="date | date:'yyyy-MM-dd'"  (input)="getDate($event)">
+ 
+    <input type="date" class="date-picker" [ngModel]="date | date:'yyyy-MM-dd'"  (input)="getDate($event)">

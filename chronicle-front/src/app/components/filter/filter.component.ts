@@ -20,7 +20,6 @@ export class FilterComponent implements OnInit {
   filteredTags: any;
   date: any; 
 
-
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedBatchTags;
 
@@ -45,11 +44,11 @@ export class FilterComponent implements OnInit {
   }
 
   remove(tag: Tag): void {
+  
     const index = this.mediaRetrievalService.selectedBatchTags.indexOf(tag);
 
     if (index != -1) {
       this.mediaRetrievalService.selectedBatchTags.splice(index, 1);
-  
       if (this.batchTags.indexOf(tag) == -1) {
         this.batchTags.push(tag);
         console.log("batchTags", this.batchTags);
@@ -62,7 +61,7 @@ export class FilterComponent implements OnInit {
     this.mediaRetrievalService.selectedBatchTags.push(event.option.value);
     console.log("MRS Selected Batch Tags", this.mediaRetrievalService.selectedBatchTags)
     // removes a tag from the list if it has already been selected
-    this.batchTags.splice(event.option.value, 1);
+    this.batchTags.splice(this.batchTags.indexOf(event.option.value), 1);
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);

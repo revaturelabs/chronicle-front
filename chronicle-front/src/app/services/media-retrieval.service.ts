@@ -50,6 +50,7 @@ export class MediaRetrievalService {
 
   // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
+    console.log("returned filterd method", allTags.filter(tag => tag.name == tagName) )
     return allTags.filter(tag => tag.name == tagName);
   }
 
