@@ -39,17 +39,13 @@ export class SearchbarComponent implements OnInit {
   ngOnInit(): void {
     //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
-      console.log(resp)
       // Filters tags to be only ones with a key of "Technology"
       this.technologyTags = this.mediaRetrievalService.filterTags(resp, 'Technology');
-      console.log(this.technologyTags);
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));
-      console.log(this.filteredTags);  
+        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.technologyTags.slice()));  
     });
-    console.log(this.mediaRetrievalService.selectedTags);
   }
 
     //Allows a user to remove a selected tag
@@ -61,17 +57,14 @@ export class SearchbarComponent implements OnInit {
   
       if (this.technologyTags.indexOf(tag) == -1) {
         this.technologyTags.push(tag);
-        console.log(this.technologyTags);
       }
     }
   }
   // Adds selected tags to the search bar in the form of 'chips'
   selected(event: MatAutocompleteSelectedEvent): void {
-    console.log(this.technologyTags);
     this.mediaRetrievalService.selectedTags.push(event.option.value);
-    console.log(this.mediaRetrievalService.selectedTags)
     // removes a tag from the list if it has already been selected
-    this.technologyTags.splice(event.option.value, 1);
+    this.technologyTags.splice(this.technologyTags.indexOf(event.option.value), 1);
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
