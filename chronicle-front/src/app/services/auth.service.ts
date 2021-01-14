@@ -36,7 +36,7 @@ export class AuthService {
 
 
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
-
+ 
 
 
 /**

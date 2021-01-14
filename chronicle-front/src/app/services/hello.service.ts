@@ -40,7 +40,7 @@ export class HelloService {
     headers = headers.set('Authorization', 'Bearer ' + token);
 
     console.log(headers);
-
+  
 
     console.log(this.http.get<any>(this.helloUrl, {headers}));
     return this.http.get<any>(this.helloUrl, {headers});

@@ -42,6 +42,7 @@ testem.log
 /typings
 fbconfig.service.ts
 fbconfig.service.spec.ts
+debug.log
 
 # System Files
 .DS_Store
