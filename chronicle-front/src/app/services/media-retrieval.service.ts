@@ -37,9 +37,16 @@ export class MediaRetrievalService {
 
 
   public searchVideoTag(tag : Tag){
-    if (tag.name == "Technology") {
+    if (tag.name == "Topic") {
     this.selectedTags = [tag];
     this.router.navigateByUrl('/videos');
+    }
+  }
+
+  public searchNoteTag(tag : Tag){
+    if (tag.name == "Topic") {
+    this.selectedTags = [tag];
+    this.router.navigateByUrl('/notes');
     }
   }
 

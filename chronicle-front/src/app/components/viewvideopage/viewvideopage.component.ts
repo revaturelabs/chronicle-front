@@ -15,20 +15,9 @@ export class ViewvideopageComponent implements OnInit {
 
 
   @Input() video? : Video;
-
+  topics?: Tag[];
+  batch?: string;
   public errorMsg? : String = undefined;
-  
-  public getTitleTag() : string {
-    if (this.video) {
-    for (var val of this.video?.tags) {
-      if (val.name == "Title") return val.value;
-    }
-  }
-
-  return "No Title";
-
-  }
-
 
   constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService)  { }
 
@@ -41,6 +30,8 @@ export class ViewvideopageComponent implements OnInit {
     if (this.transfer.video) {
       this.video = this.transfer.video;
       this.transfer.video = undefined;
+      this.topics = this.mediaService.filterTags(this.video.tags, 'Topic');
+      this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
     } else {
       let id = this.route.snapshot.paramMap.get('id');
       console.log(id);
@@ -54,6 +45,8 @@ export class ViewvideopageComponent implements OnInit {
 
         this.mediaService.getVideoById(idInt).subscribe(resp => {
           this.video = resp;
+          this.topics = this.mediaService.filterTags(this.video.tags, 'Topic');
+          this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
         });
       }
     }

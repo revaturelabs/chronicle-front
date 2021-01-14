@@ -1,1 +1,18 @@
-<ngx-doc-viewer [url]=url viewer="url" style="margin:auto;width:75%;height:80vh;overflow:hidden"></ngx-doc-viewer>
+<div style="margin-left: 4em; margin-right: 4em;">
+    <!--(How have we not added titles!)-->
+    <h2 style="text-align: center; margin-top: 1em;">{{note?.title}}</h2>
+  
+    <div class ="center-chips" style="margin-bottom: 1em;">
+      <!-- <h4>Tags:</h4> (no heading I think)-->
+      <mat-chip-list aria-label="Tags">
+        <div :*ngFor="let tag of topics">
+          <mat-chip *ngIf="tag.name != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>
+        </div>
+      </mat-chip-list>
+    </div>
+  
+  
+  <div :*ngIf= note >
+    <ngx-doc-viewer [url]="note.url" viewer="url" style="margin:auto;width:75%;height:80vh;overflow:hidden"></ngx-doc-viewer>
+  </div>
+</div>
