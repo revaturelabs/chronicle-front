@@ -1,7 +1,8 @@
 <mat-card class="note-card">
     <mat-card-header>
-      <mat-card-title><a routerLink = "notes/{{note?.id}}" role="button" (click) = "click()">{{getTitleTag()}}</a></mat-card-title>
-      <mat-card-subtitle>Note</mat-card-subtitle>
+      <mat-card-title><a routerLink = "notes/{{note?.id}}" role="button" (click) = "click()">{{note?.title}}</a></mat-card-title>
+      <mat-card-subtitle>Trainer: {{note?.userId}} Batch: {{batch}} Date: {{note?.date}}</mat-card-subtitle>
+      <mat-card-subtitle>{{note?.description}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image src="https://via.placeholder.com/600x400" height="210" width="310"/>
     <mat-card-content>

@@ -35,9 +35,9 @@ export class NotespageComponent implements OnInit, OnDestroy {
       if(this.mediaRetrievalService.selectedBatchTags.length>0){
         this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedBatchTags[0])
       }
-      if(this.mediaRetrievalService.date){
-        this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.date)
-      }
+      // if(this.mediaRetrievalService.date){
+      //   this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.date)
+      // }
       for(let i in this.mediaRetrievalService.selectedTags){
         this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedTags[i])
       }

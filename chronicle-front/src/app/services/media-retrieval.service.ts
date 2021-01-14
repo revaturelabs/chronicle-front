@@ -84,7 +84,7 @@ export class MediaRetrievalService {
           id : note.id,
           description : note.description,
           title: note.title,
-          date: note.date,
+          date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
           tags : note.tags
@@ -109,7 +109,7 @@ export class MediaRetrievalService {
           id : note.id,
           description : note.description,
           title: note.title,
-          date: note.date,
+          date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
           tags : note.tags
@@ -128,7 +128,7 @@ export class MediaRetrievalService {
         id : note.id,
         description : note.description,
         title: note.title,
-        date: note.date,
+        date: this.formatDate(note.date),
         userId : note.user,
         url : note.url,
         tags : note.tags
@@ -201,7 +201,7 @@ export class MediaRetrievalService {
         id : video.id,
         description : video.description,
         title: video.title,
-        date: video.date,
+        date: this.formatDate(video.date),
         userId : video.user,
         url : video.url,
         tags : video.tags

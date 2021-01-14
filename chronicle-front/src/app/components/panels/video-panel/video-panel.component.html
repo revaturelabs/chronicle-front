@@ -1,14 +1,13 @@
 <mat-card class="example-card">
   <img mat-card-image src="../../../assets/images/revature-logo.jpg" alt="Thumbnail">
     <mat-card-header>
-      <mat-card-title><a routerLink = "videos/{{video?.id}}" role="button" (click) = "click()">{{title}}</a></mat-card-title>
+      <mat-card-title><a routerLink = "videos/{{video?.id}}" role="button" (click) = "click()">{{video?.title}}</a></mat-card-title>
       <mat-card-subtitle>Trainer: {{video?.userId}} Batch: {{batch}} Date: {{video?.date}}</mat-card-subtitle>
-      <mat-card-subtitle>{{video?.title}}</mat-card-subtitle>
       <mat-card-subtitle>{{video?.description}}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-subtitle>Technologies:</mat-card-subtitle>
+    <mat-card-subtitle>Topics:</mat-card-subtitle>
     <mat-card-content style="display: flex;">
-        <div *ngFor="let tag of technologies">
+        <div *ngFor="let tag of topics">
            <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)"  style="margin: 2px;">{{tag.value}}</button>
         </div>
     </mat-card-content>

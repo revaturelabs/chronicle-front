@@ -17,7 +17,7 @@ export class VideoPanelComponent implements OnInit {
 
  @Input() video?: Video;
 
- technologies?: Tag[];
+ topics?: Tag[];
  batch?: string;
  
 
@@ -27,7 +27,7 @@ export class VideoPanelComponent implements OnInit {
   ngOnInit(): void {
     if (this.video) {
       console.log(this.video)
-      this.technologies = this.mediaService.filterTags(this.video.tags, 'Technology');
+      this.topics = this.mediaService.filterTags(this.video.tags, 'Topic');
       this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
       console.log(this.video.tags)
     }
