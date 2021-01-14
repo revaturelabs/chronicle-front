@@ -86,7 +86,7 @@ export class MediaRetrievalService {
           description : note.description,
           userId : note.user,
           url : note.url,
-          tags : note.noteTags
+          tags : note.tags //this was note.noteTags which doesn't work?
         };
         return newNote;
       })
@@ -103,7 +103,7 @@ export class MediaRetrievalService {
         description : note.description,
         userId : note.user,
         url : note.url,
-        tags : note.noteTags
+        tags : note.tags //this was note.noteTags which doesn't work?
       };
       return newNote;
     }));
@@ -118,7 +118,7 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.videoID,
+          id : video.id,//this was video.videoID which doesn't work?
           description : video.description,
           userId : video.user,
           url : video.url,
@@ -141,11 +141,11 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.videoID,
+          id : video.id,//this was video.videoID which doesn't work?
           description : video.description,
           userId : video.user,
           url : video.url,
-          tags : video.videoTags
+          tags : video.tags //this was video.videoID which doesn't work?
         };
         return newVideo;
       })
@@ -162,7 +162,7 @@ export class MediaRetrievalService {
         description : video.description,
         userId : video.user,
         url : video.url,
-        tags : video.videoTags
+        tags : video.tags //this was video.videoID which doesn't work?
       };
       return newVideo;
     }));

@@ -17,6 +17,7 @@ export class VideoPanelComponent implements OnInit {
   constructor(private transfer : MediaTransferService, private router : Router) { }
 
   ngOnInit(): void {
+    console.log(this.video);
   }
 
   click() : void {

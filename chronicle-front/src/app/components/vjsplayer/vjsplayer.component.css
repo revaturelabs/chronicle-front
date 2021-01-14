@@ -3,8 +3,8 @@
 @import '@videojs/themes/dist/sea/index.css';
 
 .videoPanel {
-    width: 75vw;
-    height: 39.375vw;
+    width: 60vw;
+    height: 29.375vw;
     min-width: 640px;
     min-height: 360px;
     margin: auto;

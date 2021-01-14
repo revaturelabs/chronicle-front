@@ -1,6 +1,7 @@
-<mat-card class="video-card shadow" routerLink="{{video?.id}}">
+<mat-card class="panel video-card shadow" (click)="click()">
+  <!--Really not recommended way of creating a thumbnail. But it works for now as proof of concept. Should pull thumbnail associated with video from backend and s3.-->
   <video mat-card-image>
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4#t=0.1" type="video/mp4">
+    <source src="{{video?.url}}" type="video/mp4">
   </video>
   <mat-card-header>
     <mat-card-title>{{video?.description}}</mat-card-title>
