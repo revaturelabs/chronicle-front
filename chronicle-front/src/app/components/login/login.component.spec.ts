@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 import { LoginComponent } from './login.component';
 
@@ -8,7 +13,14 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+        imports: [
+            RouterTestingModule,
+            
+            AngularFireModule.initializeApp(environment.firebaseConfig)
+
+          ],
+      declarations: [ LoginComponent ],
+      providers: [AuthService, AngularFireAuth]
     })
     .compileComponents();
   });
@@ -23,5 +35,9 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should render firebase-ui login form', () => {
+    const firebaseUi = fixture.debugElement.nativeElement.querySelector('firebase-ui');
+    expect(firebaseUi).toBeDefined();
+  });
 
 });

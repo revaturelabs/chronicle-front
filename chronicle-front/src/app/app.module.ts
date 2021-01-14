@@ -43,6 +43,15 @@ import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.co
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FilterComponent } from './components/filter/filter.component';
 
+
+
+
+/**
+ * This renders the firebaseUI based on configuration. 
+ * Currently only set for email authentication.
+ * Refer to firebaseUI documentation on how to display other forms of auth
+ * 
+ * */
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
 

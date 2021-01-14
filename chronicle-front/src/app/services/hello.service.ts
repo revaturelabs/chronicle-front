@@ -8,6 +8,14 @@ import { AuthService } from 'src/app/services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
+
+
+
+
+/**
+ * Basic Example of a service
+ *
+ * */
 export class HelloService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
@@ -32,7 +40,7 @@ export class HelloService {
     headers = headers.set('Authorization', 'Bearer ' + token);
 
     console.log(headers);
-
+  
 
     console.log(this.http.get<any>(this.helloUrl, {headers}));
     return this.http.get<any>(this.helloUrl, {headers});
