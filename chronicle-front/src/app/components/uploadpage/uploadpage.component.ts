@@ -58,7 +58,10 @@ export class UploadpageComponent implements OnInit {
 
   // This allows us to see our selected files and upload them to our back end.
   selectFile(event: any) {
+    console.log("EVENT: ");
+    console.log(event);
     this.selectedFiles = event.target.files;
+    console.log(this.selectedFiles);
   }
 
   /*
@@ -80,8 +83,9 @@ export class UploadpageComponent implements OnInit {
       date: this.creationDate,
       description: this.description,
 
-      // These properties are tags 
-      batch: this.batch,
+      // These properties are tags
+      // BATCH SHOULD BE ADDED EVENTUALLY  
+      // batch: this.batch,
       tags: this.topics,
     }
 
@@ -90,10 +94,14 @@ export class UploadpageComponent implements OnInit {
     console.log(dataObj.date);
     console.log(dataObj.description); 
 
-    console.log(dataObj.batch);
+
+    // console.log(dataObj.batch);
     console.log(dataObj.tags);
 
     this.currentFile = this.selectedFiles.item(0);
+    console.log("FILE: ")
+    console.log(this.currentFile);
+
     this.uploadService.upload(JSON.stringify(dataObj), this.currentFile, token).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {

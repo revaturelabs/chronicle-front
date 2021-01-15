@@ -4,7 +4,7 @@
         <!-- Title of the page  -->
         <h2 class="page-title">Upload a file</h2>
 
-        
+
         <!-- Upload progress bar (Does this work?) -->
         <!-- <div *ngIf="currentFile" class="progress">
             <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
@@ -44,19 +44,28 @@
                         (matChipInputTokenEnd)="add($event)">
                 </mat-chip-list>
             </mat-form-field>
-            
+
             <!-- DESCRIPTION -->
             <mat-form-field appearance="outline">
                 <mat-label for="file-description">Description</mat-label>
-                <textarea matInput type="text" id="file-description" name="file-description" [(ngModel)]="description"></textarea>
+                <textarea matInput type="text" id="file-description" name="file-description"
+                    [(ngModel)]="description"></textarea>
             </mat-form-field>
-            
+
+
+            <!-- Old  -->
+            <label class="btn btn-default">
+                <input type="file" (change)="selectFile($event)" />
+            </label>
+
+
+
             <!-- CHOOSE FILE -->
             <!-- Need to import NgxMatFileInputModule -->
-            <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="outline">
                 <mat-label for="file-topic">Choose a file</mat-label>
-                <ngx-mat-file-input type="file" (change)="selectFile($event)"></ngx-mat-file-input>
-            </mat-form-field>
+                <ngx-mat-file-input type="file" (change)="selectFile($event)" ></ngx-mat-file-input>
+            </mat-form-field> -->
 
             <!-- UPLOAD BUTTON -->
             <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles"
