@@ -13,6 +13,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -77,7 +83,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     SearchbarComponent,
     VjsPlayerComponent,
     AttributionComponent,
-    UploadpageComponent
+    UploadpageComponent,
   ],
   imports: [
     HttpClientModule,
@@ -99,10 +105,14 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatGridListModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    FormsModule,
+    FormsModule, 
     ReactiveFormsModule,
-    ReactiveFormsModule,
-    NgxDocViewerModule
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxMatFileInputModule,
+    NgxDocViewerModule,
   ],
   providers: [
     UploadService,

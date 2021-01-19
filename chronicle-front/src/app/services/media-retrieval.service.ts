@@ -37,7 +37,7 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((tag:any) => {
         let newTag: Tag = {
-          tagid: tag.tagID,
+          tagID: tag.tagID,
           name: tag.name,
           value: tag.value
         };
@@ -74,7 +74,7 @@ export class MediaRetrievalService {
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
-      tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
     });
     tagPath = tagPath.slice(0,-1);
     this.setHeaders();
@@ -133,7 +133,7 @@ export class MediaRetrievalService {
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
-      tagPath += `${tag.tagid}:${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
     });
     tagPath = tagPath.slice(0,-1);
     this.setHeaders();
