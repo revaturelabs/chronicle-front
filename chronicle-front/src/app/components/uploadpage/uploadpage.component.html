@@ -34,9 +34,9 @@
             <mat-form-field appearance="outline">
                 <mat-label>Topics</mat-label>
                 <mat-chip-list #chipList aria-label="Topic selection">
-                    <mat-chip *ngFor="let topic of topics" [selectable]="selectable" [removable]="removable"
-                        (removed)="remove(topic)">
-                        {{topic.value}}
+                    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
+                        (removed)="remove(tag)">
+                        {{tag.value}}
                         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                     </mat-chip>
                     <input placeholder="New topic..." [matChipInputFor]="chipList"
