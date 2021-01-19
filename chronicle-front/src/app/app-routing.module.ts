@@ -28,13 +28,13 @@ const routes: Routes = [{
   component: LoginComponent 
 }, {
   path:'upload',
-  component: UploadpageComponent
+  component: UploadpageComponent, canActivate: [AngularFireAuthGuard]
 }, {
   path:'videos/:id',
-  component: ViewvideopageComponent
+  component: ViewvideopageComponent, canActivate: [AngularFireAuthGuard]
 }, {
   path:'notes/:id',
-  component: ViewnotepageComponent
+  component: ViewnotepageComponent, canActivate: [AngularFireAuthGuard]
 }];
 
 @NgModule({
