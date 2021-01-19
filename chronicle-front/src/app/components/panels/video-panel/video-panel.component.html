@@ -1,20 +1,17 @@
-<mat-card class="panel video-card shadow" (click)="click()">
-  <!--Really not recommended way of creating a thumbnail. But it works for now as proof of concept. Should pull thumbnail associated with video from backend and s3.-->
+<mat-card class="example-card">
   <video mat-card-image>
-    <source src="{{video?.url}}" type="video/mp4">
+    <source src="{{video?.url}}" type="video/mp4" alt="thumbnail">
   </video>
-  <mat-card-header>
-    <mat-card-title>{{video?.description}}</mat-card-title>
-    <mat-card-subtitle>Video</mat-card-subtitle>
-  </mat-card-header>
-  <!--Tags quickly clutter view, hide on list and show when they click on video?
-    <mat-card-content>
-    <mat-chip-list>
-      <div *ngFor="let tag of video?.tags">
-        <mat-chip>{{tag.value}}</mat-chip>
-    </div>
-    </mat-chip-list>
-  </mat-card-content>
-  -->
-</mat-card>
+    <mat-card-header>
+      <mat-card-title><a routerLink = "videos/{{video?.id}}" role="button" (click) = "click()">{{video?.title}}</a></mat-card-title>
+      <mat-card-subtitle>Trainer: {{video?.userId}} Batch: {{batch}} Date: {{video?.date}}</mat-card-subtitle>
+      <mat-card-subtitle>{{video?.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-subtitle>Topics:</mat-card-subtitle>
+    <mat-card-content style="display: flex;">
+        <div *ngFor="let tag of topics">
+           <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)"  style="margin: 2px;">{{tag.value}}</button>
+        </div>
+    </mat-card-content>
+  </mat-card>
   

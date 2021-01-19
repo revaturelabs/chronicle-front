@@ -1,23 +1,28 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
-import { concatMap, map, switchMap } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
+import { concatMap, map, switchMap, take } from 'rxjs/operators';
 import { Note } from '../models/Note';
 import { Tag } from '../models/Tag';
 import { Video } from '../models/Video';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MediaRetrievalService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthService) { }
+  constructor(private httpClient: HttpClient, private authService: AuthService, private router: Router) { }
 
   private requestHeaders = new HttpHeaders();
 
-  public selectedTags: Tag[] = [];
+  selectedTags: Tag[] = [];
+  selectedBatchTags: Tag[] =[];
+  allTags: Tag[] =[];
+  date?: string;
+
 
   // ====== Utility ============  
 
@@ -30,7 +35,34 @@ export class MediaRetrievalService {
     })
   }
 
+
+  public searchVideoTag(tag : Tag){
+    if (tag.name == "Topic") {
+    this.selectedTags = [tag];
+    this.router.navigateByUrl('/videos');
+    }
+  }
+
+  public searchNoteTag(tag : Tag){
+    if (tag.name == "Topic") {
+    this.selectedTags = [tag];
+    this.router.navigateByUrl('/notes');
+    }
+  }
+
+
   // Retrieves all tags from the db and maps them to a Tag model
+  // Utility function to filter tags by their 'name'
+  public filterTags(allTags: Tag[], tagName: string): Tag[] {
+    return allTags.filter(tag => tag.name == tagName);
+  }
+
+ public formatDate(input: string){
+   let split = input.split("T");
+   console.log();
+  return split[0];
+ }
+
   public getAllTags() : Observable<Tag[]>{
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getTags, {headers: this.requestHeaders})
@@ -46,10 +78,6 @@ export class MediaRetrievalService {
     }));
   }
 
-  // Utility function to filter tags by their 'name'
-  public filterTags(allTags: Tag[], tagName: string): Tag[] {
-    return allTags.filter(tag => tag.name == tagName);
-  }
 
 //============ Notes ===================
 
@@ -60,16 +88,19 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
-          id : note.noteID,
+          id : note.id,
           description : note.description,
+          title: note.title,
+          date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
-          tags : note.noteTags
+          tags : note.tags
         };
         return newNote;
       })
     }));
   }
+
  //Retrieves Notes by tag(s) from DB and maps them to a Note model
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
@@ -82,11 +113,13 @@ export class MediaRetrievalService {
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
-          id : note.noteID,
+          id : note.id,
           description : note.description,
+          title: note.title,
+          date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
-          tags : note.tags //this was note.noteTags which doesn't work?
+          tags : note.tags
         };
         return newNote;
       })
@@ -99,11 +132,13 @@ export class MediaRetrievalService {
     return this.httpClient.get(environment.serverApiUrls.getNoteById + id, {headers: this.requestHeaders})
     .pipe(map((note:any) => {
       let newNote: Note = {
-        id : note.noteID,
+        id : note.id,
         description : note.description,
+        title: note.title,
+        date: this.formatDate(note.date),
         userId : note.user,
         url : note.url,
-        tags : note.tags //this was note.noteTags which doesn't work?
+        tags : note.tags
       };
       return newNote;
     }));
@@ -114,16 +149,20 @@ export class MediaRetrievalService {
 // Retrieves all videos from the DB and maps them to a Video model
   public getAllVideos() : Observable<Video[]> {
     this.setHeaders();
+    console.log("SearchAll")
     return this.httpClient.get(environment.serverApiUrls.getAllVideos, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.id,//this was video.videoID which doesn't work?
+          id : video.id,
           description : video.description,
+          title: video.title,
+          date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
-          tags : video.videoTags
+          tags : video.tags
         };
+      
         return newVideo;
       })
     }));
@@ -132,20 +171,26 @@ export class MediaRetrievalService {
   // Retrieves Videos by tag(s) from the DB and maps them to a Video model
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
+    console.log("search tags here" + tags[0])
+    console.log(tags)
     tags.forEach(tag => {
       tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
     });
+    console.log("SearchHere")
+    console.log("tagPath: " + tagPath);
     tagPath = tagPath.slice(0,-1);
     this.setHeaders();
     return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath, {headers: this.requestHeaders})
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
-          id : video.id,//this was video.videoID which doesn't work?
+          id : video.id,
           description : video.description,
+          title: video.title,
+          date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
-          tags : video.tags //this was video.videoID which doesn't work?
+          tags : video.tags
         };
         return newVideo;
       })
@@ -155,14 +200,18 @@ export class MediaRetrievalService {
   // Retrieves Video by ID from the DB and maps it to a Video model
   public getVideoById(id: number) : Observable<Video> {
     this.setHeaders();
+    console.log("SearchID");
+    
     return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
     .pipe(map((video:any) => {
       let newVideo: Video = {
-        id : video.videoID,
+        id : video.id,
         description : video.description,
+        title: video.title,
+        date: this.formatDate(video.date),
         userId : video.user,
         url : video.url,
-        tags : video.tags //this was video.videoID which doesn't work?
+        tags : video.tags
       };
       return newVideo;
     }));

@@ -47,6 +47,7 @@ import { UploadpageComponent } from './components/uploadpage/uploadpage.componen
 import { UploadService } from './services/upload.service';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { FilterComponent } from './components/filter/filter.component';
 
 
 
@@ -82,6 +83,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ViewnotepageComponent,
     SearchbarComponent,
     VjsPlayerComponent,
+    FilterComponent,
     AttributionComponent,
     UploadpageComponent,
   ],

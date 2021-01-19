@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayoutAlign="center">
     <div fxLayout="column">
       <!--(How have we not added titles!)-->
-      <h2 style="text-align: center; margin-top: 1em;">Video Title</h2>
+      <h2 style="text-align: center; margin-top: 1em;">{{video?.title}}</h2>
       <h4>{{video?.description}}</h4>
     </div>
   </div>
@@ -15,8 +15,8 @@
   <div fxLayout="column">
   <!-- <h4>Tags:</h4> (no heading I think)-->
   <mat-chip-list aria-label="Tags">
-    <div :*ngFor="let tag of video?.tags">
-      <mat-chip>{{tag.value}}</mat-chip>
+    <div :*ngFor="let tag of topics">
+      <mat-chip *ngIf="tag.name != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>
     </div>
   </mat-chip-list>
   </div>
