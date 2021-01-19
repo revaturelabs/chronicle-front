@@ -13,7 +13,7 @@
             </mat-chip-list>
           </div>
         </div>
-        <div fxLayout="column" style="width:100%;">
+        <div fxLayout="column" style="width:100%;" *ngIf="note">
             <ngx-doc-viewer [url]="note.url" viewer="url" style="margin:auto;width:100%;height:80vh;overflow:hidden"></ngx-doc-viewer>
         </div>
     </div>
