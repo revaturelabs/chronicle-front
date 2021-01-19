@@ -53,13 +53,26 @@ footer{
     min-width:30%;
     border-right: 1px solid map-get($map: $chronicle-brand-text, $key: 100);
     margin-right: 16px;
+    background: #ffffff;
+    padding: 0 40px;
 }
 
 .note{
     border: 1px solid map-get($map: $chronicle-brand-text, $key: 100);
     border-radius: 4px;
     margin-top: 40px;
-    background: #ffffff;
+}
+
+.video-info{
+    min-width:30%;
+    margin-right: 16px;
+    padding: 0 40px;
+}
+
+.video{
+    border: 1px solid map-get($map: $chronicle-brand-text, $key: 100);
+    border-radius: 4px;
+    margin-top: 40px;
 }
 
 .mat-form-field-outline{

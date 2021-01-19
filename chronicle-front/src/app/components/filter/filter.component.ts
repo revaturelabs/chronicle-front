@@ -21,7 +21,6 @@ export class FilterComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredTags: any;
   default?: Tag;
-  lastDateChange?: SatDatepickerRangeValue<Date>;
 
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedBatchTags;
