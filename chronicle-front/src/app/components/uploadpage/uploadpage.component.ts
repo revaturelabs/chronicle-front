@@ -11,6 +11,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 import { Tag } from 'src/app/models/Tag';
+import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 
 
 @Component({
@@ -42,13 +43,19 @@ export class UploadpageComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  topics: Tag[] = [];
+  tags: Tag[] = [];
+  existingTopics: Tag[] = [];
+  existingBatch: Tag[] = [];
 
 
-  constructor(private uploadService: UploadService, private authService: AuthService) { }
+  constructor(private uploadService: UploadService, private authService: AuthService, private mediaRetrievalService: MediaRetrievalService) { }
 
   ngOnInit(): void {
     this.createdBy = firebase.auth().currentUser?.displayName; //Successfully pulled uid from firebase (automation)
+    this.mediaRetrievalService.getAllTags().subscribe(resp => {
+      this.existingTopics = this.mediaRetrievalService.filterTags(resp,"Topic");
+      this.existingBatch = this.mediaRetrievalService.filterTags(resp,"Batch");
+    })
   }
 
   async getFiles() {
@@ -75,7 +82,23 @@ export class UploadpageComponent implements OnInit {
   async upload() {
     let token = await this.authService.getSyncToken();
     this.progress = 0;
-
+    if (this.batch) {
+      let batchExists = true;
+      this.existingBatch.forEach(tag => {
+        if(tag.value.toLowerCase() == this.batch.toLowerCase()) {
+          console.log("pushed " + tag)
+          this.tags.push(tag);
+          batchExists = false;
+        }
+      })
+      if (batchExists) {
+        this.tags.push({
+          tagID: "0",
+          name: "Batch",
+          value: this.batch
+        })
+      }
+    }
     const dataObj = {
       // These properties are not tags 
       title: this.title,
@@ -83,10 +106,8 @@ export class UploadpageComponent implements OnInit {
       date: this.creationDate,
       description: this.description,
 
-      // These properties are tags
-      // BATCH SHOULD BE ADDED EVENTUALLY  
-      // batch: this.batch,
-      tags: this.topics,
+      // These properties are tags 
+      tags: this.tags,
     }
 
     console.log(dataObj.title);
@@ -133,13 +154,34 @@ export class UploadpageComponent implements OnInit {
     // TAGID'S VALUE NEEDS TO BE CHANGED
     // "name" set to "topic" by default 
     if ((value || '').trim()) {
-      this.topics.push({
-        tagID: "0",
-        name: "topic",
-        value: value.trim()
-      });
+      this.existingTopics.forEach(tag => {
+        if (value.toLowerCase() == tag.value.toLowerCase()) {
+          this.tags.push(tag);
+        } 
+      })
+      if (this.tags.length > 0) {
+        let exists = true;
+        this.tags.forEach(tag => {
+          if (value.toLowerCase() == tag.value.toLowerCase()) {
+            exists = false;
+          }
+        })
+        if (exists) {
+          this.tags.push({
+            tagID: "0",
+            name: "Topic",
+            value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
+          });
+        }
+      } else {
+        this.tags.push({
+          tagID: "0",
+          name: "Topic",
+          value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
+        });
+      }
     }
-
+ 
     if (input) {
       input.value = '';
     }
@@ -147,10 +189,10 @@ export class UploadpageComponent implements OnInit {
 
   // Remove a topic 
   remove(topic: Tag): void {
-    const index = this.topics.indexOf(topic);
+    const index = this.tags.indexOf(topic);
 
     if (index >= 0) {
-      this.topics.splice(index, 1);
+      this.tags.splice(index, 1);
     }
   }
 }
