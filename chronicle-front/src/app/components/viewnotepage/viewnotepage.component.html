@@ -1,11 +1,9 @@
 <div class="page">
     <div fxLayout="row" class="note shadow" fxLayoutAlign="center">
         <div fxLayout="column" class="note-info">
-          <!--(How have we not added titles!)-->
           <h2 style="text-align: center; margin-top: 1em;">{{note?.title}}</h2>
           <h4 style="text-align: center;">{{note?.description}}</h4>
           <div fxLayoutAlign="center">
-            <!-- <h4>Tags:</h4> (no heading I think)-->
             <mat-chip-list aria-label="Tags">
               <div :*ngFor="let tag of topics">
                 <mat-chip *ngIf="tag.name != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>

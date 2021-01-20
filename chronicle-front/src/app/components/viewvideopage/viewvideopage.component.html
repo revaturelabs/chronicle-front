@@ -1,23 +1,27 @@
-<div class="page" fxLayout="column">
-  <div fxLayout="row" fxLayoutAlign="center">
-    <div fxLayout="column">
-      <!--(How have we not added titles!)-->
-      <h2 style="text-align: center; margin-top: 1em;">{{video?.title}}</h2>
-      <h4>{{video?.description}}</h4>
+<div class="page">
+  <div fxLayout="column" class="video shadow" style="padding: 40px 0;" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutAlign="center">
+      <div fxLayout="column" style="text-align: center;">
+        <h2>{{video?.title}}</h2>
+        <h4>{{video?.description}}</h4>
+      </div>
     </div>
-  </div>
-
-<div :*ngIf= video >
-  <app-vjsplayer [options]="{fluid: false, height: 360, width : 640, muted : false, autoplay: false, playbackRates:[0.5, 1, 2], sources: [{ src: video.url, type: 'video/mp4' }]}"></app-vjsplayer>
-</div>
-
-<div fxLayout="row" fxLayoutAlign="center" style="margin-top: 20px;">
-  <div fxLayout="column">
-  <!-- <h4>Tags:</h4> (no heading I think)-->
-  <mat-chip-list aria-label="Tags">
-    <div :*ngFor="let tag of topics">
-      <mat-chip *ngIf="tag.name != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>
+    <div fxLayout="row" fxLayoutAlign="center">
+      <div fxLayout="column" style="width:100%;" *ngIf="video">
+        <div :*ngIf=video>
+          <app-vjsplayer
+            [options]="{fluid: false, height: 360, width : 640, muted : false, autoplay: false, playbackRates:[0.5, 1, 2], sources: [{ src: video.url, type: 'video/mp4' }]}">
+          </app-vjsplayer>
+        </div>
+      </div>
     </div>
-  </mat-chip-list>
+    <div fxLayout="row" fxLayoutAlign="center">
+      <mat-chip-list aria-label="Tags">
+        <div :*ngFor="let tag of topics">
+          <mat-chip *ngIf="tag.name != 'Title'" [ngStyle]="colorService.getColorStringFromTag(tag)"
+            (click)="searchTag(tag)">{{tag.value}}</mat-chip>
+        </div>
+      </mat-chip-list>
+    </div>
   </div>
 </div>

@@ -1,18 +1,22 @@
-<mat-card class="panel note-card">
+<mat-card class="note-card shadow panel" routerLink = "notes/{{note?.id}}" role="button" (click) = "click()" fxLayout="row" fxLayoutGap="40px">
+  <div fxFlex="20" fxLayout="column">
+    <img mat-card-image src="https://via.placeholder.com/600x400"/>
+  </div>
+  <div fxLayout="column">
     <mat-card-header>
-      <mat-card-title><a routerLink = "notes/{{note?.id}}" role="button" (click) = "click()">{{note?.title}}</a></mat-card-title>
-      <mat-card-subtitle>Trainer: {{note?.userId}} Batch: {{batch}} Date: {{note?.date}}</mat-card-subtitle>
-      <mat-card-subtitle>{{note?.description}}</mat-card-subtitle>
+      <mat-card-title *ngIf="!note?.title" class="card-custom-title">No Title</mat-card-title>
+      <mat-card-title class="card-custom-title">{{note?.title}}</mat-card-title>
+      <mat-card-subtitle>
+        <p style="margin-bottom: 0;">By {{note?.userId}} - {{note?.date}}</p>
+      </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image src="https://via.placeholder.com/600x400" height="210" width="310"/>
     <mat-card-content>
-      <mat-chip-list>
-        <div *ngFor="let tag of note?.tags">
-          <mat-chip>{{tag.value}}</mat-chip>
+      <p>{{note?.description}}</p>
+      <div style="display: flex;">
+        <div *ngFor="let tag of topics">
+          <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)"  style="margin: 2px;">{{tag.value}}</button>
       </div>
-      </mat-chip-list>
+      </div>
     </mat-card-content>
-    <mat-card-actions fxLayout="row" fxLayoutAlign="center">
-      <button mat-flat-button color="primary" routerLink="{{note?.id}}">View</button>
-    </mat-card-actions>
-  </mat-card>
+  </div>
+</mat-card>
