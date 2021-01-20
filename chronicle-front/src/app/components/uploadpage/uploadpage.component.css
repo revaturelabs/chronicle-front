@@ -38,3 +38,7 @@
     background-color: #3498DB;
     color: white;
 }
+
+.input-field {
+    min-width: 40%;
+}
