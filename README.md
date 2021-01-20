@@ -80,5 +80,17 @@ If you haven't opened a pull request before on Github follow the below instructi
 6) Add @RevatureGentry and @KennethDavis391 as approvers to your request
 7) Select open pull request and viola pull request in progress! Will and Kenneth will comment once they review and merge it in if there are no issues.
 
+### Note on tsconfig.json "skipLibCheck": true setting:
+An imported library (saturn-datepicker) that integrated with angular material had a bug in one of its files that caused ng build errors:
+https://github.com/SaturnTeam/saturn-datepicker/issues/157
+
+`Error: node_modules/saturn-datepicker/datepicker/datepicker.d.ts:57:22`
+
+`node_modules/@angular/material/core/common-behaviors/color.d.ts:15:5`
+
+To solve this issue, we could have edited the node_module file by hand, but that would be manual for all users. Instead, we set "skipLibCheck": true in the tsconfig.json, which stops Typescript type-checking for imported libraries and only type-checks the code used against imported library types. Please see the following article for more details:
+https://stackoverflow.com/questions/52311779/usage-of-the-typescript-compiler-argument-skiplibcheck
+
+If you are able to use a more recent version of saturn-datepicker or angular material, it may be worth it to try removing the "skipLibCheck": true setting and trying ng build. If you receive no errors, then this bug will have been fixed.
 * * *
 
