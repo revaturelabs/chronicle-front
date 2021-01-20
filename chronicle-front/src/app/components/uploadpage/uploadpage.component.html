@@ -35,20 +35,20 @@
             <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline">
                     <mat-label>Topics</mat-label>
-                    <mat-chip-list #chipList aria-label="Topic selection">
-                        <mat-chip *ngFor="let topic of topics" [selectable]="selectable" [removable]="removable"
-                            (removed)="remove(topic)">
-                            {{topic.value}}
+                    <mat-chip-list #chipList aria-label="Tag selection">
+                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
+                            (removed)="remove(tag)">
+                            {{tag.value}}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
-                        <input placeholder="New topic..." [matChipInputFor]="chipList"
+                        <input placeholder="New tag..." [matChipInputFor]="chipList"
                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                             (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                 </mat-form-field>
             </div>
           <!--Which one to keep?-->
-            <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="outline">
                 <mat-label>Topics</mat-label>
                 <mat-chip-list #chipList aria-label="Topic selection">
                     <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
@@ -60,7 +60,7 @@
                         [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                         (matChipInputTokenEnd)="add($event)">
                 </mat-chip-list>
-            </mat-form-field>
+            </mat-form-field> -->
 
             <!-- DESCRIPTION -->
             <div fxLayoutAlign="center" fxFlexFill>
