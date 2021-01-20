@@ -17,7 +17,7 @@
     
             <!-- TITLE -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="input-field">
                     <mat-label for="file-title">Title</mat-label>
                     <input matInput type="text" id="file-title" name="file-title" [(ngModel)]="title">
                 </mat-form-field>
@@ -25,7 +25,7 @@
             
             <!-- BATCH -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="input-field">
                     <mat-label for="file-batch">Batch</mat-label>
                     <input matInput type="text" id="file-batch" name="file-batch" [(ngModel)]="batch">
                 </mat-form-field>
@@ -33,7 +33,7 @@
             
             <!-- TOPICS -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="input-field">
                     <mat-label>Topics</mat-label>
                     <mat-chip-list #chipList aria-label="Tag selection">
                         <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
@@ -64,7 +64,7 @@
 
             <!-- DESCRIPTION -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" class="input-field">
                     <mat-label for="file-description">Description</mat-label>
                     <textarea matInput type="text" id="file-description" name="file-description"
                         [(ngModel)]="description"></textarea>
