@@ -1,13 +1,12 @@
 import { HttpClient, HttpEvent, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { environment } from '../../environments/environment'
 
 @Injectable({providedIn: 'root'})
 export class UploadService {
 
   private baseURL = environment.apiBase;
-
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +16,7 @@ export class UploadService {
   The append() method writes a new value onto the existing key inside the FormData object or
   adds a key if it does not already exist.
   */
- upload(form: string, file: File, token: any): Observable<HttpEvent<any>>{
+ upload(form: string, file: File, token: any): Observable<any>{
    const formData: FormData = new FormData();
    formData.append('json',form);
    formData.append('file',file);
@@ -39,28 +38,6 @@ export class UploadService {
      responseType: 'json'
    });
    return this.http.post<any>(this.baseURL + '/file/upload', formData, httpOptions);
+   
  }
- //unsure if this should even be implemented
- getFiles(token: any): Observable<any>{
-
-  headers: new HttpHeaders({
-    'Authorization': 'Bearer ' + token,
-    'Content-Type': 'application/json'
-  })
-   return this.http.get(this.baseURL + '/file'); //What is the point of this and where is the back-end part?
- }
-
-  // Error handling
-  errorHandl(error: any) {
-    let errorMessage = '';
-    if(error.error instanceof ErrorEvent) {
-      // Get client-side error
-      errorMessage = error.error.message;
-    } else {
-      // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    console.log(errorMessage);
-    return throwError(errorMessage);
-  }
 }

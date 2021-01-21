@@ -3,18 +3,9 @@
         <!-- Title of the page  -->
         <h2 class="page-title">Upload a file</h2>
 
-        <!-- Upload progress bar (Does this work?) -->
-        <!-- <div *ngIf="currentFile" class="progress">
-            <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-                attr.aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"
-                [ngStyle]="{ width: progress + '%' }">
-                {{ progress }}%
-            </div>
-        </div> -->
-    
         <!-- Form fields -->
         <div id="upload-form">
-    
+
             <!-- TITLE -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
@@ -22,7 +13,7 @@
                     <input matInput type="text" id="file-title" name="file-title" [(ngModel)]="title">
                 </mat-form-field>
             </div>
-            
+
             <!-- BATCH -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
@@ -30,82 +21,41 @@
                     <input matInput type="text" id="file-batch" name="file-batch" [(ngModel)]="batch">
                 </mat-form-field>
             </div>
-            
+
             <!-- TOPICS -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
                     <mat-label>Topics</mat-label>
                     <mat-chip-list #chipList aria-label="Tag selection">
-                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
-                            (removed)="remove(tag)">
+                        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
                             {{tag.value}}
                             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                         </mat-chip>
-                        <input placeholder="New tag..." [matChipInputFor]="chipList"
-                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                            (matChipInputTokenEnd)="add($event)">
+                        <input #input placeholder="New topic..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
                     </mat-chip-list>
                 </mat-form-field>
             </div>
-          <!--Which one to keep?-->
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>Topics</mat-label>
-                <mat-chip-list #chipList aria-label="Topic selection">
-                    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable"
-                        (removed)="remove(tag)">
-                        {{tag.value}}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                    <input placeholder="New topic..." [matChipInputFor]="chipList"
-                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-                        (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-            </mat-form-field> -->
 
             <!-- DESCRIPTION -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
                     <mat-label for="file-description">Description</mat-label>
-                    <textarea matInput type="text" id="file-description" name="file-description"
-                        [(ngModel)]="description"></textarea>
+                    <textarea matInput type="text" id="file-description" name="file-description" [(ngModel)]="description"></textarea>
                 </mat-form-field>
             </div>
-    
+
             <!-- Old  -->
             <div fxLayoutAlign="center">
                 <label class="btn btn-default">
-                    <input type="file" (change)="selectFile($event)" />
+                    <input #file type="file" (change)="selectFile($event)" />
                 </label>
             </div>
             <br>
-    
-    
-            <!-- CHOOSE FILE -->
-            <!-- Need to import NgxMatFileInputModule -->
-            <!-- <mat-form-field appearance="outline">
-                <mat-label for="file-topic">Choose a file</mat-label>
-                <ngx-mat-file-input type="file" (change)="selectFile($event)" ></ngx-mat-file-input>
-            </mat-form-field> -->
-    
+
             <!-- UPLOAD BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles"
-                (click)="upload()">Upload</button>
+                <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
             </div>
         </div>
-    
-    
-        <!-- File upload status message (Does this work?) -->
-        <!-- <div class="alert alert-light" role="alert">{{ message }}</div> -->
-
-        <!-- NOT SURE WHAT THIS IS, COMMENTING OUT FOR NOW -->
-        <!-- <div class="card">
-            <div class="card-header">List of Files</div>
-            <ul class="list-group list-group-flush" *ngFor="let file of fileInfos | async">
-                <li class="list-group-item">
-                    <a href="{{ file.url }}">{{ file.name }}</a>
-                </li>
-            </ul>
-        </div> -->
     </div>
 </div>
