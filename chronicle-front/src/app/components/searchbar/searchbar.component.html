@@ -1,0 +1,33 @@
+<div fxFlex="200" fxFlexAlign="center">
+  <mat-form-field class="search" appearance="outline" style="width:500px;">
+    <mat-label>Search tags</mat-label>
+    <mat-chip-list #chipList aria-label="Tag selection">
+      <mat-chip
+        *ngFor="let tag of tags"
+        [selectable]="selectable"
+        [removable]="removable"
+        (removed)="remove(tag)">
+        {{tag.value}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input
+        placeholder="Enter Tag"
+        #tagInput
+        [formControl]="tagCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        > 
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag.value}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<!--
+<div fxFlex="10" fxFlexAlign="center">
+  <button mat-flat-button color="primary">Search</button>
+</div>
+-->

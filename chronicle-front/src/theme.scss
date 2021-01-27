@@ -1,0 +1,169 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+// define a real custom palette (using http://mcg.mbitson.com)
+$chronicle-brand-primary: (
+    50 : #fdede5,
+    100 : #fbd2be,
+    200 : #f9b492,
+    300 : #f69666,
+    400 : #f48046,
+    500 : #f26925,
+    600 : #f06121,
+    700 : #ee561b,
+    800 : #ec4c16,
+    900 : #e83b0d,
+    A100 : #ffffff,
+    A200 : #ffe6e0,
+    A400 : #ffbbad,
+    A700 : #ffa694,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$chronicle-brand-accent: (
+    50 : #eef4f8,
+    100 : #d5e4ed,
+    200 : #b9d2e1,
+    300 : #9cbfd4,
+    400 : #87b2cb,
+    500 : #72a4c2,
+    600 : #6a9cbc,
+    700 : #5f92b4,
+    800 : #5589ac,
+    900 : #42789f,
+    A100 : #f4faff,
+    A200 : #c1e4ff,
+    A400 : #8eceff,
+    A700 : #74c3ff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$chronicle-brand-warn: (
+    50 : #fff6e3,
+    100 : #fee9b9,
+    200 : #feda8a,
+    300 : #fdcb5b,
+    400 : #fcbf37,
+    500 : #fcb414,
+    600 : #fcad12,
+    700 : #fba40e,
+    800 : #fb9c0b,
+    900 : #fa8c06,
+    A100 : #ffffff,
+    A200 : #fff7ee,
+    A400 : #ffdebb,
+    A700 : #ffd1a2,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$chronicle-brand-text: (
+    50 : #e9eaeb,
+    100 : #c8c9cc,
+    200 : #a3a6aa,
+    300 : #7e8288,
+    400 : #63676f,
+    500 : #474c55,
+    600 : #40454e,
+    700 : #373c44,
+    800 : #2f333b,
+    900 : #20242a,
+    A100 : #74a3ff,
+    A200 : #4181ff,
+    A400 : #0e5fff,
+    A700 : #0051f4,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #ffffff,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);
+
+
+$chronicle-primary: mat-palette($chronicle-brand-primary, 700);
+$chronicle-accent:  mat-palette($chronicle-brand-accent, 600);
+$chronicle-warn:    mat-palette($chronicle-brand-warn, 600);
+$chronicle-theme: mat-light-theme($chronicle-primary, $chronicle-accent, $chronicle-warn);
+
+
+@function light-foreground($color) {
+    @return (
+        base:              $color,
+        divider:           $black-12-opacity,
+        dividers:          $black-12-opacity,
+        disabled:          rgba($color, 0.38),
+        disabled-button:   rgba($color, 0.38),
+        disabled-text:     rgba($color, 0.38),
+        hint-text:         rgba($color, 0.38),
+        secondary-text:    rgba($color, 0.54),
+        icon:              rgba($color, 0.54),
+        icons:             rgba($color, 0.54),
+        text:              rgba($color, 0.87),
+        slider-min:        rgba($color, 0.87),
+        slider-off:        rgba($color, 0.26),
+        slider-off-active: rgba($color, 0.38),
+    );
+};
+
+// You can put any color here. I've chosen mat-color($my-app-primary, 700)
+$chronicle-foreground: light-foreground(mat-color($chronicle-brand-text,800));
+
+$chronicle-theme-custom: map-merge($chronicle-theme, (foreground: $chronicle-foreground));
+
+// Include your custom theme.
+@include angular-material-theme($chronicle-theme-custom);

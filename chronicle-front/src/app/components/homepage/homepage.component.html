@@ -1,0 +1,26 @@
+<div fxLayout="column" class="page" fxLayoutGap="20px">
+    <div fxLayout="row" fxFlexAlign="center">
+        <h2 class="page-title">Welcome User</h2>
+    </div>
+    <div fxLayout="row" fxFlexAlign="center" fxLayoutGap="20px">
+        <div fxLayout="column">
+            <mat-card class="dash-card">
+                <img class="card-ico" mat-card-image src="../../../assets/images/notes-img.png" alt="placeholder">
+                <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+                    <button mat-flat-button color="primary" routerLink="notes">Browse Notes</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div fxLayout="column">
+            <mat-card class="dash-card">
+                <img class="card-ico" mat-card-image src="../../../assets/images/videos-img.png" alt="placeholder">
+                <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+                    <button mat-flat-button color="primary" id="browse-videos" routerLink="videos">Browse Videos</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="row" fxFlexAlign="center">
+        <button mat-flat-button color="primary" id="upload" routerLink="upload">Upload Media</button>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<mat-card fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="row">
+    <h4 style="text-align: center;">Filters</h4>
+  </div>
+  <mat-form-field class="example-chip-list" appearance="outline" fxLayout="row">
+    <mat-label>Batch</mat-label>
+    <mat-chip-list #chipList aria-label="Tag selection">
+      <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+        {{tag.value}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <div *ngIf="tags.length == 0">
+        <input placeholder="Enter Batch" #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+      </div>
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+        {{tag.value}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!--Saturn Datepicker is included if you want to accept a range of dates as input at some point-->
+  <mat-form-field appearance="outline" fxLayout="row">
+    <mat-label>Date</mat-label>
+    <input matInput type="date" placeholder="Choose a date" (input)="getDate($event)">
+  </mat-form-field>
+</mat-card>

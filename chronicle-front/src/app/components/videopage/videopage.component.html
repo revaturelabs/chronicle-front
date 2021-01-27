@@ -1,0 +1,25 @@
+<div class="page" fxLayout="column">
+    <div  fxFlexAlign="center" fxLayout="row">
+        <h2 class="page-title">Videos</h2>
+    </div>
+    <div fxFlexAlign="center" fxLayout="row">
+        <app-searchbar></app-searchbar>
+        <button class="search-btn" mat-flat-button color="primary" (click)="onSearch()">Search</button>
+        <br>
+    </div>
+    <div fxLayout="row" fxLayoutGap="20px">
+        <div fxLayout="column" fxFlex="18">
+            <div class="no-results" *ngIf="noResults">
+                No results found for selected criteria. Please try again!
+            </div>
+            <app-filter></app-filter>
+        </div>
+        <div class="content" fxLayout="column" fxLayout.xs="column">
+            <div fxLayoutAlign="center" fxLayout="column" *ngIf="!noResults">
+                <div *ngFor="let video of videos">
+                    <app-video-panel [video] = video></app-video-panel>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+.example-spacer {
+    flex: 5 1 auto;
+  }
+
+
+.logo {
+    height: 60px;
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-size: 25px;
+}

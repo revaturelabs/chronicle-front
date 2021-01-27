@@ -1,0 +1,13 @@
+.video-card {
+    margin-bottom: 10px;
+}
+
+.mat-card-image {
+  width: calc(100% + 32px);
+  margin: -16px;
+}
+
+.card-custom-title{
+  text-decoration: none;
+  color: black;
+}
