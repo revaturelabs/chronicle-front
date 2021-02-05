@@ -89,7 +89,7 @@ export class UploadpageComponent implements OnInit {
       if (batchExists) {
         this.tags.push({
           tagID: "0",
-          name: "Batch",
+          type: "Batch",
           value: this.batch
         })
       }
@@ -158,14 +158,14 @@ export class UploadpageComponent implements OnInit {
         if (exists) {
           this.tags.push({
             tagID: "0",
-            name: "Topic",
+            type: "Topic",
             value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
           });
         }
       } else {
         this.tags.push({
           tagID: "0",
-          name: "Topic",
+          type: "Topic",
           value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
         });
       }
