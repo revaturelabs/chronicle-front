@@ -16,7 +16,7 @@ export class UploadService {
   The append() method writes a new value onto the existing key inside the FormData object or
   adds a key if it does not already exist.
   */
- upload(form: string, file: File, token: any): Observable<any>{
+ upload(form: string, file: File): Observable<any>{
    const formData: FormData = new FormData();
    formData.append('json',form);
    formData.append('file',file);

@@ -1,4 +1,4 @@
-import {Injectable, NgZone} from '@angular/core';
+import {Injectable, NgZone, OnInit} from '@angular/core';
 import {BehaviorSubject, fromEventPattern, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
@@ -30,7 +30,15 @@ export class AuthService {
  * It is set to private to enforce a call to Firebase when the getter is called.
    */
   private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  private jwt: string | null = null;  
 
+  get Jwt(): string|null{
+    if(!this.jwt){
+      this.jwt = localStorage.getItem("authToken");  
+    }
+    return this.jwt; 
+  }
+  
   get User(): BehaviorSubject<User | null> {
     if (!this.user.value)
       this.afAuth.user.pipe(first()).subscribe(user => this.user.next(user));
@@ -40,22 +48,18 @@ export class AuthService {
     this.user.next(user);
   }
 
+
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
 
-/**
- * Gets a synchrounous user token, needed for reload on init functionality
- *
- * @returns Promise<string> of a token
- * */
-  async getSyncToken(): Promise<string | null | undefined> {
-
-    return await this.afAuth.idToken.pipe(first()).toPromise();
-
+  private setToken(){
+    this.afAuth.idToken.pipe(first()).subscribe(token =>{
+      this.jwt = token; 
+      localStorage.setItem("authToken", token ? token : "" );
+    })
   }
 
-
-
   login(): void {
+    this.setToken(); 
     this.router.navigate(['/']);
   }
 
@@ -65,6 +69,8 @@ export class AuthService {
  *
  * */
   logout(): void {
+    this.jwt = null;
+    localStorage.clear();  
     this.router.navigate(['/login']);
     this.user.next(null);
     this.afAuth.signOut();

@@ -35,10 +35,8 @@ export class HomepageComponent implements OnInit {
  *
  * */
  async getHelloTest(): Promise<void> {
-
     this.helloService.getHello()
     .subscribe(data => {console.log(data), console.log('this also should be getting called'); });
-
 
     }
 
