@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
     console.log(firebase.auth().currentUser?.displayName);
     console.log(firebase.auth().currentUser?.uid);
     console.log(firebase.auth().currentUser?.emailVerified);
+    console.log(firebase.auth().currentUser); 
     firebase.auth().currentUser?.getIdToken().then(token => console.log(token));
     this.authService.login();
   }

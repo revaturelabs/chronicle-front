@@ -43,13 +43,15 @@ import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { environment } from '../environments/environment';
 
 
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AttributionComponent } from './components/attribution/attribution.component';
 import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
 import { UploadService } from './services/upload.service';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FilterComponent } from './components/filter/filter.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+
 
 
 
@@ -123,7 +125,14 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   ],
   providers: [
     UploadService,
-    MediaRetrievalService],
+    MediaRetrievalService, 
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: TokenInterceptorService, 
+      multi: true
+    }
+  ], 
+    
   bootstrap: [AppComponent]
 })
 

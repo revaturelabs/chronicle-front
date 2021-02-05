@@ -40,7 +40,7 @@ export class SearchbarComponent implements OnInit {
     //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       // Filters tags to be only ones with a key of "topic"
-      this.topicTags = resp.filter(tag => tag.name == 'Topic');
+      this.topicTags = resp.filter(tag => tag.type == 'Topic');
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),

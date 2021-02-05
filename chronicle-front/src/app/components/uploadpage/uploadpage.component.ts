@@ -73,8 +73,8 @@ export class UploadpageComponent implements OnInit {
     After the progress has finished the event will be an HttpResponse object which we can then assign
     its contents to the fileInfos variable after calling the getFiles() method.
   */
-  async upload() {
-    let token = await this.authService.getSyncToken();
+  upload() {
+    //this still uses the .getSyncToken()
     this.progress = 0;
 
     if (this.batch) {
@@ -89,7 +89,7 @@ export class UploadpageComponent implements OnInit {
       if (batchExists) {
         this.tags.push({
           tagID: "0",
-          name: "Batch",
+          type: "Batch",
           value: this.batch
         })
       }
@@ -108,7 +108,7 @@ export class UploadpageComponent implements OnInit {
     console.log("File: " + this.currentFile);
 
     //Call the Upload Service to send our data to the back-end
-    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile, token).subscribe(
+    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile).subscribe(
       resp => {
         /* Future feature: Recieve UploadProgress 
         status that can be displayed on a Progress Bar */
@@ -158,14 +158,14 @@ export class UploadpageComponent implements OnInit {
         if (exists) {
           this.tags.push({
             tagID: "0",
-            name: "Topic",
+            type: "Topic",
             value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
           });
         }
       } else {
         this.tags.push({
           tagID: "0",
-          name: "Topic",
+          type: "Topic",
           value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
         });
       }
