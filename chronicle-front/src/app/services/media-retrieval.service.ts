@@ -37,14 +37,14 @@ export class MediaRetrievalService {
 
 
   public searchVideoTag(tag : Tag){
-    if (tag.name == "Topic") {
+    if (tag.type == "Topic") {
     this.selectedTags = [tag];
     this.router.navigateByUrl('/videos');
     }
   }
 
   public searchNoteTag(tag : Tag){
-    if (tag.name == "Topic") {
+    if (tag.type == "Topic") {
     this.selectedTags = [tag];
     this.router.navigateByUrl('/notes');
     }
@@ -54,7 +54,7 @@ export class MediaRetrievalService {
   // Retrieves all tags from the db and maps them to a Tag model
   // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
-    return allTags.filter(tag => tag.name == tagName);
+    return allTags.filter(tag => tag.type == tagName);
   }
 
  public formatDate(input: string){
@@ -70,7 +70,7 @@ export class MediaRetrievalService {
       return resp.map((tag:any) => {
         let newTag: Tag = {
           tagID: tag.tagID,
-          name: tag.name,
+          type: tag.type,
           value: tag.value
         };
         return newTag;
@@ -105,7 +105,7 @@ export class MediaRetrievalService {
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
-      tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagID}:${tag.type}:${tag.value}+`;
     });
     tagPath = tagPath.slice(0,-1);
     // this.setHeaders();
@@ -174,7 +174,7 @@ export class MediaRetrievalService {
     console.log("search tags here" + tags[0])
     console.log(tags)
     tags.forEach(tag => {
-      tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagID}:${tag.type}:${tag.value}+`;
     });
     console.log("SearchHere")
     console.log("tagPath: " + tagPath);

@@ -11,12 +11,12 @@ export class TagColorService {
   public getColorStringFromTag(tag : Tag) : any {
 
 
-    if (tag.name == "Technology")
+    if (tag.type == "Technology")
     return {
       "background-color": '#1B93F3',
       "color": "white"
     }
-    else if (tag.name == "Date") {
+    else if (tag.type == "Date") {
       return {
       "background-color": '#22243F',
       "color": "white"
