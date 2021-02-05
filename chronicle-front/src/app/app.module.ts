@@ -19,7 +19,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
-import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
+// import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -55,10 +55,10 @@ import { FilterComponent } from './components/filter/filter.component';
 
 
 /**
- * This renders the firebaseUI based on configuration. 
+ * This renders the firebaseUI based on configuration.
  * Currently only set for email authentication.
  * Refer to firebaseUI documentation on how to display other forms of auth
- * 
+ *
  * */
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -110,7 +110,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatGridListModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
@@ -118,8 +118,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatNativeDateModule,
     NgxMatFileInputModule,
     NgxDocViewerModule,
-    SatDatepickerModule,
-    SatNativeDateModule
+    // SatDatepickerModule,
+    // SatNativeDateModule
   ],
   providers: [
     UploadService,
