@@ -21,13 +21,6 @@ export class UploadService {
    formData.append('json',form);
    formData.append('file',file);
 
-  //  let httpOptions: any = {
-  //   headers: new HttpHeaders({
-  //     'Authorization': 'Bearer ' + token
-  //   }),
-  //   observe: 'response'
-  // };
-
    /*
    The HttpClient allows us to send a POST request to the spring boot server.
    FormData also allows us to use a feature called reportProgress to show the status of uploading a file,
@@ -38,6 +31,6 @@ export class UploadService {
      responseType: 'json'
    });
    return this.http.post<any>(this.baseURL + '/file/upload', formData);
-   
+
  }
 }
