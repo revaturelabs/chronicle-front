@@ -36,6 +36,9 @@ export class AuthService {
       this.afAuth.user.pipe(first()).subscribe(user => this.user.next(user));
     return this.user;
   }
+  setUser(user: User) {
+    this.user.next(user);
+  }
 
   /**
  * Asynchronous Varaibles, use in HTML, but not in API calls
@@ -143,15 +146,8 @@ export class AuthService {
  *
  * */
   logout(): void {
-
     this.router.navigate(['/login']);
-
-    this.token = null;
-    this.displayName = null;
-    this.uID = null;
-    this.email = null;
-
-
+    this.user.next(null);
     this.afAuth.signOut();
   }
 }
