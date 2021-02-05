@@ -40,29 +40,7 @@ export class AuthService {
     this.user.next(user);
   }
 
-  /**
- * Asynchronous Varaibles, use in HTML, but not in API calls
- * */
-  token?: any;
-  displayName?: any;
-  email?: any;
-  uID?: any;
-
-
-
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
-
-
-
-/**
- * Gets a user object synchronously, useful for reload on init
- *
- *
- * @returns Promise of a Firebase User
- * */
-  // async getSyncUser(): Promise<User | null> {
-  //   return await this.afAuth.user.pipe(first()).toPromise();
-  // }
 
 /**
  * Gets a synchrounous user token, needed for reload on init functionality
@@ -74,65 +52,6 @@ export class AuthService {
     return await this.afAuth.idToken.pipe(first()).toPromise();
 
   }
-
-  /**
- * Gets a synchrounous user token, needed for reload on init functionality
- *
- * @returns Promise<string> of a idtoken result
- * */
-  // async getSyncIDTokenResult(): Promise<IdTokenResult | undefined> {
-
-  //   let user = await this.getSyncUser();
-
-  //  return await user?.getIdTokenResult();
-
-  // }
-
-/**
- * Gets a synchrounous user id, needed for reload on init functionality
- *
- * @returns Promise<string> of a uID
- * */
-  // async getSyncUID(): Promise<string | null | undefined> {
-
-  //  return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.uid);
-
-  // }
-
-  /**
- * Gets a synchrounous display name, needed for reload on init functionality
- *
- * @returns Promise<string> of a display name
- * */
-  // async getSyncDisplayName(): Promise<string | null | undefined> {
-
-  //   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.displayName);
-
-  //  }
-
-
-/**
- * Gets a synchrounous user email, needed for reload on init functionality
- *
- * @returns Promise<string> of a email
- * */
-  //  async getSyncEmail(): Promise<string | null | undefined> {
-
-  //   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.email);
-
-  //  }
-
-
-   /**
- * Gets a synchrounous user MetaData object, needed for reload on init functionality
- *
- * @returns Promise<UserMetadata> of type UserMetaData
- * */
-  //  async getSyncMetaData(): Promise<string | UserMetadata | null | undefined> {
-
-  //   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.metadata);
-
-  //  }
 
 
 
