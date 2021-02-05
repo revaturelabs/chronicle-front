@@ -20,23 +20,16 @@ export class AppComponent implements OnInit {
  * This sets user variables in the auth service,
  * It is good to use to check ifLoggedIn or other asynchronous needs,
  * Do not use these user variables in ngOnInit Functions or they will not work on page reload.
- * 
+ *
  * */
 ngOnInit(): void {
-
 
     this.afAuth.onAuthStateChanged(user => {
 
       if (user) {
-
-          this.authService.getSyncDisplayName().then(result => this.authService.displayName = result);
-          this.authService.getSyncEmail().then(result => this.authService.email = result);
-          this.authService.getSyncUID().then(result => this.authService.uID = result);
-
-
+        this.authService.setUser(user);
       }
 
     });
-
   }
 }
