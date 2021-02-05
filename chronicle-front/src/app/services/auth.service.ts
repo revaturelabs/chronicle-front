@@ -18,12 +18,24 @@ import { UserMetadata, User, IdTokenResult } from '@firebase/auth-types';
  * The authService contains functionality for accessing Synchronous user data.
  * This class is created to solve the issue of a Page Reload and the initialization of componenent happening at the same time.
  * User data is null on the initialization of the app because the app reaches out to the google apis to either reverify the validility of the token or to get a new one.
- * 
+ *
  * Short term explanation - Avoid using firebase.auth().xx where possible
- * 
+ *
  * @author Justin Kroh
  * */
 export class AuthService {
+
+  /**
+ * This behavior subject is the logged in user.
+ * It is set to private to enforce a call to Firebase when the getter is called.
+   */
+  private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+
+  get User(): BehaviorSubject<User | null> {
+    if (!this.user.value)
+      this.afAuth.user.pipe(first()).subscribe(user => this.user.next(user));
+    return this.user;
+  }
 
   /**
  * Asynchronous Varaibles, use in HTML, but not in API calls
@@ -36,22 +48,22 @@ export class AuthService {
 
 
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
- 
+
 
 
 /**
  * Gets a user object synchronously, useful for reload on init
- * 
- * 
- * @returns Promise of a Firebase User 
+ *
+ *
+ * @returns Promise of a Firebase User
  * */
-  async getSyncUser(): Promise<User | null> {
-    return await this.afAuth.user.pipe(first()).toPromise();
-  }
+  // async getSyncUser(): Promise<User | null> {
+  //   return await this.afAuth.user.pipe(first()).toPromise();
+  // }
 
 /**
  * Gets a synchrounous user token, needed for reload on init functionality
- * 
+ *
  * @returns Promise<string> of a token
  * */
   async getSyncToken(): Promise<string | null | undefined> {
@@ -62,62 +74,62 @@ export class AuthService {
 
   /**
  * Gets a synchrounous user token, needed for reload on init functionality
- * 
+ *
  * @returns Promise<string> of a idtoken result
  * */
-  async getSyncIDTokenResult(): Promise<IdTokenResult | undefined> {
+  // async getSyncIDTokenResult(): Promise<IdTokenResult | undefined> {
 
-    let user = await this.getSyncUser();
+  //   let user = await this.getSyncUser();
 
-   return await user?.getIdTokenResult();
+  //  return await user?.getIdTokenResult();
 
-  }
+  // }
 
 /**
  * Gets a synchrounous user id, needed for reload on init functionality
- * 
+ *
  * @returns Promise<string> of a uID
  * */
-  async getSyncUID(): Promise<string | null | undefined> {
+  // async getSyncUID(): Promise<string | null | undefined> {
 
-   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.uid);
+  //  return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.uid);
 
-  }
+  // }
 
   /**
  * Gets a synchrounous display name, needed for reload on init functionality
- * 
+ *
  * @returns Promise<string> of a display name
  * */
-  async getSyncDisplayName(): Promise<string | null | undefined> {
+  // async getSyncDisplayName(): Promise<string | null | undefined> {
 
-    return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.displayName);
+  //   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.displayName);
 
-   }
+  //  }
 
 
 /**
  * Gets a synchrounous user email, needed for reload on init functionality
- * 
+ *
  * @returns Promise<string> of a email
  * */
-   async getSyncEmail(): Promise<string | null | undefined> {
+  //  async getSyncEmail(): Promise<string | null | undefined> {
 
-    return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.email);
+  //   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.email);
 
-   }
+  //  }
 
 
    /**
  * Gets a synchrounous user MetaData object, needed for reload on init functionality
- * 
+ *
  * @returns Promise<UserMetadata> of type UserMetaData
  * */
-   async getSyncMetaData(): Promise<string | UserMetadata | null | undefined> {
+  //  async getSyncMetaData(): Promise<string | UserMetadata | null | undefined> {
 
-    return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.metadata);
+  //   return await this.afAuth.user.pipe(first()).toPromise().then(user => user?.metadata);
 
-   }
+  //  }
 
 
 
@@ -128,7 +140,7 @@ export class AuthService {
 
 /**
  * Logs out the user, destroys token in IndexedDB, nulls out asynchrounous values
- * 
+ *
  * */
   logout(): void {
 
