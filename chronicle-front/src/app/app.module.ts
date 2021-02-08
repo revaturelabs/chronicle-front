@@ -20,7 +20,7 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
-import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
+// import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -124,8 +124,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatNativeDateModule,
     NgxMatFileInputModule,
     NgxDocViewerModule,
-    SatDatepickerModule,
-    SatNativeDateModule
+    // SatDatepickerModule,
+    // SatNativeDateModule
   ],
   providers: [
     UploadService,
