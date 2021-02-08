@@ -51,6 +51,7 @@ import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.co
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FilterComponent } from './components/filter/filter.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ResponseInterceptorService } from './services/response-interceptor.service';
 
 
 
@@ -129,6 +130,11 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     {
       provide: HTTP_INTERCEPTORS, 
       useClass: TokenInterceptorService, 
+      multi: true
+    }, 
+    {
+      provide: HTTP_INTERCEPTORS, 
+      useClass: ResponseInterceptorService, 
       multi: true
     }
   ], 
