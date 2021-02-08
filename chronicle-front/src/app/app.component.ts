@@ -32,13 +32,11 @@ ngOnInit(): void {
       }
 
     });
-    this.authService.User.subscribe(user => {
-      
-      this.afAuth.user.subscribe(thisUser =>{
-        console.log(thisUser); 
-      })
-      console.log(user); 
-    })
+    // this.authService.User.subscribe(user => {
+
+    //   this.afAuth.user.subscribe(thisUser =>{
+    //   })
+    // })
 
   }
 }
