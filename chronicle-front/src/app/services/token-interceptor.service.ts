@@ -10,14 +10,14 @@ export class TokenInterceptorService implements HttpInterceptor {
   constructor(private afauth: AngularFireAuth, private authService: AuthService){}
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       // All HTTP requests are going to go through this method
-    
-      let authToken = this.authService.Jwt; 
+
+      let authToken = this.authService.Jwt;
       let reqHeaders = new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${authToken}`
       })
       console.log("token" , authToken);
-      
+
       return next.handle(req.clone({headers: reqHeaders}))
 
   }

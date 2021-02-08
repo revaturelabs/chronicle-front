@@ -44,14 +44,30 @@
                 </mat-form-field>
             </div>
 
+            <!-- Private Checkbox -->
+            <div fxLayoutAlign="center" fxFlexFill>
+              <section class="example-section">
+                <!-- <mat-checkbox class="example-margin">Private</mat-checkbox> -->
+                <input id="private" type="checkbox" [(ngModel)]="private">
+                <label for="private">Private</label>
+              </section>
+            </div>
+
+            <!-- Displays Whitelist Select if is Private -->
+            <div [ngClass]="{ 'hidden': !private }">
+              <div fxLayoutAlign="center" fxFlexFill>
+                <app-whitelist-select (selectedUserIDs)="setUserList($event)"></app-whitelist-select>
+              </div>
+            </div>
+
             <!-- Old  -->
             <div fxLayoutAlign="center">
                 <label class="btn btn-default">
                     <input #file type="file" (change)="selectFile($event)" />
                 </label>
             </div>
-            <br>
 
+            <br>
             <!-- UPLOAD BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>

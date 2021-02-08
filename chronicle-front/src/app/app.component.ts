@@ -40,6 +40,5 @@ ngOnInit(): void {
       console.log(user); 
     })
 
-    
   }
 }
