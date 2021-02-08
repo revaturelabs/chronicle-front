@@ -42,3 +42,7 @@
 .input-field {
     min-width: 40%;
 }
+
+.hidden{
+  display: none;
+}
