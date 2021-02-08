@@ -45,11 +45,9 @@
             </div>
 
             <!-- Private Checkbox -->
-            <div fxLayoutAlign="center" fxFlexFill>
-              <section class="example-section">
-                <!-- <mat-checkbox class="example-margin">Private</mat-checkbox> -->
-                <input id="private" type="checkbox" [(ngModel)]="private">
-                <label for="private">Private</label>
+            <div>
+              <section class="private-checkbox">    
+                <mat-checkbox class="example-margin" [(ngModel)] = "private">Private</mat-checkbox>
               </section>
             </div>
 

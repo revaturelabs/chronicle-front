@@ -46,3 +46,7 @@
 .hidden{
   display: none;
 }
+
+.private-checkbox{
+    padding-left: 457px;
+}

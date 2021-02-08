@@ -10,6 +10,8 @@ import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage
 import { AttributionComponent } from './components/attribution/attribution.component';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 
+
+
 const routes: Routes = [{
   path: '',
   component: HomepageComponent, canActivate: [AngularFireAuthGuard]
