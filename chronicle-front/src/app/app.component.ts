@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,7 +32,13 @@ ngOnInit(): void {
       }
 
     });
+    this.authService.User.subscribe(user => {
+      
+      this.afAuth.user.subscribe(thisUser =>{
+        console.log(thisUser); 
+      })
+      console.log(user); 
+    })
 
-    // this.authService.User.subscribe(user => console.log(user) )
   }
 }
