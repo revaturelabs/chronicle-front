@@ -22,8 +22,10 @@ export class UploadpageComponent implements OnInit {
   title: string = "";
   batch: string = "";
   description: string = "";
+  private: boolean = false;
+  userWhitelist: string[] = [];
 
-  // Variables that are autmoatically filled 
+  // Variables that are autmoatically filled
   createdBy: string | any = "";
   creationDate: Date = new Date();
 
@@ -35,7 +37,7 @@ export class UploadpageComponent implements OnInit {
   message = '';
   fileInfos!: Observable<any>;
 
-  // Variables related to topics 
+  // Variables related to topics
   @ViewChild('input') input!: ElementRef;
   visible = true;
   selectable = true;
@@ -94,6 +96,13 @@ export class UploadpageComponent implements OnInit {
         })
       }
     }
+
+    // If private, set whitelist
+    let whitelist = [];
+    if (this.private) {
+      whitelist = this.userWhitelist;
+    }
+
     //The JSON object we are going to send to the back-end using the Upload Service
     const dataObj = {
       title:        this.title,
@@ -108,9 +117,9 @@ export class UploadpageComponent implements OnInit {
     console.log("File: " + this.currentFile);
 
     //Call the Upload Service to send our data to the back-end
-    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile).subscribe(
-      resp => {
-        /* Future feature: Recieve UploadProgress 
+    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile)
+    .subscribe(resp => {
+        /* Future feature: Recieve UploadProgress
         status that can be displayed on a Progress Bar */
 
         //Recieve HTTP status response and display as a Snack Bar
@@ -122,10 +131,10 @@ export class UploadpageComponent implements OnInit {
         this.snackBar.open('An error has occured with your request!', 'Close', {duration: 2000});
       });
 
-    
+
     this.resetFields();
   }
-  
+
   resetFields(): void {
     this.title = "";
     this.description = "";
@@ -133,20 +142,21 @@ export class UploadpageComponent implements OnInit {
     this.tags = [];
     this.input.nativeElement.value = "";
     this.file.nativeElement.value = "";
+    this.private = false;
   }
 
-  // Methods for adding and removing topic tags 
+  // Methods for adding and removing topic tags
   // Add a topic
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    // "name" set to "topic" by default 
+    // "name" set to "topic" by default
     if ((value || '').trim()) {
       this.existingTopics.forEach(tag => {
         if (value.toLowerCase() == tag.value.toLowerCase()) {
           this.tags.push(tag);
-        } 
+        }
       })
       if (this.tags.length > 0) {
         let exists = true;
@@ -170,18 +180,22 @@ export class UploadpageComponent implements OnInit {
         });
       }
     }
- 
+
     if (input) {
       input.value = '';
     }
   }
 
-  // Remove a topic 
+  // Remove a topic
   remove(topic: Tag): void {
     const index = this.tags.indexOf(topic);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+  }
+
+  setUserList(idList: string[]) {
+    this.userWhitelist = idList;
   }
 }
