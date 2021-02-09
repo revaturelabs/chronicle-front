@@ -1,1 +1,31 @@
-<p>whitelist-select works!</p>
+<div fxFlex="200" fxFlexAlign="center">
+    <mat-form-field class="search" appearance="outline" style="width:500px;">
+      <mat-label>Search users</mat-label>
+      <mat-chip-list #chipList aria-label="Tag selection">
+        <mat-chip
+          *ngFor="let user of selectedUsers"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(user)"
+          >
+          {{user.displayName}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Enter User"
+          #userInput
+          [formControl]="userCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          > 
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+          {{user.displayName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  
