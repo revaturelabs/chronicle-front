@@ -66,7 +66,7 @@ export class SearchbarComponent implements OnInit {
     
     this.mediaRetrievalService.selectedTags.push(event.option.value);
      // removes a tag from the list if it has already been selected
-    
+    console.log(event.option.value); 
     this.topicTags.splice(this.topicTags.indexOf(event.option.value), 1);
     
     if (this.tagInput)

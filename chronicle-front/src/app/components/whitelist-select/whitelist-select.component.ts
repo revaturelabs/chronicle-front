@@ -1,9 +1,13 @@
 import { UsersService } from './../../services/users.service';
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
+/**
+ * @title Mult-select whitelist auto-complete
+ */
 
 @Component({
   selector: 'app-whitelist-select',
@@ -11,70 +15,57 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./whitelist-select.component.css']
 })
 export class WhitelistSelectComponent implements OnInit {
-  visible = true;
+
+  @Output() whitelist: EventEmitter<string[]> = new EventEmitter<string[]>();
+  userControl = new FormControl();
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  userCtrl = new FormControl();
-  filteredUsers: any; 
+  users: any = [];
+  selectedUsers: any[] = new Array<any>();
+  filteredUsers!:Observable<any[]>;
+  lastFilter: string = '';
 
-  @Output() selectedUserIDs: EventEmitter<string[]> = new EventEmitter<string[]>();
-
-  users: any[]= []; 
-  userTags: any[] =[]; 
-  selectedUsers: any[] = []; 
-
-  @ViewChild('userInput') userInput?: ElementRef<HTMLInputElement>;
-  @ViewChild('auto') matAutocomplete?: MatAutocomplete;
-  
   constructor(private userService: UsersService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.userService.Users.subscribe(resp =>{
       this.users = resp; 
-      this.filteredUsers = this.userCtrl.valueChanges.pipe(
-        startWith(null),
-        map((userValue: string | null) => userValue ? this._filterTag(userValue) : this.users.slice()));
-    }); 
-    
-    
+    })
+    this.filteredUsers = this.userControl.valueChanges.pipe(
+      startWith<string | any[]>(''),
+      map(value => typeof value === 'string' ? value : this.lastFilter),
+      map(filter => this.filter(filter))
+    );
   }
 
-  remove(user: any): void {
-    const index = this.selectedUsers.indexOf(user);
-    if (index != -1) {
-      this.selectedUsers.splice(index, 1);
-      if (this.users.indexOf(user) == -1) {
-        this.users.push(user);
-        // this.filteredUsers = this.users; 
-        
-      }
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.selectedUsers.push(event.option.value);
-     // removes a tag from the list if it has already been selected
-  
-    this.users.splice(this.selectedUsers.indexOf(event.option.value), 1);
-    if (this.userInput)
-    this.userInput.nativeElement.value = '';
-    this.userCtrl.setValue(null);
-
-  }
-
-
-  private _filterTag(userValue: string): any[] {
-    console.log("Being hit"); 
-    if(userValue) {
-      let filterValue = userValue.toString().toLowerCase();
-      return this.users.filter(user => user.displayName.toLowerCase().indexOf(filterValue) === 0);
+  filter(filter: string): any[] {
+    this.lastFilter = filter;
+    if (filter) {
+      return this.users.filter((option: { displayName: string }) => {
+        return option.displayName.toLowerCase().indexOf(filter.toLowerCase()) >= 0
+      })
     } else {
-      return this.users;
+      return this.users.slice();
     }
   }
 
+  optionClicked(event: Event, user: any) {
+    event.stopPropagation();
+    this.toggleSelection(user);
+  }
 
- 
+  toggleSelection(user: any) {
+    user.selected! = !user.selected;
+    if (user.selected) {
+      this.selectedUsers.push(user);
+    } else {
+      const i = this.selectedUsers.findIndex(value => value.displayName === user.displayName);
+      this.selectedUsers.splice(i, 1);
+    }
+    this.userControl.setValue(this.selectedUsers);
+    this.whitelist.emit(this.selectedUsers);  
+  }
 
 }
+

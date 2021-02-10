@@ -129,6 +129,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NgxDocViewerModule,
     // SatDatepickerModule,
     // SatNativeDateModule
+    
   ],
   providers: [
     UploadService,
