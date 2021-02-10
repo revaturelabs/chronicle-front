@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class MediaRetrievalService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthService, private router: Router) { }
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   selectedTags: Tag[] = [];
   selectedBatchTags: Tag[] =[];
@@ -63,7 +63,7 @@ export class MediaRetrievalService {
 
   public getAllTags() : Observable<Tag[]>{
     // this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getTags)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getTags)
     .pipe(map((resp:any) => {
       return resp.map((tag:any) => {
         let newTag: Tag = {
@@ -82,7 +82,7 @@ export class MediaRetrievalService {
 //Retrieves all notes from the DB and maps them to a Note model
   public getAllNotes() : Observable<Note[]> {
     // this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getAllNotes)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllNotes)
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -107,7 +107,7 @@ export class MediaRetrievalService {
     });
     tagPath = tagPath.slice(0,-1);
     // this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getNotesByTag + tagPath)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getNotesByTag + tagPath)
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -127,7 +127,7 @@ export class MediaRetrievalService {
   // Retrieves a note by ID and maps them to a Note model
   public getNoteById(id: number) : Observable<Note> {
     // this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getNoteById + id)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getNoteById + id)
     .pipe(map((note:any) => {
       let newNote: Note = {
         id : note.id,
@@ -148,7 +148,7 @@ export class MediaRetrievalService {
   public getAllVideos() : Observable<Video[]> {
     // this.setHeaders();
     console.log("SearchAll")
-    return this.httpClient.get(environment.serverApiUrls.getAllVideos)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllVideos)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -178,7 +178,7 @@ export class MediaRetrievalService {
     console.log("tagPath: " + tagPath);
     tagPath = tagPath.slice(0,-1);
     // this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getVideosByTag + tagPath)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -200,7 +200,7 @@ export class MediaRetrievalService {
     // this.setHeaders();
     console.log("SearchID");
 
-    return this.httpClient.get(environment.serverApiUrls.getVideoById + id)
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getVideoById + id)
     .pipe(map((video:any) => {
       let newVideo: Video = {
         id : video.id,

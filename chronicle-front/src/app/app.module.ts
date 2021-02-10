@@ -55,6 +55,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ResponseInterceptorService } from './services/response-interceptor.service';
 import { WhitelistSelectComponent } from './components/whitelist-select/whitelist-select.component';
 
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 
@@ -120,13 +122,14 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
-    // MatCheckbox,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMatFileInputModule,
     NgxDocViewerModule,
     // SatDatepickerModule,
     // SatNativeDateModule
+    
   ],
   providers: [
     UploadService,
