@@ -27,23 +27,24 @@ export class WhitelistSelectComponent implements OnInit {
   lastFilter: string = '';
 
   constructor(private userService: UsersService) { }
-
+  
   ngOnInit() {
-    this.userService.Users.subscribe(resp =>{
+    this.userService.Users.subscribe((resp: any[]) =>{
       this.users = resp; 
+      this.filteredUsers = this.userControl.valueChanges.pipe(
+        startWith<string | any[]>(''),
+        map(value => typeof value === 'string' ? value : this.lastFilter),
+        map(filter => this.filter(filter))
+      );
     })
-    this.filteredUsers = this.userControl.valueChanges.pipe(
-      startWith<string | any[]>(''),
-      map(value => typeof value === 'string' ? value : this.lastFilter),
-      map(filter => this.filter(filter))
-    );
   }
 
   filter(filter: string): any[] {
+    console.log("filter", filter)
     this.lastFilter = filter;
     if (filter) {
-      return this.users.filter((option: { displayName: string }) => {
-        return option.displayName.toLowerCase().indexOf(filter.toLowerCase()) >= 0
+      return this.users.filter((option: { email: string }) => {
+        return option.email.toLowerCase().indexOf(filter.toLowerCase()) >= 0
       })
     } else {
       return this.users.slice();
@@ -60,7 +61,7 @@ export class WhitelistSelectComponent implements OnInit {
     if (user.selected) {
       this.selectedUsers.push(user);
     } else {
-      const i = this.selectedUsers.findIndex(value => value.displayName === user.displayName);
+      const i = this.selectedUsers.findIndex(value => value.email === user.email);
       this.selectedUsers.splice(i, 1);
     }
     this.userControl.setValue(this.selectedUsers);

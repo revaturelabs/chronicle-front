@@ -52,7 +52,7 @@
             </div>
 
             <!-- Displays Whitelist Select if is Private -->
-            <div [ngClass]="{ 'hidden': !private }">
+            <div [ngClass]="{ 'hidden': !private }" >
               <div fxLayoutAlign="center" fxFlexFill>
                 <app-whitelist-select (whitelist)="setUserList($event)"></app-whitelist-select>
               </div>
