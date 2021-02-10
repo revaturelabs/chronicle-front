@@ -195,7 +195,9 @@ export class UploadpageComponent implements OnInit {
     }
   }
 
-  setUserList(idList: string[]) {
+  setUserList(idList: any) {
+    console.log("User white list", idList); 
     this.userWhitelist = idList;
+    
   }
 }

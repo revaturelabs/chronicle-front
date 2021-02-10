@@ -10,21 +10,25 @@ export class UsersService {
     {
       uID: 'lkajioenflkjsodijfoje',
       displayName: 'Dylan Mahaffey',
-      email: 'dylan.mahaffey@gmail.com'
+      email: 'dylan.mahaffey@gmail.com', 
+      selected: false, 
     },
     {
       uID: 'ffdsuiyueuhejhuihusiu',
       displayName: 'Alec Sherlock',
-      email: 'alec@gmail.com'
+      email: 'alec@gmail.com', 
+      selected: false 
     },
     {
       uID: 'ueue87uhcviuhviuhiuaad',
       displayName: 'George Yoo',
-      email: 'geo@gmail.com'
+      email: 'geo@gmail.com', 
+      selected: false
     },
   ]
 
   private users: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  // selectedUsers: any[] = []; 
 
   get Users(): BehaviorSubject<any[]> {
     this.populateUsers();

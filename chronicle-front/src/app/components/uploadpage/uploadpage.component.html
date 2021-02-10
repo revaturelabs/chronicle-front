@@ -46,17 +46,15 @@
 
             <!-- Private Checkbox -->
             <div fxLayoutAlign="center" fxFlexFill>
-              <section class="example-section">
-                <!-- <mat-checkbox class="example-margin">Private</mat-checkbox> -->
-                <input id="private" type="checkbox" [(ngModel)]="private">
-                <label for="private">Private</label>
+              <section fxFlex="40">    
+                <mat-checkbox [(ngModel)] = "private">Private</mat-checkbox>
               </section>
             </div>
 
             <!-- Displays Whitelist Select if is Private -->
             <div [ngClass]="{ 'hidden': !private }">
               <div fxLayoutAlign="center" fxFlexFill>
-                <app-whitelist-select (selectedUserIDs)="setUserList($event)"></app-whitelist-select>
+                <app-whitelist-select (whitelist)="setUserList($event)"></app-whitelist-select>
               </div>
             </div>
 
