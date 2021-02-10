@@ -16,13 +16,14 @@ export const environment = {
     measurementId: 'G-DP6XDH9DTW'
   },
   serverApiUrls: {
-    getTags: 'http://localhost:8080/myapp/videos/available-tags',
-    getAllVideos: 'http://localhost:8080/myapp/videos/all',
-    getVideosByTag: 'http://localhost:8080/myapp/videos/tags/',
-    getVideoById: 'http://localhost:8080/myapp/videos/id/',
-    getAllNotes: 'http://localhost:8080/myapp/notes/all',
-    getNotesByTag: 'http://localhost:8080/myapp/notes/tags/',
-    getNoteById: 'http://localhost:8080/myapp/notes/id/'
+    getTags: '/videos/available-tags',
+    getAllVideos: '/videos/all',
+    getVideosByTag: '/videos/tags/',
+    getVideoById: '/videos/id/',
+    getAllNotes: '/notes/all',
+    getNotesByTag: '/notes/tags/',
+    getNoteById: '/notes/id/',
+    getFirebaseUsers: 'firebase',
   }
 };
 
