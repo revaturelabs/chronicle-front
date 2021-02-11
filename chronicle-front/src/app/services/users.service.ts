@@ -21,6 +21,8 @@ export class UsersService {
     //make api call for users
     this.http.get<DisplayUser[]>(environment.apiBase + environment.serverApiUrls.getFirebaseUsers)
     .subscribe((resp: DisplayUser[]) =>{
+      console.log(resp);
+
         this.users.next(resp);
     })
 

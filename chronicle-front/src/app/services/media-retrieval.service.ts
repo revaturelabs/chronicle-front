@@ -92,8 +92,12 @@ export class MediaRetrievalService {
           date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
-          tags : note.tags
+          tags : note.tags,
+          isPrivate: note.isPrivate,
+          whitelist: note.whitelist,
         };
+        console.log(newNote);
+
         return newNote;
       })
     }));
@@ -117,7 +121,9 @@ export class MediaRetrievalService {
           date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
-          tags : note.tags
+          tags : note.tags,
+          isPrivate: note.isPrivate,
+          whitelist: note.whitelist,
         };
         return newNote;
       })
@@ -136,7 +142,9 @@ export class MediaRetrievalService {
         date: this.formatDate(note.date),
         userId : note.user,
         url : note.url,
-        tags : note.tags
+        tags : note.tags,
+          isPrivate: note.isPrivate,
+          whitelist: note.whitelist,
       };
       return newNote;
     }));
@@ -157,7 +165,9 @@ export class MediaRetrievalService {
           date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
-          tags : video.tags
+          tags : video.tags,
+          isPrivate: video.isPrivate,
+          whitelist: video.whitelist,
         };
 
         return newVideo;
@@ -187,7 +197,9 @@ export class MediaRetrievalService {
           date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
-          tags : video.tags
+          tags : video.tags,
+          isPrivate: video.isPrivate,
+          whitelist: video.whitelist,
         };
         return newVideo;
       })
@@ -208,7 +220,9 @@ export class MediaRetrievalService {
         date: this.formatDate(video.date),
         userId : video.user,
         url : video.url,
-        tags : video.tags
+        tags : video.tags,
+        isPrivate: video.isPrivate,
+        whitelist: video.whitelist,
       };
       return newVideo;
     }));

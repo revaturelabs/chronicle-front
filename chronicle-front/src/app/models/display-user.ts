@@ -1,6 +1,6 @@
 export class DisplayUser {
 
-  uId: string = '';
+  uid: string = '';
   displayName: string = '';
   email: string = '';
   selected: boolean = false;
