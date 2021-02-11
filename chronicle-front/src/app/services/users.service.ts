@@ -40,8 +40,7 @@ export class UsersService {
   populateUsers() {
     //make api call for users
     this.http.get(environment.apiBase + environment.serverApiUrls.getFirebaseUsers)
-    .subscribe(resp =>{
-        console.log(resp); 
+    .subscribe(resp =>{ 
         this.users.next(resp);
     })
 

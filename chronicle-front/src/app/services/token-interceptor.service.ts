@@ -15,7 +15,6 @@ export class TokenInterceptorService implements HttpInterceptor {
       let reqHeaders = new HttpHeaders({
         'Authorization': `Bearer ${authToken}`
       })
-      console.log("Being hit")
       return next.handle(req.clone({headers: reqHeaders}))
   }
 }

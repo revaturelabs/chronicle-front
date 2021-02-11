@@ -54,8 +54,9 @@ export class UploadpageComponent implements OnInit {
 
   ngOnInit(): void {
     this.createdBy = firebase.auth().currentUser?.displayName; //Successfully pulled uid from firebase (automation)
-    console.log(this.createdBy);
+    console.log(firebase.auth().currentUser)
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
+      
       this.existingTopics = this.mediaRetrievalService.filterTags(resp,"Topic");
       this.existingBatch = this.mediaRetrievalService.filterTags(resp,"Batch");
     })
@@ -196,7 +197,6 @@ export class UploadpageComponent implements OnInit {
   }
 
   setUserList(idList: any) {
-    console.log("User white list", idList); 
     this.userWhitelist = idList;
     
   }

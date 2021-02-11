@@ -3,12 +3,11 @@
       <mat-label>Enter User</mat-label>
       <mat-chip-list #chipList aria-label="Tag Selection">
         <mat-chip  
-          *ngFor = "let user of selectedUsers"
-          [selectable]="selectable"
+          *ngFor = "let user of selectedUsers"          
           [removable]="removable"
           (removed) = "toggleSelection(user)">
           {{user.email}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          <mat-icon matChipRemove *ngIf="removable && user.email != currentUser.email">cancel</mat-icon>
         </mat-chip>
         <input
           placeholder="Enter User"
@@ -27,7 +26,7 @@
         <div (click)="optionClicked($event, user)">
           <mat-checkbox [checked]="user.selected!" (change)="toggleSelection(user)" (click)="$event.stopPropagation()">
             {{user.email}}
-          </mat-checkbox>
+          </mat-checkbox>        
         </div>
       </mat-option>
     </mat-autocomplete>

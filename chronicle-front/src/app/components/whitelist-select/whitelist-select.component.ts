@@ -1,9 +1,10 @@
 import { UsersService } from './../../services/users.service';
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { AuthService } from 'src/app/services/auth.service';
 
 /**
  * @title Mult-select whitelist auto-complete
@@ -20,27 +21,57 @@ export class WhitelistSelectComponent implements OnInit {
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  users: any = [];
+  users: any[] = [];
   selectedUsers: any[] = new Array<any>();
   filteredUsers!:Observable<any[]>;
   lastFilter: string = '';
+  currentUser: any; 
+
+  
 
  
-  constructor(private userService: UsersService) { }
+  constructor(private userService: UsersService, private auth: AuthService) { }
   
   /**
   * Retrieving all the users from our db. 
   * Also, utilizing our filter function to autocomplete the email we are looking for.
   */
   ngOnInit() {
+
+    this.auth.User.subscribe(resp =>{
+    
+      if(resp === null){
+        return; 
+      }
+      this.currentUser = resp;
+      let newCurrent = {uId: null, displayName: null, email: "", selected: false }; 
+      newCurrent.email = this.currentUser.email; 
+      newCurrent.displayName = this.currentUser.displayName; 
+      newCurrent.uId = this.currentUser.uid;
+      this.toggleSelection(newCurrent);  
+    
+    })
+
     this.userService.Users.subscribe((resp: any[]) =>{
+     
       this.users = resp; 
+
+
+      const i = this.users.findIndex(value => value.email! === this.currentUser.email)
+      this.users.splice(i, 1);
       this.filteredUsers = this.userControl.valueChanges.pipe(
         startWith<string | any[]>(''),
         map(value => typeof value === 'string' ? value : this.lastFilter),
-        map(filter => this.filter(filter))
+        map(filter => this.filter(filter)), 
+       
       );
     })
+
+ 
+
+    
+
+    
   }
 
    /**
