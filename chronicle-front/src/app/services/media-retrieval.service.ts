@@ -71,6 +71,7 @@ export class MediaRetrievalService {
           type: tag.type,
           value: tag.value
         };
+        
         return newTag;
       })
     }));
