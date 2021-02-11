@@ -2,8 +2,8 @@
     <mat-form-field class="search full-width" appearance="outline" >
       <mat-label>Enter User</mat-label>
       <mat-chip-list #chipList aria-label="Tag Selection">
-        <mat-chip  
-          *ngFor = "let user of selectedUsers"          
+        <mat-chip
+          *ngFor = "let user of selectedUsers"
           [removable]="removable"
           (removed) = "toggleSelection(user)">
           {{user.email}}
@@ -20,17 +20,16 @@
       </mat-chip-list>
       <mat-hint>Enter text to find users by name</mat-hint>
     </mat-form-field>
-    
+
     <mat-autocomplete #auto="matAutocomplete" class="full-width">
       <mat-option *ngFor="let user of filteredUsers | async" [value]="selectedUsers">
         <div (click)="optionClicked($event, user)">
           <mat-checkbox [checked]="user.selected!" (change)="toggleSelection(user)" (click)="$event.stopPropagation()">
             {{user.email}}
-          </mat-checkbox>        
+          </mat-checkbox>
         </div>
       </mat-option>
     </mat-autocomplete>
-    
+
 </div>
 
-  

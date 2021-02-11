@@ -8,4 +8,6 @@ export interface Note {
     userId: string;
     url: string;
     tags: Tag[];
+    whitelist: any[];
+    isPrivate: boolean;
 }
