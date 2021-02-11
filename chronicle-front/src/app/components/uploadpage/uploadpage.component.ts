@@ -99,14 +99,6 @@ export class UploadpageComponent implements OnInit {
       }
     }
 
-    for(let u of this.userWhitelist) {
-      u.userID = u.uId;
-      delete u.uId;
-      delete u.displayName;
-      delete u.selected;
-      delete u.email;
-    }
-
     //The JSON object we are going to send to the back-end using the Upload Service
     const dataObj = {
       title:        this.title,
@@ -114,10 +106,9 @@ export class UploadpageComponent implements OnInit {
       date:         this.creationDate,
       description:  this.description,
       tags:         this.tags,
-      // isPrivate:    this.private,
-      // whitelist:    this.private ? this.userWhitelist : [],
+      isPrivate:    this.private,
+      whitelist:    this.private ? this.userWhitelist : [],
     }
-    console.log(dataObj);
 
     this.currentFile = this.selectedFiles.item(0);
 

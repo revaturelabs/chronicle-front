@@ -1,6 +1,6 @@
 import { DisplayUser } from './../../models/display-user';
 import { UsersService } from './../../services/users.service';
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -23,7 +23,8 @@ export class WhitelistSelectComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   users: DisplayUser[] = [];
-  selectedUsers: DisplayUser[] = new Array<DisplayUser>();
+  @Input() currentWhitelist: any;
+  selectedUsers: DisplayUser[] = [];
   filteredUsers!:Observable<DisplayUser[]>;
   lastFilter: string = '';
   currentUser: any;
@@ -45,10 +46,10 @@ export class WhitelistSelectComponent implements OnInit {
         return;
       }
       this.currentUser = resp;
-      let newCurrent = {uId: null, displayName: null, email: "", selected: false };
+      let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
       newCurrent.displayName = this.currentUser.displayName;
-      newCurrent.uId = this.currentUser.uid;
+      newCurrent.uid = this.currentUser.uid;
       this.toggleSelection(newCurrent);
 
     })
@@ -66,13 +67,18 @@ export class WhitelistSelectComponent implements OnInit {
         map(filter => this.filter(filter)),
 
       );
+
+      if(resp.length > 0)
+        this.selectCurrentWhitelist();
     })
+  }
 
-
-
-
-
-
+  private selectCurrentWhitelist() {
+    if(this.currentWhitelist)
+      for (let user of this.currentWhitelist) {
+        const index = this.users.findIndex(value => value.uid! === user.uid);
+        this.toggleSelection(this.users[index]);
+      }
   }
 
    /**
