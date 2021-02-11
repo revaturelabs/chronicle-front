@@ -10,7 +10,7 @@
 export const environment = {
   production: false,
   // apiBase: 'http://localhost:8080/myapp',
-  apiBase: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp',
+  apiBase: 'http://3.236.46.62/api/myapp',
   isSignedIn: false,
   firebaseConfig: {
     apiKey: 'AIzaSyC4sxZlT-McTildwtxa8LV1lj7ZQhzOrs0',
@@ -22,20 +22,14 @@ export const environment = {
     measurementId: 'G-DP6XDH9DTW'
   },
   serverApiUrls: {
-    // getTags: 'http://localhost:8080/myapp/videos/available-tags',
-    // getAllVideos: 'http://localhost:8080/myapp/videos/all',
-    // getVideosByTag: 'http://localhost:8080/myapp/videos/tags/',
-    // getVideoById: 'http://localhost:8080/myapp/videos/id/',
-    // getAllNotes: 'http://localhost:8080/myapp/notes/all',
-    // getNotesByTag: 'http://localhost:8080/myapp/notes/tags/',
-    // getNoteById: 'http://localhost:8080/myapp/notes/id/'
-    getTags: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/videos/available-tags',
-    getAllVideos: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/videos/all',
-    getVideosByTag: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/videos/tags/',
-    getVideoById: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/videos/id/',
-    getAllNotes: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/notes/all',
-    getNotesByTag: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/notes/tags/',
-    getNoteById: 'http://3.236.46.62:8080/chronicle-0.0.1-SNAPSHOT/myapp/notes/id/'
+    getTags: '/videos/available-tags',
+    getAllVideos: '/videos/all',
+    getVideosByTag: '/videos/tags/',
+    getVideoById: '/videos/id/',
+    getAllNotes: '/notes/all',
+    getNotesByTag: '/notes/tags/',
+    getNoteById: '/notes/id/',
+    getFirebaseUsers: 'firebase',
   }
 };
 
@@ -47,3 +41,4 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
