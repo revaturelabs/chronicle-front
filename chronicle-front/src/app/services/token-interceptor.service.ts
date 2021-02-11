@@ -13,11 +13,9 @@ export class TokenInterceptorService implements HttpInterceptor {
 
       let authToken = this.authService.Jwt;
       let reqHeaders = new HttpHeaders({
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${authToken}`
       })
-
+      console.log("Being hit")
       return next.handle(req.clone({headers: reqHeaders}))
-
   }
 }

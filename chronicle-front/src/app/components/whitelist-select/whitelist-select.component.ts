@@ -15,7 +15,6 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
   styleUrls: ['./whitelist-select.component.css']
 })
 export class WhitelistSelectComponent implements OnInit {
-
   @Output() whitelist: EventEmitter<string[]> = new EventEmitter<string[]>();
   userControl = new FormControl();
   selectable = true;
@@ -26,8 +25,13 @@ export class WhitelistSelectComponent implements OnInit {
   filteredUsers!:Observable<any[]>;
   lastFilter: string = '';
 
+ 
   constructor(private userService: UsersService) { }
   
+  /**
+  * Retrieving all the users from our db. 
+  * Also, utilizing our filter function to autocomplete the email we are looking for.
+  */
   ngOnInit() {
     this.userService.Users.subscribe((resp: any[]) =>{
       this.users = resp; 
@@ -39,8 +43,11 @@ export class WhitelistSelectComponent implements OnInit {
     })
   }
 
+   /**
+    * This is our main filter function. It will filter out emails based on our input, and return the results. 
+    * @param filter, the input text of the user.  
+    */
   filter(filter: string): any[] {
-    console.log("filter", filter)
     this.lastFilter = filter;
     if (filter) {
       return this.users.filter((option: { email: string }) => {
@@ -51,11 +58,20 @@ export class WhitelistSelectComponent implements OnInit {
     }
   }
 
+   /**
+    * Toggles the checkboxes. 
+    * @param event 
+    * @param user 
+    */
   optionClicked(event: Event, user: any) {
     event.stopPropagation();
     this.toggleSelection(user);
   }
 
+  /**
+   * Allows us to push the selected emails into the selectedUsers array.
+   * Emits the array to the upload component. 
+   */
   toggleSelection(user: any) {
     user.selected! = !user.selected;
     if (user.selected) {
