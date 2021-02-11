@@ -53,9 +53,7 @@
 
             <!-- Displays Whitelist Select if is Private -->
             <div [ngClass]="{ 'hidden': !private }">
-              <div fxLayoutAlign="center" fxFlexFill>
                 <app-whitelist-select (whitelist)="setUserList($event)"></app-whitelist-select>
-              </div>
             </div>
 
             <!-- Old  -->
@@ -68,8 +66,7 @@
             <br>
             <!-- UPLOAD BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-                
+                <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>    
             </div>
         </div>
     </div>

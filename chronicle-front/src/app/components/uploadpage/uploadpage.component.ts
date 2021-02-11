@@ -1,3 +1,4 @@
+import { DisplayUser } from './../../models/display-user';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -23,7 +24,7 @@ export class UploadpageComponent implements OnInit {
   batch: string = "";
   description: string = "";
   private: boolean = false;
-  userWhitelist: string[] = [];
+  userWhitelist: any = [];
 
   // Variables that are autmoatically filled
   createdBy: string | any = "";
@@ -54,8 +55,9 @@ export class UploadpageComponent implements OnInit {
 
   ngOnInit(): void {
     this.createdBy = firebase.auth().currentUser?.displayName; //Successfully pulled uid from firebase (automation)
-    console.log(this.createdBy);
+
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
+
       this.existingTopics = this.mediaRetrievalService.filterTags(resp,"Topic");
       this.existingBatch = this.mediaRetrievalService.filterTags(resp,"Batch");
     })
@@ -97,10 +99,12 @@ export class UploadpageComponent implements OnInit {
       }
     }
 
-    // If private, set whitelist
-    let whitelist = [];
-    if (this.private) {
-      whitelist = this.userWhitelist;
+    for(let u of this.userWhitelist) {
+      u.userID = u.uId;
+      delete u.uId;
+      delete u.displayName;
+      delete u.selected;
+      delete u.email;
     }
 
     //The JSON object we are going to send to the back-end using the Upload Service
@@ -109,12 +113,15 @@ export class UploadpageComponent implements OnInit {
       user:         this.createdBy,
       date:         this.creationDate,
       description:  this.description,
-      tags:         this.tags
+      tags:         this.tags,
+      // isPrivate:    this.private,
+      // whitelist:    this.private ? this.userWhitelist : [],
     }
     console.log(dataObj);
 
     this.currentFile = this.selectedFiles.item(0);
-    console.log("File: " + this.currentFile);
+
+
 
     //Call the Upload Service to send our data to the back-end
     this.uploadService.upload(JSON.stringify(dataObj), this.currentFile)
@@ -196,8 +203,7 @@ export class UploadpageComponent implements OnInit {
   }
 
   setUserList(idList: any) {
-    console.log("User white list", idList); 
     this.userWhitelist = idList;
-    
+
   }
 }

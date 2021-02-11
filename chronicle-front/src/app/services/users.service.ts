@@ -1,44 +1,28 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { DisplayUser } from '../models/display-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  dummyData = [
-    {
-      uID: 'lkajioenflkjsodijfoje',
-      displayName: 'Dylan Mahaffey',
-      email: 'dylan.mahaffey@gmail.com', 
-      selected: false, 
-    },
-    {
-      uID: 'ffdsuiyueuhejhuihusiu',
-      displayName: 'Alec Sherlock',
-      email: 'alec@gmail.com', 
-      selected: false 
-    },
-    {
-      uID: 'ueue87uhcviuhviuhiuaad',
-      displayName: 'George Yoo',
-      email: 'geo@gmail.com', 
-      selected: false
-    },
-  ]
-
-  private users: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
-  // selectedUsers: any[] = []; 
-
-  get Users(): BehaviorSubject<any[]> {
+  private users: BehaviorSubject<DisplayUser[]> = new BehaviorSubject<DisplayUser[]>([]);
+  get Users(): BehaviorSubject<DisplayUser[]> {
     this.populateUsers();
     return this.users;
   }
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   populateUsers() {
     //make api call for users
-    this.users.next(this.dummyData);
+    this.http.get<DisplayUser[]>(environment.apiBase + environment.serverApiUrls.getFirebaseUsers)
+    .subscribe((resp: DisplayUser[]) =>{
+        this.users.next(resp);
+    })
+
   }
 }

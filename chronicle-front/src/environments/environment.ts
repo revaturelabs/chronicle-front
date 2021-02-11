@@ -24,7 +24,7 @@ export const environment = {
     getAllNotes: '/notes/all',
     getNotesByTag: '/notes/tags/',
     getNoteById: '/notes/id/',
-    getFirebaseUsers: 'firebase',
+    getFirebaseUsers: '/firebase',
   }
 };
 

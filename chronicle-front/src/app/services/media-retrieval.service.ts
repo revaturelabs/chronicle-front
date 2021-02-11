@@ -57,7 +57,6 @@ export class MediaRetrievalService {
 
  public formatDate(input: string){
    let split = input.split("T");
-   console.log();
   return split[0];
  }
 
@@ -71,6 +70,7 @@ export class MediaRetrievalService {
           type: tag.type,
           value: tag.value
         };
+
         return newTag;
       })
     }));
@@ -147,7 +147,6 @@ export class MediaRetrievalService {
 // Retrieves all videos from the DB and maps them to a Video model
   public getAllVideos() : Observable<Video[]> {
     // this.setHeaders();
-    console.log("SearchAll")
     return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllVideos)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
