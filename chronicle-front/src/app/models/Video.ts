@@ -9,5 +9,5 @@ export interface Video {
     url: string;
     tags: Tag[];
     whitelist: any[];
-    isPrivate: boolean;
+    private: boolean;
 }

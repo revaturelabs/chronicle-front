@@ -99,6 +99,10 @@ export class UploadpageComponent implements OnInit {
       }
     }
 
+    for(let user of this.userWhitelist) {
+      delete user.selected;
+    }
+
     //The JSON object we are going to send to the back-end using the Upload Service
     const dataObj = {
       title:        this.title,
@@ -106,7 +110,7 @@ export class UploadpageComponent implements OnInit {
       date:         this.creationDate,
       description:  this.description,
       tags:         this.tags,
-      isPrivate:    this.private,
+      private:    this.private,
       whitelist:    this.private ? this.userWhitelist : [],
     }
 
