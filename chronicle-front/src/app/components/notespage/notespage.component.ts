@@ -67,7 +67,7 @@ export class NotespageComponent implements OnInit, OnDestroy {
             }
           }
         })
-      } 
+      }
     } else {
       this.mediaRetrievalService.getAllNotes().subscribe(resp => {
         this.notes = resp;
