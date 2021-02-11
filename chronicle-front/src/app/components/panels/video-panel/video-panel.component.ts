@@ -19,17 +19,15 @@ export class VideoPanelComponent implements OnInit {
 
  topics?: Tag[];
  batch?: string;
- 
+
 
 
   constructor(private transfer : MediaTransferService, private router : Router, public colorservice : TagColorService, private mediaService: MediaRetrievalService) { }
 
   ngOnInit(): void {
     if (this.video) {
-      console.log(this.video)
       this.topics = this.mediaService.filterTags(this.video.tags, 'Topic');
       this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
-      console.log(this.video.tags)
     }
   }
 

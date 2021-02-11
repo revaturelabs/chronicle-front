@@ -45,6 +45,11 @@ export class AuthService {
     return this.user;
   }
   setUser(user: User) {
+    user.getIdTokenResult()
+    .then((idTokenResult) => {
+
+    })
+
     this.user.next(user);
   }
 

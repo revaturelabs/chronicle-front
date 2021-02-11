@@ -1,3 +1,4 @@
+import { DisplayUser } from './../../models/display-user';
 import { UsersService } from './../../services/users.service';
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -16,45 +17,45 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./whitelist-select.component.css']
 })
 export class WhitelistSelectComponent implements OnInit {
-  @Output() whitelist: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() whitelist: EventEmitter<DisplayUser[]> = new EventEmitter<DisplayUser[]>();
   userControl = new FormControl();
   selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  users: any[] = [];
-  selectedUsers: any[] = new Array<any>();
-  filteredUsers!:Observable<any[]>;
+  users: DisplayUser[] = [];
+  selectedUsers: DisplayUser[] = new Array<DisplayUser>();
+  filteredUsers!:Observable<DisplayUser[]>;
   lastFilter: string = '';
-  currentUser: any; 
+  currentUser: any;
 
-  
 
- 
+
+
   constructor(private userService: UsersService, private auth: AuthService) { }
-  
+
   /**
-  * Retrieving all the users from our db. 
+  * Retrieving all the users from our db.
   * Also, utilizing our filter function to autocomplete the email we are looking for.
   */
   ngOnInit() {
 
     this.auth.User.subscribe(resp =>{
-    
+
       if(resp === null){
-        return; 
+        return;
       }
       this.currentUser = resp;
-      let newCurrent = {uId: null, displayName: null, email: "", selected: false }; 
-      newCurrent.email = this.currentUser.email; 
-      newCurrent.displayName = this.currentUser.displayName; 
+      let newCurrent = {uId: null, displayName: null, email: "", selected: false };
+      newCurrent.email = this.currentUser.email;
+      newCurrent.displayName = this.currentUser.displayName;
       newCurrent.uId = this.currentUser.uid;
-      this.toggleSelection(newCurrent);  
-    
+      this.toggleSelection(newCurrent);
+
     })
 
     this.userService.Users.subscribe((resp: any[]) =>{
-     
-      this.users = resp; 
+
+      this.users = resp;
 
 
       const i = this.users.findIndex(value => value.email! === this.currentUser.email)
@@ -62,21 +63,21 @@ export class WhitelistSelectComponent implements OnInit {
       this.filteredUsers = this.userControl.valueChanges.pipe(
         startWith<string | any[]>(''),
         map(value => typeof value === 'string' ? value : this.lastFilter),
-        map(filter => this.filter(filter)), 
-       
+        map(filter => this.filter(filter)),
+
       );
     })
 
- 
 
-    
 
-    
+
+
+
   }
 
    /**
-    * This is our main filter function. It will filter out emails based on our input, and return the results. 
-    * @param filter, the input text of the user.  
+    * This is our main filter function. It will filter out emails based on our input, and return the results.
+    * @param filter, the input text of the user.
     */
   filter(filter: string): any[] {
     this.lastFilter = filter;
@@ -90,9 +91,9 @@ export class WhitelistSelectComponent implements OnInit {
   }
 
    /**
-    * Toggles the checkboxes. 
-    * @param event 
-    * @param user 
+    * Toggles the checkboxes.
+    * @param event
+    * @param user
     */
   optionClicked(event: Event, user: any) {
     event.stopPropagation();
@@ -101,7 +102,7 @@ export class WhitelistSelectComponent implements OnInit {
 
   /**
    * Allows us to push the selected emails into the selectedUsers array.
-   * Emits the array to the upload component. 
+   * Emits the array to the upload component.
    */
   toggleSelection(user: any) {
     user.selected! = !user.selected;
@@ -112,7 +113,7 @@ export class WhitelistSelectComponent implements OnInit {
       this.selectedUsers.splice(i, 1);
     }
     this.userControl.setValue(this.selectedUsers);
-    this.whitelist.emit(this.selectedUsers);  
+    this.whitelist.emit(this.selectedUsers);
   }
 
 }
