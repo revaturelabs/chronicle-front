@@ -9,5 +9,5 @@ export interface Note {
     url: string;
     tags: Tag[];
     whitelist: any[];
-    isPrivate: boolean;
+    private: boolean;
 }

@@ -93,7 +93,7 @@ export class MediaRetrievalService {
           userId : note.user,
           url : note.url,
           tags : note.tags,
-          isPrivate: note.isPrivate,
+          private: note.private,
           whitelist: note.whitelist,
         };
         console.log(newNote);
@@ -122,7 +122,7 @@ export class MediaRetrievalService {
           userId : note.user,
           url : note.url,
           tags : note.tags,
-          isPrivate: note.isPrivate,
+          private: note.private,
           whitelist: note.whitelist,
         };
         return newNote;
@@ -143,7 +143,7 @@ export class MediaRetrievalService {
         userId : note.user,
         url : note.url,
         tags : note.tags,
-          isPrivate: note.isPrivate,
+          private: note.private,
           whitelist: note.whitelist,
       };
       return newNote;
@@ -166,7 +166,7 @@ export class MediaRetrievalService {
           userId : video.user,
           url : video.url,
           tags : video.tags,
-          isPrivate: video.isPrivate,
+          private: video.private,
           whitelist: video.whitelist,
         };
 
@@ -198,7 +198,7 @@ export class MediaRetrievalService {
           userId : video.user,
           url : video.url,
           tags : video.tags,
-          isPrivate: video.isPrivate,
+          private: video.private,
           whitelist: video.whitelist,
         };
         return newVideo;
@@ -221,7 +221,7 @@ export class MediaRetrievalService {
         userId : video.user,
         url : video.url,
         tags : video.tags,
-        isPrivate: video.isPrivate,
+        private: video.private,
         whitelist: video.whitelist,
       };
       return newVideo;
