@@ -40,17 +40,15 @@ export class ViewnotepageComponent implements OnInit {
       this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
     } else {
       let id = this.route.snapshot.paramMap.get('id');
-      console.log(id);
       if (id == null) {
         this.errorMsg = "Note Not Found";
-        console.log("Note url not valid");
+
 
       } else {
 
         let idInt = parseInt(id, 10);
 
         this.mediaService.getNoteById(idInt).subscribe(resp => {
-          console.log(resp)
           this.note = resp;
           this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
           this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;

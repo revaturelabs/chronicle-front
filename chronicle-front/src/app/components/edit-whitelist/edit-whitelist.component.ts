@@ -15,16 +15,13 @@ export class EditWhitelistComponent implements OnInit {
 
   ngOnInit(): void {
     // this.userWhitelist=this.media.whitelist;
-    console.log(this.media);
   }
 
   update(): void {
-
     for(let user of this.userWhitelist) {
       delete user.selected;
     }
     this.updateWhitellist.update(this.userWhitelist, this.media.id, 'notes');
-    console.log(this.userWhitelist);
   }
 
   setUserList(idList: any) {
