@@ -96,8 +96,6 @@ export class MediaRetrievalService {
           private: note.private,
           whitelist: note.whitelist,
         };
-        console.log(newNote);
-
         return newNote;
       })
     }));
