@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith, take } from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AuthService } from 'src/app/services/auth.service';
+import firebase from 'firebase/app';
 
 /**
  * @title Mult-select whitelist auto-complete
@@ -42,18 +43,15 @@ export class WhitelistSelectComponent implements OnInit {
 
     this.auth.User.subscribe(resp =>{
 
-      if(resp === null){
-        return;
-      }
-      this.currentUser = resp;
+
       let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
       newCurrent.displayName = this.currentUser.displayName;
       newCurrent.uid = this.currentUser.uid;
       this.toggleSelection(newCurrent);
 
-
     })
+
 
 
 

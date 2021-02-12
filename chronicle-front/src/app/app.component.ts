@@ -14,29 +14,16 @@ export class AppComponent implements OnInit {
 
   constructor(public authService: AuthService, public afAuth: AngularFireAuth) { }
 
-
-
-
 /**
  * This sets user variables in the auth service,
  * It is good to use to check ifLoggedIn or other asynchronous needs,
  * Do not use these user variables in ngOnInit Functions or they will not work on page reload.
  *
  * */
-ngOnInit(): void {
+  ngOnInit(): void {
 
     this.afAuth.onAuthStateChanged(user => {
-
-      if (user) {
-        this.authService.setUser(user);
-      }
-
     });
-    // this.authService.User.subscribe(user => {
-
-    //   this.afAuth.user.subscribe(thisUser =>{
-    //   })
-    // })
 
   }
 }
