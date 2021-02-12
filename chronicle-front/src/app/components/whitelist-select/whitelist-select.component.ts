@@ -42,6 +42,7 @@ export class WhitelistSelectComponent implements OnInit {
   ngOnInit() {
 
       this.currentUser = firebase.auth().currentUser;
+
       let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
       newCurrent.displayName = this.currentUser.displayName;

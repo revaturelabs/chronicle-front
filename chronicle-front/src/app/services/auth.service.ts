@@ -29,7 +29,7 @@ export class AuthService {
  * This behavior subject is the logged in user.
  * It is set to private to enforce a call to Firebase when the getter is called.
    */
-  // private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  private user: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   private jwt: string | null = null;
 
   get Jwt(): string | null {
@@ -39,19 +39,19 @@ export class AuthService {
     return this.jwt;
   }
 
-  // get User(): BehaviorSubject<User | null> {
-  //   if (!this.user.value)
-  //     this.afAuth.user.pipe(first()).subscribe(user => this.user.next(user))
-  //   return this.user;
-  // }
-  // setUser(user: User) {
-  //   user.getIdTokenResult()
-  //   .then((idTokenResult) => {
-  //     idTokenResult.claims // how to access user claims
-  //   })
+  get User(): BehaviorSubject<User | null> {
+    if (!this.user.value)
+      this.afAuth.user.pipe(first()).subscribe(user => this.user.next(user))
+    return this.user;
+  }
+  setUser(user: User) {
+    user.getIdTokenResult()
+    .then((idTokenResult) => {
+      idTokenResult.claims // how to access user claims
+    })
 
-  //   this.user.next(user);
-  // }
+    this.user.next(user);
+  }
 
 
   constructor(private router: Router, private afAuth: AngularFireAuth) { }
@@ -77,7 +77,7 @@ export class AuthService {
     this.jwt = null;
     localStorage.clear();
     this.router.navigate(['/login']);
-    // this.user.next(null);
+    this.user.next(null);
     this.afAuth.signOut();
   }
 }
