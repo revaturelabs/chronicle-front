@@ -14,9 +14,7 @@ import { Router } from '@angular/router';
 })
 export class MediaRetrievalService {
 
-  constructor(private httpClient: HttpClient, private authService: AuthService, private router: Router) { }
-
-  private requestHeaders = new HttpHeaders();
+  constructor(private httpClient: HttpClient, private router: Router) { }
 
   selectedTags: Tag[] = [];
   selectedBatchTags: Tag[] =[];
@@ -24,27 +22,27 @@ export class MediaRetrievalService {
   date?: string;
 
 
-  // ====== Utility ============  
+  // ====== Utility ============
 
   // Sets authentication headers
-  async setHeaders() {
-    const authToken = await this.authService.getSyncToken();
-    this.requestHeaders = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${authToken}`
-    })
-  }
+  // async setHeaders() {
+  //   const authToken = await this.authService.getSyncToken();
+  //   this.requestHeaders = new HttpHeaders({
+  //     'Content-Type': 'application/json',
+  //     'Authorization': `Bearer ${authToken}`
+  //   })
+  // }
 
 
   public searchVideoTag(tag : Tag){
-    if (tag.name == "Topic") {
+    if (tag.type == "Topic") {
     this.selectedTags = [tag];
     this.router.navigateByUrl('/videos');
     }
   }
 
   public searchNoteTag(tag : Tag){
-    if (tag.name == "Topic") {
+    if (tag.type == "Topic") {
     this.selectedTags = [tag];
     this.router.navigateByUrl('/notes');
     }
@@ -54,25 +52,25 @@ export class MediaRetrievalService {
   // Retrieves all tags from the db and maps them to a Tag model
   // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
-    return allTags.filter(tag => tag.name == tagName);
+    return allTags.filter(tag => tag.type == tagName);
   }
 
  public formatDate(input: string){
    let split = input.split("T");
-   console.log();
   return split[0];
  }
 
   public getAllTags() : Observable<Tag[]>{
-    this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getTags, {headers: this.requestHeaders})
+    // this.setHeaders();
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getTags)
     .pipe(map((resp:any) => {
       return resp.map((tag:any) => {
         let newTag: Tag = {
           tagID: tag.tagID,
-          name: tag.name,
+          type: tag.type,
           value: tag.value
         };
+
         return newTag;
       })
     }));
@@ -83,8 +81,8 @@ export class MediaRetrievalService {
 
 //Retrieves all notes from the DB and maps them to a Note model
   public getAllNotes() : Observable<Note[]> {
-    this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getAllNotes, {headers: this.requestHeaders})
+    // this.setHeaders();
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllNotes)
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -94,8 +92,12 @@ export class MediaRetrievalService {
           date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
-          tags : note.tags
+          tags : note.tags,
+          private: note.private,
+          whitelist: note.whitelist,
         };
+        console.log(newNote);
+
         return newNote;
       })
     }));
@@ -105,11 +107,11 @@ export class MediaRetrievalService {
   public getNotesByTag(tags: Tag[]) : Observable<Note[]> {
     let tagPath: string = "";
     tags.forEach(tag => {
-      tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagID}:${tag.type}:${tag.value}+`;
     });
     tagPath = tagPath.slice(0,-1);
-    this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getNotesByTag + tagPath, {headers: this.requestHeaders})
+    // this.setHeaders();
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getNotesByTag + tagPath)
     .pipe(map((resp:any) => {
       return resp.map((note:any) => {
         let newNote: Note = {
@@ -119,7 +121,9 @@ export class MediaRetrievalService {
           date: this.formatDate(note.date),
           userId : note.user,
           url : note.url,
-          tags : note.tags
+          tags : note.tags,
+          private: note.private,
+          whitelist: note.whitelist,
         };
         return newNote;
       })
@@ -128,8 +132,8 @@ export class MediaRetrievalService {
 
   // Retrieves a note by ID and maps them to a Note model
   public getNoteById(id: number) : Observable<Note> {
-    this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getNoteById + id, {headers: this.requestHeaders})
+    // this.setHeaders();
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getNoteById + id)
     .pipe(map((note:any) => {
       let newNote: Note = {
         id : note.id,
@@ -138,7 +142,9 @@ export class MediaRetrievalService {
         date: this.formatDate(note.date),
         userId : note.user,
         url : note.url,
-        tags : note.tags
+        tags : note.tags,
+          private: note.private,
+          whitelist: note.whitelist,
       };
       return newNote;
     }));
@@ -148,9 +154,8 @@ export class MediaRetrievalService {
 
 // Retrieves all videos from the DB and maps them to a Video model
   public getAllVideos() : Observable<Video[]> {
-    this.setHeaders();
-    console.log("SearchAll")
-    return this.httpClient.get(environment.serverApiUrls.getAllVideos, {headers: this.requestHeaders})
+    // this.setHeaders();
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllVideos)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -160,9 +165,11 @@ export class MediaRetrievalService {
           date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
-          tags : video.tags
+          tags : video.tags,
+          private: video.private,
+          whitelist: video.whitelist,
         };
-      
+
         return newVideo;
       })
     }));
@@ -174,13 +181,13 @@ export class MediaRetrievalService {
     console.log("search tags here" + tags[0])
     console.log(tags)
     tags.forEach(tag => {
-      tagPath += `${tag.tagID}:${tag.name}:${tag.value}+`;
+      tagPath += `${tag.tagID}:${tag.type}:${tag.value}+`;
     });
     console.log("SearchHere")
     console.log("tagPath: " + tagPath);
     tagPath = tagPath.slice(0,-1);
-    this.setHeaders();
-    return this.httpClient.get(environment.serverApiUrls.getVideosByTag + tagPath, {headers: this.requestHeaders})
+    // this.setHeaders();
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getVideosByTag + tagPath)
     .pipe(map((resp:any) => {
       return resp.map((video:any) => {
         let newVideo: Video = {
@@ -190,7 +197,9 @@ export class MediaRetrievalService {
           date: this.formatDate(video.date),
           userId : video.user,
           url : video.url,
-          tags : video.tags
+          tags : video.tags,
+          private: video.private,
+          whitelist: video.whitelist,
         };
         return newVideo;
       })
@@ -199,10 +208,10 @@ export class MediaRetrievalService {
 
   // Retrieves Video by ID from the DB and maps it to a Video model
   public getVideoById(id: number) : Observable<Video> {
-    this.setHeaders();
+    // this.setHeaders();
     console.log("SearchID");
-    
-    return this.httpClient.get(environment.serverApiUrls.getVideoById + id, {headers: this.requestHeaders})
+
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getVideoById + id)
     .pipe(map((video:any) => {
       let newVideo: Video = {
         id : video.id,
@@ -211,11 +220,13 @@ export class MediaRetrievalService {
         date: this.formatDate(video.date),
         userId : video.user,
         url : video.url,
-        tags : video.tags
+        tags : video.tags,
+        private: video.private,
+        whitelist: video.whitelist,
       };
       return newVideo;
     }));
   }
 
-  
+
 }

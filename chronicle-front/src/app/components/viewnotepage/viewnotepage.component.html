@@ -6,7 +6,7 @@
           <div fxLayoutAlign="center">
             <mat-chip-list aria-label="Tags">
               <div :*ngFor="let tag of topics">
-                <mat-chip *ngIf="tag.name != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>
+                <mat-chip *ngIf="tag.type != 'Title'" [ngStyle] =  "colorService.getColorStringFromTag(tag)" (click) = "searchTag(tag)"  >{{tag.value}}</mat-chip>
               </div>
             </mat-chip-list>
           </div>

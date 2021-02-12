@@ -40,8 +40,9 @@ export class SearchbarComponent implements OnInit {
     //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       // Filters tags to be only ones with a key of "topic"
-      this.topicTags = resp.filter(tag => tag.name == 'Topic');
+      this.topicTags = resp.filter(tag => tag.type == 'Topic');
 
+      
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
         map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.topicTags.slice()));  
@@ -65,7 +66,7 @@ export class SearchbarComponent implements OnInit {
     
     this.mediaRetrievalService.selectedTags.push(event.option.value);
      // removes a tag from the list if it has already been selected
-    
+    console.log(event.option.value); 
     this.topicTags.splice(this.topicTags.indexOf(event.option.value), 1);
     
     if (this.tagInput)
@@ -75,6 +76,8 @@ export class SearchbarComponent implements OnInit {
 
   //filters typed text to match with a tag from the list of tags
   private _filterTag(tagValue: string): Tag[] {
+    
+    
     if(tagValue) {
       let filterValue = tagValue.toString().toLowerCase();
       return this.topicTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);

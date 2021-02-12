@@ -8,4 +8,6 @@ export interface Video {
     userId: any;
     url: string;
     tags: Tag[];
+    whitelist: any[];
+    private: boolean;
 }

@@ -16,17 +16,10 @@ export class UploadService {
   The append() method writes a new value onto the existing key inside the FormData object or
   adds a key if it does not already exist.
   */
- upload(form: string, file: File, token: any): Observable<any>{
+ upload(form: string, file: File): Observable<any>{
    const formData: FormData = new FormData();
    formData.append('json',form);
    formData.append('file',file);
-
-   let httpOptions: any = {
-    headers: new HttpHeaders({
-      'Authorization': 'Bearer ' + token
-    }),
-    observe: 'response'
-  };
 
    /*
    The HttpClient allows us to send a POST request to the spring boot server.
@@ -37,7 +30,7 @@ export class UploadService {
      reportProgress: true,
      responseType: 'json'
    });
-   return this.http.post<any>(this.baseURL + '/file/upload', formData, httpOptions);
-   
+   return this.http.post<any>(this.baseURL + '/file/upload', formData);
+
  }
 }

@@ -1,3 +1,4 @@
+import { DisplayUser } from './../../models/display-user';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -22,8 +23,10 @@ export class UploadpageComponent implements OnInit {
   title: string = "";
   batch: string = "";
   description: string = "";
+  private: boolean = false;
+  userWhitelist: any = [];
 
-  // Variables that are autmoatically filled 
+  // Variables that are autmoatically filled
   createdBy: string | any = "";
   creationDate: Date = new Date();
 
@@ -35,7 +38,7 @@ export class UploadpageComponent implements OnInit {
   message = '';
   fileInfos!: Observable<any>;
 
-  // Variables related to topics 
+  // Variables related to topics
   @ViewChild('input') input!: ElementRef;
   visible = true;
   selectable = true;
@@ -52,8 +55,9 @@ export class UploadpageComponent implements OnInit {
 
   ngOnInit(): void {
     this.createdBy = firebase.auth().currentUser?.displayName; //Successfully pulled uid from firebase (automation)
-    console.log(this.createdBy);
+
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
+
       this.existingTopics = this.mediaRetrievalService.filterTags(resp,"Topic");
       this.existingBatch = this.mediaRetrievalService.filterTags(resp,"Batch");
     })
@@ -73,8 +77,8 @@ export class UploadpageComponent implements OnInit {
     After the progress has finished the event will be an HttpResponse object which we can then assign
     its contents to the fileInfos variable after calling the getFiles() method.
   */
-  async upload() {
-    let token = await this.authService.getSyncToken();
+  upload() {
+    //this still uses the .getSyncToken()
     this.progress = 0;
 
     if (this.batch) {
@@ -89,28 +93,35 @@ export class UploadpageComponent implements OnInit {
       if (batchExists) {
         this.tags.push({
           tagID: "0",
-          name: "Batch",
+          type: "Batch",
           value: this.batch
         })
       }
     }
+
+    for(let user of this.userWhitelist) {
+      delete user.selected;
+    }
+
     //The JSON object we are going to send to the back-end using the Upload Service
     const dataObj = {
       title:        this.title,
       user:         this.createdBy,
       date:         this.creationDate,
       description:  this.description,
-      tags:         this.tags
+      tags:         this.tags,
+      private:    this.private,
+      whitelist:    this.private ? this.userWhitelist : [],
     }
-    console.log(dataObj);
 
     this.currentFile = this.selectedFiles.item(0);
-    console.log("File: " + this.currentFile);
+
+
 
     //Call the Upload Service to send our data to the back-end
-    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile, token).subscribe(
-      resp => {
-        /* Future feature: Recieve UploadProgress 
+    this.uploadService.upload(JSON.stringify(dataObj), this.currentFile)
+    .subscribe(resp => {
+        /* Future feature: Recieve UploadProgress
         status that can be displayed on a Progress Bar */
 
         //Recieve HTTP status response and display as a Snack Bar
@@ -122,10 +133,10 @@ export class UploadpageComponent implements OnInit {
         this.snackBar.open('An error has occured with your request!', 'Close', {duration: 2000});
       });
 
-    
+
     this.resetFields();
   }
-  
+
   resetFields(): void {
     this.title = "";
     this.description = "";
@@ -133,20 +144,21 @@ export class UploadpageComponent implements OnInit {
     this.tags = [];
     this.input.nativeElement.value = "";
     this.file.nativeElement.value = "";
+    this.private = false;
   }
 
-  // Methods for adding and removing topic tags 
+  // Methods for adding and removing topic tags
   // Add a topic
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    // "name" set to "topic" by default 
+    // "name" set to "topic" by default
     if ((value || '').trim()) {
       this.existingTopics.forEach(tag => {
         if (value.toLowerCase() == tag.value.toLowerCase()) {
           this.tags.push(tag);
-        } 
+        }
       })
       if (this.tags.length > 0) {
         let exists = true;
@@ -158,30 +170,35 @@ export class UploadpageComponent implements OnInit {
         if (exists) {
           this.tags.push({
             tagID: "0",
-            name: "Topic",
+            type: "Topic",
             value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
           });
         }
       } else {
         this.tags.push({
           tagID: "0",
-          name: "Topic",
+          type: "Topic",
           value: value.trim().charAt(0).toUpperCase() + value.trim().slice(1)
         });
       }
     }
- 
+
     if (input) {
       input.value = '';
     }
   }
 
-  // Remove a topic 
+  // Remove a topic
   remove(topic: Tag): void {
     const index = this.tags.indexOf(topic);
 
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+  }
+
+  setUserList(idList: any) {
+    this.userWhitelist = idList;
+
   }
 }

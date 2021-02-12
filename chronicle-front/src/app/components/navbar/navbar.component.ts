@@ -12,12 +12,15 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
 })
 export class NavbarComponent implements OnInit {
 
+  user: any;
 
-  constructor(public authService: AuthService, private mediaRetrievalService: MediaRetrievalService) {
+
+  constructor(private authService: AuthService, private mediaRetrievalService: MediaRetrievalService) {
 
   }
 
   ngOnInit(): void {
+    this.authService.User.subscribe(user => this.user = user);
   }
   // allows a user to logout
   onLogout(): void {
@@ -29,6 +32,6 @@ export class NavbarComponent implements OnInit {
     this.mediaRetrievalService.selectedTags =[];
     this.mediaRetrievalService.selectedBatchTags =[];
     this.mediaRetrievalService.date = undefined;
-  
+
   }
 }
