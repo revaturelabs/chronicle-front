@@ -6,6 +6,7 @@ import { MediaTransferService } from 'src/app/services/media-transfer.service';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { Tag } from 'src/app/models/Tag';
 import { TagColorService } from 'src/app/services/tag-color.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-viewnotepage',
@@ -22,8 +23,10 @@ export class ViewnotepageComponent implements OnInit {
   topics?: Tag[];
   batch?: string;
   public errorMsg? : String = undefined;
+  admin: boolean = false;
 
-  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService) { }
+
+  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService, private aAuth: AngularFireAuth) { }
 
   searchTag(tag : Tag) {
     this.mediaService.searchNoteTag(tag)
@@ -47,12 +50,24 @@ export class ViewnotepageComponent implements OnInit {
         let idInt = parseInt(id, 10);
 
         this.mediaService.getNoteById(idInt).subscribe(resp => {
+          console.log(resp)
           this.note = resp;
           this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
           this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
         });
       }
     }
+
+    this.aAuth.idTokenResult.subscribe(resp => {
+        if(resp?.claims.role && resp.claims.role.includes("ROLE_ADMIN")){
+          this.admin = true;
+        } else {
+          this.admin =false;
+        }
+    })
+
+
   }
+
 
 }

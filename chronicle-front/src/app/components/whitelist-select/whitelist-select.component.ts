@@ -49,6 +49,8 @@ export class WhitelistSelectComponent implements OnInit {
       this.toggleSelection(newCurrent);
 
 
+    console.log(this.currentWhitelist);
+
     this.userService.Users.subscribe((resp: any[]) =>{
 
       this.users = resp;
@@ -72,6 +74,7 @@ export class WhitelistSelectComponent implements OnInit {
     if(this.currentWhitelist)
       for (let user of this.currentWhitelist) {
         const index = this.users.findIndex(value => value.uid! === user.uid);
+        if(this.users[index])
         this.toggleSelection(this.users[index]);
       }
   }
