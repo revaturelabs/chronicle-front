@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -20,7 +21,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.User.subscribe(user => this.user = user);
+    this.user = firebase.auth().currentUser;
   }
   // allows a user to logout
   onLogout(): void {
