@@ -15,7 +15,10 @@ export class NavbarComponent implements OnInit {
   user: any;
 
 
-  constructor(private authService: AuthService, private mediaRetrievalService: MediaRetrievalService) {
+  constructor(
+    private authService: AuthService,
+    private mediaRetrievalService: MediaRetrievalService
+  ) {
 
   }
 

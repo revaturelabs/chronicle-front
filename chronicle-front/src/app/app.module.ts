@@ -56,6 +56,7 @@ import { ResponseInterceptorService } from './services/response-interceptor.serv
 import { WhitelistSelectComponent } from './components/whitelist-select/whitelist-select.component';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { EditWhitelistComponent } from './components/edit-whitelist/edit-whitelist.component';
 
 
 
@@ -96,6 +97,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     AttributionComponent,
     UploadpageComponent,
     WhitelistSelectComponent,
+    EditWhitelistComponent,
   ],
   imports: [
     HttpClientModule,

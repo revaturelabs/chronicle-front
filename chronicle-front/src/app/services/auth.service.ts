@@ -47,7 +47,7 @@ export class AuthService {
   setUser(user: User) {
     user.getIdTokenResult()
     .then((idTokenResult) => {
-
+      idTokenResult.claims // how to access user claims
     })
 
     this.user.next(user);

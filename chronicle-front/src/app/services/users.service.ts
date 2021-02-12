@@ -8,8 +8,8 @@ import { DisplayUser } from '../models/display-user';
   providedIn: 'root'
 })
 export class UsersService {
-
   private users: BehaviorSubject<DisplayUser[]> = new BehaviorSubject<DisplayUser[]>([]);
+
   get Users(): BehaviorSubject<DisplayUser[]> {
     this.populateUsers();
     return this.users;
@@ -19,12 +19,10 @@ export class UsersService {
 
   populateUsers() {
     //make api call for users
+    this.users.next([]);
     this.http.get<DisplayUser[]>(environment.apiBase + environment.serverApiUrls.getFirebaseUsers)
     .subscribe((resp: DisplayUser[]) =>{
-      console.log(resp);
-
         this.users.next(resp);
     })
-
   }
 }

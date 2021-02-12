@@ -3,9 +3,10 @@ import { UsersService } from './../../services/users.service';
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, take } from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { AuthService } from 'src/app/services/auth.service';
+import firebase from 'firebase/app';
 
 /**
  * @title Mult-select whitelist auto-complete
@@ -19,7 +20,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class WhitelistSelectComponent implements OnInit {
   @Output() whitelist: EventEmitter<DisplayUser[]> = new EventEmitter<DisplayUser[]>();
   userControl = new FormControl();
-  selectable = true;
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   users: DisplayUser[] = [];
@@ -40,12 +40,10 @@ export class WhitelistSelectComponent implements OnInit {
   */
   ngOnInit() {
 
+
     this.auth.User.subscribe(resp =>{
 
-      if(resp === null){
-        return;
-      }
-      this.currentUser = resp;
+
       let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
       newCurrent.displayName = this.currentUser.displayName;
@@ -54,22 +52,23 @@ export class WhitelistSelectComponent implements OnInit {
 
     })
 
-    this.userService.Users.subscribe((resp: any[]) =>{
 
+
+
+    this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
       this.users = resp;
-
-
-      const i = this.users.findIndex(value => value.email! === this.currentUser.email)
-      this.users.splice(i, 1);
+      if(!this.currentWhitelist){
+        const i = this.users.findIndex(value => value.email! === this.currentUser.email)
+        this.users.splice(i, 1);
+      }
       this.filteredUsers = this.userControl.valueChanges.pipe(
         startWith<string | any[]>(''),
         map(value => typeof value === 'string' ? value : this.lastFilter),
         map(filter => this.filter(filter)),
 
       );
-
       if(resp.length > 0)
-        this.selectCurrentWhitelist();
+      this.selectCurrentWhitelist();
     })
   }
 
@@ -77,6 +76,7 @@ export class WhitelistSelectComponent implements OnInit {
     if(this.currentWhitelist)
       for (let user of this.currentWhitelist) {
         const index = this.users.findIndex(value => value.uid! === user.uid);
+        if(this.users[index])
         this.toggleSelection(this.users[index]);
       }
   }
