@@ -12,6 +12,7 @@ export class UpdateWhitelistService {
   constructor(private httpClient: HttpClient) { }
 
   update(whitelist: any, mediaId: number, mediaType: string ): void{
+    console.log(whitelist);//This is being sent to the backend
     this.httpClient.put(`${environment.apiBase}/${mediaType}/whitelist/${mediaId}`, whitelist)
     .subscribe(resp => console.log(resp))
   }

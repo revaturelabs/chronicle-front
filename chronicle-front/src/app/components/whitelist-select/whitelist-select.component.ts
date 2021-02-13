@@ -43,6 +43,10 @@ export class WhitelistSelectComponent implements OnInit {
 
     this.auth.User.subscribe(resp =>{
 
+      if(resp === null){
+        return;
+      }
+      this.currentUser = resp;
 
       let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
@@ -119,6 +123,7 @@ export class WhitelistSelectComponent implements OnInit {
       this.selectedUsers.splice(i, 1);
     }
     this.userControl.setValue(this.selectedUsers);
+    console.log(this.selectedUsers);
     this.whitelist.emit(this.selectedUsers);
   }
 
