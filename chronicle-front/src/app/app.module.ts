@@ -131,7 +131,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     NgxDocViewerModule,
     // SatDatepickerModule,
     // SatNativeDateModule
-    
+    MatDatepickerModule
+
   ],
   providers: [
     UploadService,
@@ -140,10 +141,10 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }, 
+    },
     {
-      provide: HTTP_INTERCEPTORS, 
-      useClass: ResponseInterceptorService, 
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptorService,
       multi: true
     }
   ],

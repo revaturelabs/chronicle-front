@@ -43,6 +43,10 @@ export class WhitelistSelectComponent implements OnInit {
 
     this.auth.User.subscribe(resp =>{
 
+      if(!resp)
+        return;
+
+      this.currentUser = resp;
 
       let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
