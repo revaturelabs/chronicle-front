@@ -29,35 +29,25 @@ export class WhitelistSelectComponent implements OnInit {
   lastFilter: string = '';
   currentUser: any;
 
-
-
-
   constructor(private userService: UsersService, private auth: AuthService) { }
 
   /**
   * Retrieving all the users from our db.
-  * Also, utilizing our filter function to autocomplete the email we are looking for.
+  * Utilizes our filter function to autocomplete the email we are looking for.
+  * Also, splices out the current user from the users array, so that they are unable remove themselves from the selected list if they want to make their media private.
   */
   ngOnInit() {
-
-
     this.auth.User.subscribe(resp =>{
-
       if(resp === null){
         return;
       }
       this.currentUser = resp;
-
       let newCurrent = {uid: null, displayName: null, email: "", selected: false };
       newCurrent.email = this.currentUser.email;
       newCurrent.displayName = this.currentUser.displayName;
       newCurrent.uid = this.currentUser.uid;
       this.toggleSelection(newCurrent);
-
     })
-
-
-
 
     this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
       this.users = resp;
@@ -76,6 +66,9 @@ export class WhitelistSelectComponent implements OnInit {
     })
   }
 
+  /**
+   * A method that allows us to iterate over the whitelist array and calls the toggleSelection method to mark or unmark the checkbox.
+   */
   private selectCurrentWhitelist() {
     if(this.currentWhitelist)
       for (let user of this.currentWhitelist) {
@@ -86,7 +79,7 @@ export class WhitelistSelectComponent implements OnInit {
   }
 
    /**
-    * This is our main filter function. It will filter out emails based on our input, and return the results.
+    * This is our main filter method. It will filter out emails based on our input, and return the results.
     * @param filter, the input text of the user.
     */
   filter(filter: string): any[] {
@@ -101,19 +94,21 @@ export class WhitelistSelectComponent implements OnInit {
   }
 
    /**
-    * Toggles the checkboxes.
-    * @param event
-    * @param user
+    * The click event is mapped to optionClicked() which toggles the checkboxes.
+    * @param event, this is to prevent the drop down from going away after checking a user.
+    * @param user, the selected user.
     */
   optionClicked(event: Event, user: any) {
     event.stopPropagation();
     this.toggleSelection(user);
   }
 
-  /**
-   * Allows us to push the selected emails into the selectedUsers array.
-   * Emits the array to the upload component.
-   */
+
+   /**
+    * Allows us to push the selected emails into the selectedUsers array.
+    * Emits the array to the upload component.
+    * @param user, the selected user.
+    */
   toggleSelection(user: any) {
     user.selected! = !user.selected;
     if (user.selected) {
