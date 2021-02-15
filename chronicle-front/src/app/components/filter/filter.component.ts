@@ -21,6 +21,7 @@ export class FilterComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredTags: any;
   default?: Tag;
+  filterDate: any;
 
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedBatchTags;
@@ -55,7 +56,7 @@ export class FilterComponent implements OnInit {
       }
     }
   }
-  
+
   selected(event: MatAutocompleteSelectedEvent): void {
     this.mediaRetrievalService.selectedBatchTags.push(event.option.value);
     // removes a tag from the list if it has already been selected
@@ -74,10 +75,14 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  getDate(input:any){    
+  getDate(input:any){
+    // console.log(input);
+
     this.mediaRetrievalService.date = input.target.value;
-        
-    console.log(this.mediaRetrievalService.date)
+
+    // console.log(this.mediaRetrievalService.date)
+    console.log(this.filterDate);
+
   }
 
 }

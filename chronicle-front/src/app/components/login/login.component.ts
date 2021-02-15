@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-    /**
+/**
  * This function is called on a login error
  * Console logs an error
  *

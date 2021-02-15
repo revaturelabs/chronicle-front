@@ -176,7 +176,7 @@ export class MediaRetrievalService {
   // Retrieves Videos by tag(s) from the DB and maps them to a Video model
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
-    console.log("search tags here" + tags[0])
+    console.log("search tags here" , tags[0])
     console.log(tags)
     tags.forEach(tag => {
       tagPath += `${tag.tagID}:${tag.type}:${tag.value}+`;
