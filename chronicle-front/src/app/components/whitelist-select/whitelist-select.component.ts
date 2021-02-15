@@ -116,7 +116,7 @@ export class WhitelistSelectComponent implements OnInit {
     */
   toggleSelection(user: any) {
     // refuse to ever *un*check the uploading user
-    if (user.selected && user.email == this.uploadingUserId) {
+    if (user.selected && user.email === this.uploadingUserId) {
       return;
     }
 
