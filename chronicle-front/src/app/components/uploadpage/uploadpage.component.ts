@@ -107,10 +107,11 @@ export class UploadpageComponent implements OnInit {
     const dataObj = {
       title:        this.title,
       user:         this.createdBy,
+      displayName:  firebase.auth().currentUser?.uid,
       date:         this.creationDate,
       description:  this.description,
       tags:         this.tags,
-      private:    this.private,
+      private:      this.private,
       whitelist:    this.private ? this.userWhitelist : [],
     }
 
