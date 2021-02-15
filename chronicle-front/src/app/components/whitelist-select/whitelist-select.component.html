@@ -21,11 +21,14 @@
       <mat-hint>Enter text to find users by name</mat-hint>
     </mat-form-field>
 
+    <!-- TODO: make checkboxes selectable with the keyboard -->
     <mat-autocomplete #auto="matAutocomplete" class="full-width">
       <mat-option *ngFor="let user of filteredUsers | async" [value]="selectedUsers">
         <div (click)="optionClicked($event, user)">
           <mat-checkbox [checked]="user.selected!" (change)="toggleSelection(user)" (click)="$event.stopPropagation()">
-            {{user.email}}
+            <span [attr.aria-label]="user.email + '; Press backspace to delete'">
+              {{user.email}}
+            </span>
           </mat-checkbox>
         </div>
       </mat-option>
