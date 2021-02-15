@@ -23,11 +23,15 @@ export class WhitelistSelectComponent implements OnInit {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   users: DisplayUser[] = [];
-  @Input() currentWhitelist: any;
   selectedUsers: DisplayUser[] = [];
   filteredUsers!:Observable<DisplayUser[]>;
   lastFilter: string = '';
-  uploadingUserId : string | null | undefined;
+
+  /**
+   * optional properties for when editing whitelist
+   */
+  @Input() currentWhitelist: any;
+  @Input() exemptUserId : string | null | undefined;
 
   constructor(private userService: UsersService, private auth: AuthService) { }
 
@@ -43,21 +47,20 @@ export class WhitelistSelectComponent implements OnInit {
         return;
 
       if(!this.currentWhitelist){
-        this.uploadingUserId = resp.email;
+        this.exemptUserId = resp.uid;
         this.toggleSelection(resp);
       }
-
     })
 
     this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
       // sommething is likely seriously wrong if true though
-      if (this.uploadingUserId === undefined) {
+      if (this.exemptUserId === undefined) {
         return;
       }
 
       this.users = resp;
-      if(!this.currentWhitelist && this.uploadingUserId !== undefined){
-        const i = this.users.findIndex(value => value.email! === this.uploadingUserId)
+      if(!this.currentWhitelist && this.exemptUserId !== undefined){
+        const i = this.users.findIndex(value => value.email! === this.exemptUserId)
         this.users.splice(i, 1);
       }
       this.filteredUsers = this.userControl.valueChanges.pipe(
@@ -66,8 +69,9 @@ export class WhitelistSelectComponent implements OnInit {
         map(filter => this.filter(filter)),
 
       );
+
       if(resp.length > 0)
-      this.selectCurrentWhitelist();
+        this.selectCurrentWhitelist();
     })
   }
 
@@ -116,20 +120,18 @@ export class WhitelistSelectComponent implements OnInit {
     */
   toggleSelection(user: any) {
     // refuse to ever *un*check the uploading user
-    if (user.selected && user.email === this.uploadingUserId) {
+    if (user.selected && user.uid === this.exemptUserId) {
       return;
     }
 
     user.selected! = !user.selected;
     if (user.selected) {
-      console.log(user.selected);
       this.selectedUsers.push(user);
     } else {
       const i = this.selectedUsers.findIndex(value => value.email === user.email);
       this.selectedUsers.splice(i, 1);
     }
     this.userControl.setValue(this.selectedUsers);
-    console.log(this.selectedUsers);
     this.whitelist.emit(this.selectedUsers);
   }
 
