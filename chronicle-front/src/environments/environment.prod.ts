@@ -8,7 +8,7 @@
 // The list of file replacements can be found in `angular.json`
 
 export const environment = {
-  production: false,
+  production: true,
   // apiBase: 'http://localhost:8080/myapp',
   apiBase: 'http://3.236.46.62/api/myapp',
   isSignedIn: false,
