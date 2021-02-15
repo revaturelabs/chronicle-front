@@ -116,6 +116,11 @@ export class WhitelistSelectComponent implements OnInit {
     * @param user, the selected user.
     */
   toggleSelection(user: any) {
+    // refuse to ever *un*check the current user
+    if (user.selected && user.email == this.currentUser.email) {
+      return;
+    }
+
     user.selected! = !user.selected;
     if (user.selected) {
       console.log(user.selected);
