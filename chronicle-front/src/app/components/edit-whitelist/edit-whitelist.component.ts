@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UpdateWhitelistService } from 'src/app/services/update-whitelist.service';
 
 /**
@@ -16,7 +17,10 @@ export class EditWhitelistComponent implements OnInit {
   @Input() media: any;
   userWhitelist: any;
 
-  constructor(private updateWhitellist: UpdateWhitelistService) { }
+  constructor(
+    private updateWhitellist: UpdateWhitelistService,
+    private router: Router
+    ){ }
 
   ngOnInit(): void {
     // this.userWhitelist=this.media.whitelist;
@@ -32,7 +36,8 @@ export class EditWhitelistComponent implements OnInit {
     for(let user of this.userWhitelist) {
       userIdWhitelist.push(user.uid);
     }
-    this.updateWhitellist.update(userIdWhitelist, this.media.id, 'notes')
+    let media = this.router.url;
+    this.updateWhitellist.update(userIdWhitelist, this.media.id, media.split("/", 2)[1])
   }
 
   /**
