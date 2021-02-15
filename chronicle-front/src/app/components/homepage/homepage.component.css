@@ -13,3 +13,7 @@ mat-card{
     width: 204.8px;
     padding: 40px;
 }
+
+.dash-card a {
+    text-decoration: none;
+}
