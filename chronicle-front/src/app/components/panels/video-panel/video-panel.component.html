@@ -16,7 +16,7 @@
       <p>{{video?.description}}</p>
       <div style="display: flex;">
         <div *ngFor="let tag of topics">
-          <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)"  style="margin: 2px;">{{tag.value}}</button>
+          <button mat-button [ngStyle] =  "colorservice.getColorStringFromTag(tag)"  style="margin: 2px;" tabindex="0">{{tag.value}}</button>
       </div>
       </div>
     </mat-card-content>
