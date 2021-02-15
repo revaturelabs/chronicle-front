@@ -44,11 +44,13 @@ export class AuthService {
       this.afAuth.user.pipe(first()).subscribe(user => this.user.next(user))
     return this.user;
   }
-  setUser(user: User) {
-    user.getIdTokenResult()
-    .then((idTokenResult) => {
-      idTokenResult.claims // how to access user claims
-    })
+  setUser(user: User | null) {
+    if (user) {
+      user.getIdTokenResult()
+      .then((idTokenResult) => {
+        idTokenResult.claims // how to access user claims
+      })
+    }
 
     this.user.next(user);
   }
