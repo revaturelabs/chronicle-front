@@ -35,6 +35,7 @@ export class UploadpageComponent implements OnInit {
   selectedFiles!: FileList;
   currentFile: File | any;
   progress: Number = 0;
+  sending: boolean = false;
   message = '';
   fileInfos!: Observable<any>;
 
@@ -119,6 +120,7 @@ export class UploadpageComponent implements OnInit {
 
 
 
+    this.sending = true;
     //Call the Upload Service to send our data to the back-end
     this.uploadService.upload(JSON.stringify(dataObj), this.currentFile)
     .subscribe(resp => {
@@ -126,12 +128,14 @@ export class UploadpageComponent implements OnInit {
         status that can be displayed on a Progress Bar */
 
         //Recieve HTTP status response and display as a Snack Bar
-        console.log(resp.body);
-        this.snackBar.open(resp.body, 'Close', {duration: 2000});
+        console.log(resp);
+        this.snackBar.open(resp, 'Close', {duration: 2000});
+        this.sending = false;
       },
       err => {
         console.log(err);
         this.snackBar.open('An error has occured with your request!', 'Close', {duration: 2000});
+        this.sending = false;
       });
 
 
