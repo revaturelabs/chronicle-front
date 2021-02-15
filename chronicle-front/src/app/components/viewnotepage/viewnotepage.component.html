@@ -15,7 +15,7 @@
               </div>
             </mat-chip-list>
           </div>
-          <app-edit-whitelist [media]="note" *ngIf="note?.private && admin"></app-edit-whitelist>
+          <app-edit-whitelist [media]="note" *ngIf="note?.private && admin || note?.userId == currentUser?.uid"></app-edit-whitelist>
         </div>
         <div fxLayout="column" style="width:100%;" *ngIf="note">
             <ngx-doc-viewer [url]="note.url" viewer="url" style="margin:auto;width:100%;height:80vh;overflow:hidden"></ngx-doc-viewer>

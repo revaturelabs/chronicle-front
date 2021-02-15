@@ -52,7 +52,12 @@ export class UploadpageComponent implements OnInit {
   existingBatch: Tag[] = [];
 
 
-  constructor(private authService: AuthService, private snackBar: MatSnackBar, private uploadService: UploadService, private mediaRetrievalService: MediaRetrievalService) { }
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private uploadService: UploadService,
+    private mediaRetrievalService: MediaRetrievalService
+    ) {}
 
   ngOnInit(): void {
     this.createdBy = firebase.auth().currentUser?.displayName; //Successfully pulled uid from firebase (automation)
@@ -100,8 +105,11 @@ export class UploadpageComponent implements OnInit {
       }
     }
 
+    let stringWhitelist = [];
+
+
     for(let user of this.userWhitelist) {
-      delete user.selected;
+      stringWhitelist.push(user.uid);
     }
 
     //The JSON object we are going to send to the back-end using the Upload Service
@@ -113,9 +121,10 @@ export class UploadpageComponent implements OnInit {
       description:  this.description,
       tags:         this.tags,
       private:      this.private,
-      whitelist:    this.private ? this.userWhitelist : [],
+      whitelist:    this.private ? stringWhitelist : [],
     }
 
+    console.log(dataObj);
     this.currentFile = this.selectedFiles.item(0);
 
 

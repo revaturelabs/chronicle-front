@@ -17,6 +17,7 @@ export class UploadService {
   adds a key if it does not already exist.
   */
  upload(form: string, file: File): Observable<any>{
+   console.log(JSON.parse(form));
    const formData: FormData = new FormData();
    formData.append('json',form);
    formData.append('file',file);

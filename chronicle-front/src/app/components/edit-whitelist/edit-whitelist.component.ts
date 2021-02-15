@@ -26,11 +26,13 @@ export class EditWhitelistComponent implements OnInit {
    * This method is binded to a click event on the components Upload button.
    * When clicked it will call our updateWhitelist service to send the updated white list to our backend.
    */
+
   update(): void {
+    let userIdWhitelist = [];
     for(let user of this.userWhitelist) {
-      delete user.selected;
+      userIdWhitelist.push(user.uid);
     }
-    this.updateWhitellist.update(this.userWhitelist, this.media.id, 'notes');
+    this.updateWhitellist.update(userIdWhitelist, this.media.id, 'notes')
   }
 
   /**
