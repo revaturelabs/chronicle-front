@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tag } from 'src/app/models/Tag';
 import { Video } from 'src/app/models/Video';
+import { AuthService } from 'src/app/services/auth.service';
 import { MediaRetrievalService } from 'src/app/services/media-retrieval.service';
 import { MediaTransferService } from 'src/app/services/media-transfer.service';
 import { TagColorService } from 'src/app/services/tag-color.service';
@@ -21,8 +22,9 @@ export class ViewvideopageComponent implements OnInit {
   batch?: string;
   public errorMsg? : String = undefined;
   admin: boolean = false;
+  currentUser: any = null;
 
-  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService,  private aAuth: AngularFireAuth)  { }
+  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService,  private aAuth: AngularFireAuth, private userAuth: AuthService)  { }
 
   searchTag(tag : Tag) {
     this.mediaService.searchVideoTag(tag)
@@ -60,6 +62,11 @@ export class ViewvideopageComponent implements OnInit {
       } else {
         this.admin =false;
       }
+  })
+
+  this.userAuth.User.subscribe(user => {
+    console.log(user);
+    this.currentUser = user;
   })
   }
 }
