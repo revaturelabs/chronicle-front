@@ -84,6 +84,7 @@ export class MediaRetrievalService {
     // this.setHeaders();
     return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllNotes)
     .pipe(map((resp:any) => {
+      console.log(resp);
       return resp.map((note:any) => {
         let newNote: Note = {
           id : note.id,
