@@ -44,11 +44,15 @@ export class WhitelistSelectComponent implements OnInit {
 
       this.currentUser = resp;
 
-      let newCurrent = {uid: null, displayName: null, email: "", selected: false };
-      newCurrent.email = this.currentUser.email;
-      newCurrent.displayName = this.currentUser.displayName;
-      newCurrent.uid = this.currentUser.uid;
-      this.toggleSelection(newCurrent);
+      if(!this.currentWhitelist){
+        let newCurrent = {uid: null, displayName: null, email: "", selected: false };
+        newCurrent.email = this.currentUser.email;
+        newCurrent.displayName = this.currentUser.displayName;
+        newCurrent.uid = this.currentUser.uid;
+        console.log(newCurrent);
+        this.toggleSelection(newCurrent);
+      }
+
     })
 
     this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
@@ -74,9 +78,9 @@ export class WhitelistSelectComponent implements OnInit {
   private selectCurrentWhitelist() {
     if(this.currentWhitelist)
       for (let user of this.currentWhitelist) {
-        const index = this.users.findIndex(value => value.uid! === user.uid);
+        const index = this.users.findIndex(value => value.uid! === user);
         if(this.users[index])
-        this.toggleSelection(this.users[index]);
+          this.toggleSelection(this.users[index]);
       }
   }
 
@@ -114,6 +118,7 @@ export class WhitelistSelectComponent implements OnInit {
   toggleSelection(user: any) {
     user.selected! = !user.selected;
     if (user.selected) {
+      console.log(user.selected);
       this.selectedUsers.push(user);
     } else {
       const i = this.selectedUsers.findIndex(value => value.email === user.email);
