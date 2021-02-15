@@ -55,7 +55,7 @@ export class FilterComponent implements OnInit {
       }
     }
   }
-  
+
   selected(event: MatAutocompleteSelectedEvent): void {
     this.mediaRetrievalService.selectedBatchTags.push(event.option.value);
     // removes a tag from the list if it has already been selected
@@ -74,9 +74,9 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  getDate(input:any){    
+  getDate(input:any){
     this.mediaRetrievalService.date = input.target.value;
-        
+
     console.log(this.mediaRetrievalService.date)
   }
 
