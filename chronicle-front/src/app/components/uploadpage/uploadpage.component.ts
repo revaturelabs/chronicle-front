@@ -106,8 +106,8 @@ export class UploadpageComponent implements OnInit {
     //The JSON object we are going to send to the back-end using the Upload Service
     const dataObj = {
       title:        this.title,
-      user:         this.createdBy,
-      displayName:  firebase.auth().currentUser?.uid,
+      user:         firebase.auth().currentUser?.uid,
+      displayName:  this.createdBy,
       date:         this.creationDate,
       description:  this.description,
       tags:         this.tags,

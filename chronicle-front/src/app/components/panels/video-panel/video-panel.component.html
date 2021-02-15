@@ -9,7 +9,7 @@
       <mat-card-title *ngIf="!video?.title" class="card-custom-title">No Title</mat-card-title>
       <mat-card-title class="card-custom-title">{{video?.title}}</mat-card-title>
       <mat-card-subtitle>
-        <p style="margin-bottom: 0;">By {{video?.userId}} - {{video?.date}}</p>
+        <p style="margin-bottom: 0;">By {{video?.displayName}} - {{video?.date}}</p>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
