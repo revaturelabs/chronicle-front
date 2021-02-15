@@ -1,8 +1,11 @@
 <div class="page">
     <div fxLayout="row" class="note shadow" fxLayoutAlign="center">
         <div fxLayout="column" class="note-info">
-          <h2 style="text-align: center; margin-top: 1em;">{{note?.title}}</h2>
-          <h4 style="text-align: center;">{{note?.description}}</h4>
+          <header>
+            <h1 style="text-align: center; margin-top: 1em;">{{note?.title}}</h1>
+            <p class="media-description" style="text-align: center;">{{note?.description}}</p>
+          </header>
+          <!-- TODO: DOM structure is inconsistent with viewvideospage -->
           <div fxLayoutAlign="center">
             <mat-chip-list aria-label="Tags">
               <div :*ngFor="let tag of topics">

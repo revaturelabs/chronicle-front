@@ -1,11 +1,11 @@
 <div class="page">
   <div fxLayout="column" class="video shadow" style="padding: 40px 0;" fxLayoutGap="20px">
-    <div fxLayout="row" fxLayoutAlign="center">
+    <header fxLayout="row" fxLayoutAlign="center">
       <div fxLayout="column" style="text-align: center;">
-        <h2>{{video?.title}}</h2>
-        <h4>{{video?.description}}</h4>
+        <h1>{{video?.title}}</h1>
+        <p class="media-description">{{video?.description}}</p>
       </div>
-    </div>
+    </header>
     <div fxLayout="row" fxLayoutAlign="center">
       <div fxLayout="column" style="width:100%;" *ngIf="video">
         <div :*ngIf=video>
