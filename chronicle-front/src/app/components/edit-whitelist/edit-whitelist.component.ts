@@ -15,6 +15,7 @@ export class EditWhitelistComponent implements OnInit {
 
   @Input() media: any;
   userWhitelist: any;
+  uploadingUserId : string | undefined;
 
   constructor(private updateWhitellist: UpdateWhitelistService) { }
 
