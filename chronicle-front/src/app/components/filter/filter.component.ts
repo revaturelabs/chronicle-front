@@ -21,6 +21,7 @@ export class FilterComponent implements OnInit {
   tagCtrl = new FormControl();
   filteredTags: any;
   default?: Tag;
+  filterDate: any;
 
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedBatchTags;
@@ -75,9 +76,13 @@ export class FilterComponent implements OnInit {
   }
 
   getDate(input:any){
+    // console.log(input);
+
     this.mediaRetrievalService.date = input.target.value;
 
-    console.log(this.mediaRetrievalService.date)
+    // console.log(this.mediaRetrievalService.date)
+    console.log(this.filterDate);
+
   }
 
 }
