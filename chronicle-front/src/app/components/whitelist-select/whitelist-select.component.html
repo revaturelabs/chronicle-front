@@ -6,7 +6,9 @@
           *ngFor = "let user of selectedUsers"
           [removable]="removable"
           (removed) = "toggleSelection(user)">
-          {{user.email}}
+          <span [attr.aria-label]="user.email + '; Press backspace to delete'">
+            {{user.email}}
+          </span>
           <mat-icon matChipRemove *ngIf="removable && user.email != currentUser.email">cancel</mat-icon>
         </mat-chip>
         <input
@@ -26,9 +28,7 @@
       <mat-option *ngFor="let user of filteredUsers | async" [value]="selectedUsers">
         <div (click)="optionClicked($event, user)">
           <mat-checkbox [checked]="user.selected!" (change)="toggleSelection(user)" (click)="$event.stopPropagation()">
-            <span [attr.aria-label]="user.email + '; Press backspace to delete'">
-              {{user.email}}
-            </span>
+            {{user.email}}
           </mat-checkbox>
         </div>
       </mat-option>
