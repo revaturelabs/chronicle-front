@@ -74,7 +74,6 @@ export class ViewnotepageComponent implements OnInit {
     })
 
     this.userAuth.User.subscribe(user => {
-      console.log(user);
       this.currentUser = user;
     })
 
