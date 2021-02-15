@@ -29,5 +29,6 @@
         </div>
       </mat-chip-list>
     </div>
+    <app-edit-whitelist [media]="video" *ngIf="video?.private && admin"></app-edit-whitelist>
   </div>
 </div>

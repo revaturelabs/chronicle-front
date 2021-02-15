@@ -84,6 +84,7 @@ export class MediaRetrievalService {
     // this.setHeaders();
     return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getAllNotes)
     .pipe(map((resp:any) => {
+      console.log(resp);
       return resp.map((note:any) => {
         let newNote: Note = {
           id : note.id,
@@ -91,6 +92,7 @@ export class MediaRetrievalService {
           title: note.title,
           date: this.formatDate(note.date),
           userId : note.user,
+          displayName: note.displayName,
           url : note.url,
           tags : note.tags,
           private: note.private,
@@ -118,6 +120,7 @@ export class MediaRetrievalService {
           title: note.title,
           date: this.formatDate(note.date),
           userId : note.user,
+          displayName: note.displayName,
           url : note.url,
           tags : note.tags,
           private: note.private,
@@ -139,6 +142,7 @@ export class MediaRetrievalService {
         title: note.title,
         date: this.formatDate(note.date),
         userId : note.user,
+        displayName: note.displayName,
         url : note.url,
         tags : note.tags,
           private: note.private,
@@ -162,6 +166,7 @@ export class MediaRetrievalService {
           title: video.title,
           date: this.formatDate(video.date),
           userId : video.user,
+          displayName: video.displayName,
           url : video.url,
           tags : video.tags,
           private: video.private,
@@ -194,6 +199,7 @@ export class MediaRetrievalService {
           title: video.title,
           date: this.formatDate(video.date),
           userId : video.user,
+          displayName: video.displayName,
           url : video.url,
           tags : video.tags,
           private: video.private,
@@ -217,6 +223,7 @@ export class MediaRetrievalService {
         title: video.title,
         date: this.formatDate(video.date),
         userId : video.user,
+        displayName: video.displayName,
         url : video.url,
         tags : video.tags,
         private: video.private,
