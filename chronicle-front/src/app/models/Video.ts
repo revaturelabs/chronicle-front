@@ -6,6 +6,7 @@ export interface Video {
     title: string;
     date: string;
     userId: any;
+    displayName: string;
     url: string;
     tags: Tag[];
     whitelist: any[];
