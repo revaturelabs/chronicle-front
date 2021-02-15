@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tag } from 'src/app/models/Tag';
 import { Video } from 'src/app/models/Video';
@@ -15,11 +16,13 @@ export class ViewvideopageComponent implements OnInit {
 
 
   @Input() video? : Video;
+
   topics?: Tag[];
   batch?: string;
   public errorMsg? : String = undefined;
+  admin: boolean = false;
 
-  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService)  { }
+  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService,  private aAuth: AngularFireAuth)  { }
 
   searchTag(tag : Tag) {
     this.mediaService.searchVideoTag(tag)
@@ -50,5 +53,13 @@ export class ViewvideopageComponent implements OnInit {
         });
       }
     }
+
+    this.aAuth.idTokenResult.subscribe(resp => {
+      if(resp?.claims.role && resp.claims.role.includes("ROLE_ADMIN")){
+        this.admin = true;
+      } else {
+        this.admin =false;
+      }
+  })
   }
 }

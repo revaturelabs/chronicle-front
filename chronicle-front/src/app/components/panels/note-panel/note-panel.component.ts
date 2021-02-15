@@ -28,6 +28,7 @@ export class NotePanelComponent implements OnInit {
       this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
       this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
     }
+    console.log(this.note);
   }
 
 
