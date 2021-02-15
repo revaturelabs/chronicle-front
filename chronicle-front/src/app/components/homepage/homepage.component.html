@@ -4,19 +4,23 @@
     </div>
     <div fxLayout="row" fxFlexAlign="center" fxLayoutGap="20px">
         <div fxLayout="column">
-            <mat-card class="dash-card" routerLink="notes" aria-label="Browse Notes">
-                <img class="card-ico" mat-card-image src="../../../assets/images/notes-img.png" alt="">
-                <mat-card-actions fxLayout="row" fxLayoutAlign="center">
-                    <button mat-flat-button color="primary" tabindex="-1">Browse Notes</button>
-                </mat-card-actions>
+            <mat-card class="dash-card">
+                <a routerLink="notes" aria-label="Browse Notes">
+                    <img class="card-ico" mat-card-image src="../../../assets/images/notes-img.png" alt="">
+                    <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+                        <button mat-flat-button color="primary" tabindex="-1">Browse Notes</button>
+                    </mat-card-actions>
+                </a>
             </mat-card>
         </div>
         <div fxLayout="column">
-            <mat-card class="dash-card" routerLink="videos" aria-label="Browse Videos">
-                <img class="card-ico" mat-card-image src="../../../assets/images/videos-img.png" alt="">
-                <mat-card-actions fxLayout="row" fxLayoutAlign="center">
-                    <button mat-flat-button color="primary" id="browse-videos" tabindex="-1">Browse Videos</button>
-                </mat-card-actions>
+            <mat-card class="dash-card">
+                <a routerLink="videos" aria-label="Browse Videos">
+                    <img class="card-ico" mat-card-image src="../../../assets/images/videos-img.png" alt="">
+                    <mat-card-actions fxLayout="row" fxLayoutAlign="center">
+                        <button mat-flat-button color="primary" id="browse-videos" tabindex="-1">Browse Videos</button>
+                    </mat-card-actions>
+                </a>
             </mat-card>
         </div>
     </div>
