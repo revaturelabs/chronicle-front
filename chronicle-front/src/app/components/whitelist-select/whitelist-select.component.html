@@ -7,7 +7,7 @@
           [removable]="removable"
           (removed) = "toggleSelection(user)">
           <span
-            *ngIf="removable && user.email != currentUser.email; else nonRemovable"
+            *ngIf="removable && user.email !== uploadingUserId; else nonRemovable"
             [attr.aria-label]="user.email + '; press backspace to delete'">
             {{user.email}}
             <mat-icon matChipRemove>cancel</mat-icon>
