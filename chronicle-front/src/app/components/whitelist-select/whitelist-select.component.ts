@@ -27,7 +27,7 @@ export class WhitelistSelectComponent implements OnInit {
   selectedUsers: DisplayUser[] = [];
   filteredUsers!:Observable<DisplayUser[]>;
   lastFilter: string = '';
-  currentUser: any;
+  uploadingUserId : string | null | undefined;
 
   constructor(private userService: UsersService, private auth: AuthService) { }
 
@@ -42,23 +42,22 @@ export class WhitelistSelectComponent implements OnInit {
       if(!resp)
         return;
 
-      this.currentUser = resp;
-
       if(!this.currentWhitelist){
-        let newCurrent = {uid: null, displayName: null, email: "", selected: false };
-        newCurrent.email = this.currentUser.email;
-        newCurrent.displayName = this.currentUser.displayName;
-        newCurrent.uid = this.currentUser.uid;
-        console.log(newCurrent);
-        this.toggleSelection(newCurrent);
+        this.uploadingUserId = resp.email;
+        this.toggleSelection(resp);
       }
 
     })
 
     this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
+      // sommething is likely seriously wrong if true though
+      if (this.uploadingUserId === undefined) {
+        return;
+      }
+
       this.users = resp;
-      if(!this.currentWhitelist){
-        const i = this.users.findIndex(value => value.email! === this.currentUser.email)
+      if(!this.currentWhitelist && this.uploadingUserId !== undefined){
+        const i = this.users.findIndex(value => value.email! === this.uploadingUserId)
         this.users.splice(i, 1);
       }
       this.filteredUsers = this.userControl.valueChanges.pipe(
@@ -116,6 +115,11 @@ export class WhitelistSelectComponent implements OnInit {
     * @param user, the selected user.
     */
   toggleSelection(user: any) {
+    // refuse to ever *un*check the uploading user
+    if (user.selected && user.email === this.uploadingUserId) {
+      return;
+    }
+
     user.selected! = !user.selected;
     if (user.selected) {
       console.log(user.selected);

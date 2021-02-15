@@ -6,10 +6,15 @@
           *ngFor = "let user of selectedUsers"
           [removable]="removable"
           (removed) = "toggleSelection(user)">
-          <span [attr.aria-label]="user.email + '; Press backspace to delete'">
+          <span
+            *ngIf="removable && user.email != currentUser.email; else nonRemovable"
+            [attr.aria-label]="user.email + '; press backspace to delete'">
             {{user.email}}
+            <mat-icon matChipRemove>cancel</mat-icon>
           </span>
-          <mat-icon matChipRemove *ngIf="removable && user.email != currentUser.email">cancel</mat-icon>
+          <ng-template #nonRemovable>
+            {{user.email}}
+          </ng-template>
         </mat-chip>
         <input
           placeholder="Enter User"
