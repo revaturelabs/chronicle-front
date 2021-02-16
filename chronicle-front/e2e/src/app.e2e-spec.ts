@@ -10,8 +10,13 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('chronicle-front app is running!');
+    expect(await page.getTitleText()).toEqual('Sign in with email');
   });
+
+  it('should log the user in', async() => {
+    await page.fillCredentials();
+    expect(await page.getTitleText()).toEqual('Welcome User');
+  })
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
