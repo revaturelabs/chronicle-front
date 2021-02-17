@@ -26,7 +26,10 @@ export class NotePanelComponent implements OnInit {
   ngOnInit(): void {
     if (this.note) {
       this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
-      this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
+      let batchTags = this.mediaService.filterTags(this.note.tags, 'Batch')
+
+      if(batchTags.length)
+        this.batch = batchTags[0].value;
     }
   }
 
