@@ -30,6 +30,6 @@
       </mat-chip-list>
     </div>
 
-    <app-edit-whitelist [media]="video" *ngIf="video?.private && admin || video?.userId == currentUser?.uid"></app-edit-whitelist>
+    <app-edit-whitelist [media]="video" *ngIf="(video?.private && admin) || (video?.private && video?.userId == currentUser?.uid)"></app-edit-whitelist>
   </div>
 </div>
