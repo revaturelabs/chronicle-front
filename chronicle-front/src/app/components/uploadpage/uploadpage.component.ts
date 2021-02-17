@@ -87,6 +87,8 @@ export class UploadpageComponent implements OnInit {
     //this still uses the .getSyncToken()
     this.progress = 0;
 
+    console.log(this.tags)
+
     if (this.batch) {
       let batchExists = true;
       this.existingBatch.forEach(tag => {
