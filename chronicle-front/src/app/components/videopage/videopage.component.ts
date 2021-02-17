@@ -33,7 +33,6 @@ export class VideopageComponent implements OnInit {
       for(let i in this.mediaRetrievalService.selectedTags){
         this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedTags[i])
       }
-      console.log("All tags", this.mediaRetrievalService.allTags)
       if (this.mediaRetrievalService.allTags.length > 0) {
         this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.allTags).subscribe(resp => {
           if (resp.length == 0){
@@ -46,7 +45,6 @@ export class VideopageComponent implements OnInit {
             }
           } else {
             this.videos = resp;
-            console.log("Get Videos by Tag", resp)
           }
         });
       } else {

@@ -1,7 +1,7 @@
 <div class="page">
     <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
         <!-- Title of the page  -->
-        <h2 class="page-title">Upload a file</h2>
+        <h1 class="page-title">Upload a file</h1>
 
         <!-- Form fields -->
         <div id="upload-form">
@@ -46,7 +46,7 @@
 
             <!-- Private Checkbox -->
             <div fxLayoutAlign="center" fxFlexFill>
-              <section fxFlex="40">    
+              <section fxFlex="40">
                 <mat-checkbox [(ngModel)] = "private">Private</mat-checkbox>
               </section>
             </div>
@@ -66,8 +66,10 @@
             <br>
             <!-- UPLOAD BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
-                <button class="upload-button" mat-flat-button color="primary" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
-                
+                <button class="upload-button"
+                        mat-flat-button color="primary"
+                        [class.spinner]="sending"
+                        [disabled]="sending || !selectedFiles || !batch " (click)="upload()">Upload</button>
             </div>
         </div>
     </div>

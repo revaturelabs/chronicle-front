@@ -6,8 +6,15 @@
           *ngFor = "let user of selectedUsers"
           [removable]="removable"
           (removed) = "toggleSelection(user)">
-          {{user.email}}
-          <mat-icon matChipRemove *ngIf="removable && user.email != currentUser.email">cancel</mat-icon>
+          <span
+            *ngIf="removable && user.uid != exemptUserId; else nonRemovable"
+            [attr.aria-label]="user.email + '; press backspace to delete'">
+            {{user.email}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </span>
+          <ng-template #nonRemovable>
+            {{user.email}}
+          </ng-template>
         </mat-chip>
         <input
           placeholder="Enter User"
@@ -21,6 +28,7 @@
       <mat-hint>Enter text to find users by name</mat-hint>
     </mat-form-field>
 
+    <!-- TODO: make checkboxes selectable with the keyboard -->
     <mat-autocomplete #auto="matAutocomplete" class="full-width">
       <mat-option *ngFor="let user of filteredUsers | async" [value]="selectedUsers">
         <div (click)="optionClicked($event, user)">

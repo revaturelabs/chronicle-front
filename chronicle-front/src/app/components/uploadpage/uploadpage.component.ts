@@ -35,6 +35,7 @@ export class UploadpageComponent implements OnInit {
   selectedFiles!: FileList;
   currentFile: File | any;
   progress: Number = 0;
+  sending: boolean = false;
   message = '';
   fileInfos!: Observable<any>;
 
@@ -51,7 +52,12 @@ export class UploadpageComponent implements OnInit {
   existingBatch: Tag[] = [];
 
 
-  constructor(private authService: AuthService, private snackBar: MatSnackBar, private uploadService: UploadService, private mediaRetrievalService: MediaRetrievalService) { }
+  constructor(
+    private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private uploadService: UploadService,
+    private mediaRetrievalService: MediaRetrievalService
+    ) {}
 
   ngOnInit(): void {
     this.createdBy = firebase.auth().currentUser?.displayName; //Successfully pulled uid from firebase (automation)
@@ -81,6 +87,8 @@ export class UploadpageComponent implements OnInit {
     //this still uses the .getSyncToken()
     this.progress = 0;
 
+    console.log(this.tags)
+
     if (this.batch) {
       let batchExists = true;
       this.existingBatch.forEach(tag => {
@@ -99,25 +107,31 @@ export class UploadpageComponent implements OnInit {
       }
     }
 
+    let stringWhitelist = [];
+
+
     for(let user of this.userWhitelist) {
-      delete user.selected;
+      stringWhitelist.push(user.uid);
     }
 
     //The JSON object we are going to send to the back-end using the Upload Service
     const dataObj = {
       title:        this.title,
-      user:         this.createdBy,
+      user:         firebase.auth().currentUser?.uid,
+      displayName:  this.createdBy,
       date:         this.creationDate,
       description:  this.description,
       tags:         this.tags,
-      private:    this.private,
-      whitelist:    this.private ? this.userWhitelist : [],
+      private:      this.private,
+      whitelist:    this.private ? stringWhitelist : [],
     }
 
+    console.log(dataObj);
     this.currentFile = this.selectedFiles.item(0);
 
 
 
+    this.sending = true;
     //Call the Upload Service to send our data to the back-end
     this.uploadService.upload(JSON.stringify(dataObj), this.currentFile)
     .subscribe(resp => {
@@ -125,16 +139,19 @@ export class UploadpageComponent implements OnInit {
         status that can be displayed on a Progress Bar */
 
         //Recieve HTTP status response and display as a Snack Bar
-        console.log(resp.body);
-        this.snackBar.open(resp.body, 'Close', {duration: 2000});
+        console.log(resp);
+        this.snackBar.open(resp, 'Close', {duration: 2000});
+        this.sending = false;
+        this.resetFields();
       },
       err => {
         console.log(err);
         this.snackBar.open('An error has occured with your request!', 'Close', {duration: 2000});
+        this.sending = false;
+        this.resetFields();
       });
 
 
-    this.resetFields();
   }
 
   resetFields(): void {

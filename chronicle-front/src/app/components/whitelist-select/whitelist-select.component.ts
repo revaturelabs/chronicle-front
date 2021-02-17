@@ -1,3 +1,4 @@
+import { User } from '@firebase/auth-types';
 import { DisplayUser } from './../../models/display-user';
 import { UsersService } from './../../services/users.service';
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
@@ -22,12 +23,17 @@ export class WhitelistSelectComponent implements OnInit {
   userControl = new FormControl();
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
+  currentUser: User | null = null;
   users: DisplayUser[] = [];
-  @Input() currentWhitelist: any;
   selectedUsers: DisplayUser[] = [];
   filteredUsers!:Observable<DisplayUser[]>;
   lastFilter: string = '';
-  currentUser: any;
+
+  /**
+   * optional properties for when editing whitelist
+   */
+  @Input() existingWhitelist: any;
+  @Input() exemptUserId : string | null | undefined;
 
   constructor(private userService: UsersService, private auth: AuthService) { }
 
@@ -43,18 +49,19 @@ export class WhitelistSelectComponent implements OnInit {
         return;
 
       this.currentUser = resp;
+      this.preselectUsers();
 
-      let newCurrent = {uid: null, displayName: null, email: "", selected: false };
-      newCurrent.email = this.currentUser.email;
-      newCurrent.displayName = this.currentUser.displayName;
-      newCurrent.uid = this.currentUser.uid;
-      this.toggleSelection(newCurrent);
     })
 
     this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
+      // sommething is likely seriously wrong if true though
+      if (this.exemptUserId === undefined) {
+        return;
+      }
+
       this.users = resp;
-      if(!this.currentWhitelist){
-        const i = this.users.findIndex(value => value.email! === this.currentUser.email)
+      if(!this.existingWhitelist && this.exemptUserId !== undefined){
+        const i = this.users.findIndex(value => value.email! === this.exemptUserId)
         this.users.splice(i, 1);
       }
       this.filteredUsers = this.userControl.valueChanges.pipe(
@@ -63,20 +70,36 @@ export class WhitelistSelectComponent implements OnInit {
         map(filter => this.filter(filter)),
 
       );
+
       if(resp.length > 0)
-      this.selectCurrentWhitelist();
+        this.preselectUsers();
     })
+  }
+
+  /**
+   * A method to preset the whitelist
+   *    if no current whitelist, guarantee that the logged in user is on the list
+   *    if a current whitelist is added, populate the component with the list
+   */
+
+  private preselectUsers() {
+    if(!this.existingWhitelist){
+      this.exemptUserId = this.currentUser?.uid;
+      this.toggleSelection(this.currentUser);
+    } else {
+      this.selectexistingWhitelist();
+    }
   }
 
   /**
    * A method that allows us to iterate over the whitelist array and calls the toggleSelection method to mark or unmark the checkbox.
    */
-  private selectCurrentWhitelist() {
-    if(this.currentWhitelist)
-      for (let user of this.currentWhitelist) {
-        const index = this.users.findIndex(value => value.uid! === user.uid);
+  private selectexistingWhitelist() {
+    if(this.existingWhitelist)
+      for (let user of this.existingWhitelist) {
+        const index = this.users.findIndex(value => value.uid! === user);
         if(this.users[index])
-        this.toggleSelection(this.users[index]);
+          this.toggleSelection(this.users[index]);
       }
   }
 
@@ -112,15 +135,21 @@ export class WhitelistSelectComponent implements OnInit {
     * @param user, the selected user.
     */
   toggleSelection(user: any) {
-    user.selected! = !user.selected;
+    // refuse to ever *un*check the uploading user
+    let userIsExempt = user.uid === this.exemptUserId;
+    if ( userIsExempt )
+      user.selected = true;
+    else
+      user.selected! = !user.selected;
+
     if (user.selected) {
-      this.selectedUsers.push(user);
+      if(!this.selectedUsers.includes(user))
+        this.selectedUsers.push(user);
     } else {
       const i = this.selectedUsers.findIndex(value => value.email === user.email);
       this.selectedUsers.splice(i, 1);
     }
     this.userControl.setValue(this.selectedUsers);
-    console.log(this.selectedUsers);
     this.whitelist.emit(this.selectedUsers);
   }
 

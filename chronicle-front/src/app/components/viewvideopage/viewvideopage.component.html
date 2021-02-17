@@ -1,11 +1,11 @@
 <div class="page">
   <div fxLayout="column" class="video shadow" style="padding: 40px 0;" fxLayoutGap="20px">
-    <div fxLayout="row" fxLayoutAlign="center">
+    <header fxLayout="row" fxLayoutAlign="center">
       <div fxLayout="column" style="text-align: center;">
-        <h2>{{video?.title}}</h2>
-        <h4>{{video?.description}}</h4>
+        <h1>{{video?.title}}</h1>
+        <p class="media-description">{{video?.description}}</p>
       </div>
-    </div>
+    </header>
     <div fxLayout="row" fxLayoutAlign="center">
       <div fxLayout="column" style="width:100%;" *ngIf="video">
         <div :*ngIf=video>
@@ -16,12 +16,20 @@
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="center">
+      <!-- TODO: DOM structure is inconsistent with viewnotespage -->
       <mat-chip-list aria-label="Tags">
-        <div :*ngFor="let tag of topics">
-          <mat-chip *ngIf="tag.type != 'Title'" [ngStyle]="colorService.getColorStringFromTag(tag)"
-            (click)="searchTag(tag)">{{tag.value}}</mat-chip>
+        <!-- TODO: with multiple tags, screenreaders see only the first tag as part of the list -->
+        <div :*ngFor="let tag of topics" tabindex="-1">
+          <!-- TODO: has `role="option"`, which is absolutely semantically incorrect -->
+          <mat-chip *ngIf="tag.type != 'Title'" [ngStyle]="colorService.getColorStringFromTag(tag)" (click)="searchTag(tag)">
+            <span [attr.aria-label]="'Search for all videos tagged ' + tag.value">
+                {{tag.value}}
+            </span>
+          </mat-chip>
         </div>
       </mat-chip-list>
     </div>
+
+    <app-edit-whitelist [media]="video" *ngIf="(video?.private && admin) || (video?.private && video?.userId == currentUser?.uid)"></app-edit-whitelist>
   </div>
 </div>

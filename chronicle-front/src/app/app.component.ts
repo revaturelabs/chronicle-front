@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     this.afAuth.onAuthStateChanged(user => {
+      this.authService.setUser(user);
     });
 
   }

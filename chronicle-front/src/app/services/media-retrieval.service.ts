@@ -91,6 +91,7 @@ export class MediaRetrievalService {
           title: note.title,
           date: this.formatDate(note.date),
           userId : note.user,
+          displayName: note.displayName,
           url : note.url,
           tags : note.tags,
           private: note.private,
@@ -118,6 +119,7 @@ export class MediaRetrievalService {
           title: note.title,
           date: this.formatDate(note.date),
           userId : note.user,
+          displayName: note.displayName,
           url : note.url,
           tags : note.tags,
           private: note.private,
@@ -139,6 +141,7 @@ export class MediaRetrievalService {
         title: note.title,
         date: this.formatDate(note.date),
         userId : note.user,
+        displayName: note.displayName,
         url : note.url,
         tags : note.tags,
           private: note.private,
@@ -162,6 +165,7 @@ export class MediaRetrievalService {
           title: video.title,
           date: this.formatDate(video.date),
           userId : video.user,
+          displayName: video.displayName,
           url : video.url,
           tags : video.tags,
           private: video.private,
@@ -176,13 +180,9 @@ export class MediaRetrievalService {
   // Retrieves Videos by tag(s) from the DB and maps them to a Video model
   public getVideosByTag(tags: Tag[]) : Observable<Video[]> {
     let tagPath: string = "";
-    console.log("search tags here" , tags[0])
-    console.log(tags)
     tags.forEach(tag => {
       tagPath += `${tag.tagID}:${tag.type}:${tag.value}+`;
     });
-    console.log("SearchHere")
-    console.log("tagPath: " + tagPath);
     tagPath = tagPath.slice(0,-1);
     // this.setHeaders();
     return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getVideosByTag + tagPath)
@@ -194,6 +194,7 @@ export class MediaRetrievalService {
           title: video.title,
           date: this.formatDate(video.date),
           userId : video.user,
+          displayName: video.displayName,
           url : video.url,
           tags : video.tags,
           private: video.private,
@@ -207,7 +208,6 @@ export class MediaRetrievalService {
   // Retrieves Video by ID from the DB and maps it to a Video model
   public getVideoById(id: number) : Observable<Video> {
     // this.setHeaders();
-    console.log("SearchID");
 
     return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getVideoById + id)
     .pipe(map((video:any) => {
@@ -217,6 +217,7 @@ export class MediaRetrievalService {
         title: video.title,
         date: this.formatDate(video.date),
         userId : video.user,
+        displayName: video.displayName,
         url : video.url,
         tags : video.tags,
         private: video.private,

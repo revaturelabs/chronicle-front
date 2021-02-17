@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 
 /**
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 
 export class UpdateWhitelistService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar,) {}
 
   /**
    * This method is called to update the whitelist for a specific media.
@@ -22,7 +23,8 @@ export class UpdateWhitelistService {
   update(whitelist: any, mediaId: number, mediaType: string ): void{
     console.log(whitelist);
     this.httpClient.put(`${environment.apiBase}/${mediaType}/whitelist/${mediaId}`, whitelist)
-    .subscribe(resp => console.log(resp))
+    .subscribe(resp => this.snackBar.open("Whitelist has been updated.", 'Close', {duration: 2000}),
+    error => {this.snackBar.open("Error updating whitelist.", 'Close', {duration: 2000})});
   }
 
 }

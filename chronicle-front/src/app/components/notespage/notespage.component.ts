@@ -37,7 +37,6 @@ export class NotespageComponent implements OnInit, OnDestroy {
       for(let i in this.mediaRetrievalService.selectedTags){
         this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedTags[i])
       }
-      console.log("All tags", this.mediaRetrievalService.allTags)
       if (this.mediaRetrievalService.allTags.length > 0) {
         this.mediaRetrievalService.getNotesByTag(this.mediaRetrievalService.allTags).subscribe(resp => {
           if (resp.length == 0){
@@ -50,7 +49,6 @@ export class NotespageComponent implements OnInit, OnDestroy {
             }
           } else {
             this.notes = resp;
-            console.log("Get notes by Tag", resp)
           }
         });
       } else {

@@ -32,7 +32,18 @@ export class LoginComponent implements OnInit {
  * */
 
   successCallback(): void {
-    firebase.auth().currentUser?.getIdToken().then(token => console.log(token));
+    let user = firebase.auth().currentUser;
+
+    // currently can not find a suitable way to call an on register method without changing
+    // the current code base. I found a way to write an onRegister function but it is on the firebase console.
+    // For now we are just checking if the user has any claims set. If not then we know they are a new user
+    // Then we call the onRegister
+    firebase.auth().currentUser?.getIdTokenResult()
+    .then(tokenResults => {
+      if(!tokenResults.claims.role && user)
+        this.onRegister(user.uid);
+    })
+
     this.authService.login();
   }
 
@@ -45,5 +56,14 @@ export class LoginComponent implements OnInit {
 
   errorCallback(): void {
     console.log('LoginComponent:: emailPasswordLogin:: login failed:');
+  }
+
+  /**
+   * onRegister
+   *    Need a function added to the firebase console that can handle this more elegantly
+   *    Makes call to API /firebase/register/{uid} to add ROLE_USER claim
+   */
+  onRegister(id: string) {
+    this.authService.register(id);
   }
 }

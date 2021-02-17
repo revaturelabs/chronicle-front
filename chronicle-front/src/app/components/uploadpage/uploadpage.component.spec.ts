@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { UploadpageComponent } from './uploadpage.component';
 
@@ -15,7 +16,8 @@ describe('UploadpageComponent', () => {
         imports: [
             RouterTestingModule,
             HttpClientModule,
-            AngularFireModule.initializeApp(environment.firebaseConfig)
+            AngularFireModule.initializeApp(environment.firebaseConfig),
+            MatSnackBarModule
         ],
       declarations: [ UploadpageComponent ]
     })

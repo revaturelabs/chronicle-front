@@ -7,6 +7,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { Tag } from 'src/app/models/Tag';
 import { TagColorService } from 'src/app/services/tag-color.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-viewnotepage',
@@ -24,9 +25,16 @@ export class ViewnotepageComponent implements OnInit {
   batch?: string;
   public errorMsg? : String = undefined;
   admin: boolean = false;
+  currentUser: any = null;
 
-
-  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService, private aAuth: AngularFireAuth) { }
+  constructor(
+    private transfer : MediaTransferService,
+    private mediaService : MediaRetrievalService,
+    private route: ActivatedRoute,
+    public colorService : TagColorService,
+    private aAuth: AngularFireAuth,
+    private userAuth: AuthService
+  ) { }
 
   searchTag(tag : Tag) {
     this.mediaService.searchNoteTag(tag)
@@ -62,6 +70,11 @@ export class ViewnotepageComponent implements OnInit {
         } else {
           this.admin =false;
         }
+
+    })
+
+    this.userAuth.User.subscribe(user => {
+      this.currentUser = user;
     })
 
 
