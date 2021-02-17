@@ -76,12 +76,7 @@ export class FilterComponent implements OnInit {
   }
 
   getDate(input:any){
-    // console.log(input);
-
     this.mediaRetrievalService.date = input.target.value;
-
-    // console.log(this.mediaRetrievalService.date)
-    console.log(this.filterDate);
 
   }
 

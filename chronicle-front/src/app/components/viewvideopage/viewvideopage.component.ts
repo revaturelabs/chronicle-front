@@ -39,7 +39,6 @@ export class ViewvideopageComponent implements OnInit {
       this.batch = this.mediaService.filterTags(this.video.tags, 'Batch')[0].value;
     } else {
       let id = this.route.snapshot.paramMap.get('id');
-      console.log(id);
       if (id == null) {
         this.errorMsg = "Video Not Found";
         console.log("video url not valid");
@@ -65,7 +64,6 @@ export class ViewvideopageComponent implements OnInit {
   })
 
   this.userAuth.User.subscribe(user => {
-    console.log(user);
     this.currentUser = user;
   })
   }
