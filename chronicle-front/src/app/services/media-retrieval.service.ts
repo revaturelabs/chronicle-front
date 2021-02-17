@@ -52,6 +52,8 @@ export class MediaRetrievalService {
   // Retrieves all tags from the db and maps them to a Tag model
   // Utility function to filter tags by their 'name'
   public filterTags(allTags: Tag[], tagName: string): Tag[] {
+    console.log(allTags);
+
     return allTags.filter(tag => tag.type == tagName);
   }
 
