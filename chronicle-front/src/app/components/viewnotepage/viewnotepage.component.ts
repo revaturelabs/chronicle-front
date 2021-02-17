@@ -45,7 +45,9 @@ export class ViewnotepageComponent implements OnInit {
       this.note = this.transfer.note;
       this.transfer.note = undefined;
       this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
-      this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
+      let batchTags = this.mediaService.filterTags(this.note.tags, 'Batch');
+      if (batchTags.length)
+        this.batch = batchTags[0].value;
     } else {
       let id = this.route.snapshot.paramMap.get('id');
       if (id == null) {

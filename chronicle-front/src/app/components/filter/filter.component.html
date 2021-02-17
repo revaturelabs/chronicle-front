@@ -22,12 +22,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <!--Saturn Datepicker is included if you want to accept a range of dates as input at some point-->
-  <!-- <mat-form-field appearance="outline" fxLayout="row">
-    <mat-label>Date</mat-label>
-    <input matInput type="date" placeholder="Choose a date" (input)="getDate($event)">
-  </mat-form-field> -->
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" fxLayout="row">
     <mat-label>Choose a date</mat-label>
     <input matInput [matDatepicker]="picker" [(ngModel)]="filterDate" (click)="getDate($event)">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
