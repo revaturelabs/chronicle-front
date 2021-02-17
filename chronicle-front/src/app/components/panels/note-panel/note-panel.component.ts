@@ -24,13 +24,10 @@ export class NotePanelComponent implements OnInit {
   constructor(private transfer : MediaTransferService, public colorservice : TagColorService, private router : Router, private mediaService: MediaRetrievalService) { }
 
   ngOnInit(): void {
-    console.log(this.note?.tags);
-
     if (this.note) {
       this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
       this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
     }
-    console.log(this.note);
   }
 
 

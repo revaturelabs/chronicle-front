@@ -140,15 +140,16 @@ export class UploadpageComponent implements OnInit {
         console.log(resp);
         this.snackBar.open(resp, 'Close', {duration: 2000});
         this.sending = false;
+        this.resetFields();
       },
       err => {
         console.log(err);
         this.snackBar.open('An error has occured with your request!', 'Close', {duration: 2000});
         this.sending = false;
+        this.resetFields();
       });
 
 
-    this.resetFields();
   }
 
   resetFields(): void {

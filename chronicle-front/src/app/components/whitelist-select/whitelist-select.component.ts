@@ -1,3 +1,4 @@
+import { User } from '@firebase/auth-types';
 import { DisplayUser } from './../../models/display-user';
 import { UsersService } from './../../services/users.service';
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
@@ -22,6 +23,7 @@ export class WhitelistSelectComponent implements OnInit {
   userControl = new FormControl();
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
+  currentUser: User | null = null;
   users: DisplayUser[] = [];
   selectedUsers: DisplayUser[] = [];
   filteredUsers!:Observable<DisplayUser[]>;
@@ -30,7 +32,7 @@ export class WhitelistSelectComponent implements OnInit {
   /**
    * optional properties for when editing whitelist
    */
-  @Input() currentWhitelist: any;
+  @Input() existingWhitelist: any;
   @Input() exemptUserId : string | null | undefined;
 
   constructor(private userService: UsersService, private auth: AuthService) { }
@@ -46,10 +48,9 @@ export class WhitelistSelectComponent implements OnInit {
       if(!resp)
         return;
 
-      if(!this.currentWhitelist){
-        this.exemptUserId = resp.uid;
-        this.toggleSelection(resp);
-      }
+      this.currentUser = resp;
+      this.preselectUsers();
+
     })
 
     this.userService.Users.pipe(take(2)).subscribe((resp: any[]) =>{
@@ -59,7 +60,7 @@ export class WhitelistSelectComponent implements OnInit {
       }
 
       this.users = resp;
-      if(!this.currentWhitelist && this.exemptUserId !== undefined){
+      if(!this.existingWhitelist && this.exemptUserId !== undefined){
         const i = this.users.findIndex(value => value.email! === this.exemptUserId)
         this.users.splice(i, 1);
       }
@@ -71,16 +72,31 @@ export class WhitelistSelectComponent implements OnInit {
       );
 
       if(resp.length > 0)
-        this.selectCurrentWhitelist();
+        this.preselectUsers();
     })
+  }
+
+  /**
+   * A method to preset the whitelist
+   *    if no current whitelist, guarantee that the logged in user is on the list
+   *    if a current whitelist is added, populate the component with the list
+   */
+
+  private preselectUsers() {
+    if(!this.existingWhitelist){
+      this.exemptUserId = this.currentUser?.uid;
+      this.toggleSelection(this.currentUser);
+    } else {
+      this.selectexistingWhitelist();
+    }
   }
 
   /**
    * A method that allows us to iterate over the whitelist array and calls the toggleSelection method to mark or unmark the checkbox.
    */
-  private selectCurrentWhitelist() {
-    if(this.currentWhitelist)
-      for (let user of this.currentWhitelist) {
+  private selectexistingWhitelist() {
+    if(this.existingWhitelist)
+      for (let user of this.existingWhitelist) {
         const index = this.users.findIndex(value => value.uid! === user);
         if(this.users[index])
           this.toggleSelection(this.users[index]);
@@ -120,13 +136,15 @@ export class WhitelistSelectComponent implements OnInit {
     */
   toggleSelection(user: any) {
     // refuse to ever *un*check the uploading user
-    if (user.selected && user.uid === this.exemptUserId) {
-      return;
-    }
+    let userIsExempt = user.uid === this.exemptUserId;
+    if ( userIsExempt )
+      user.selected = true;
+    else
+      user.selected! = !user.selected;
 
-    user.selected! = !user.selected;
     if (user.selected) {
-      this.selectedUsers.push(user);
+      if(!this.selectedUsers.includes(user))
+        this.selectedUsers.push(user);
     } else {
       const i = this.selectedUsers.findIndex(value => value.email === user.email);
       this.selectedUsers.splice(i, 1);

@@ -20,10 +20,16 @@ export class TokenInterceptorService implements HttpInterceptor {
    * @param next, the next interceptor in the chain, or the backend if no interceptors remain in the chain.
    */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      let authToken = this.authService.Jwt;
-      let reqHeaders = new HttpHeaders({
+    let registerHttp = req.url.includes('/firebase/register/');
+
+    let authToken = this.authService.Jwt;
+    let reqHeaders;
+    if (!registerHttp) {
+      reqHeaders = new HttpHeaders({
         'Authorization': `Bearer ${authToken}`
       })
-      return next.handle(req.clone({headers: reqHeaders}))
+    }
+
+    return next.handle(req.clone({headers: reqHeaders}))
   }
 }

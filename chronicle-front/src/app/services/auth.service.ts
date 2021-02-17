@@ -1,3 +1,5 @@
+import { environment } from './../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import {Injectable, NgZone, OnInit} from '@angular/core';
 import {BehaviorSubject, fromEventPattern, Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -45,18 +47,15 @@ export class AuthService {
     return this.user;
   }
   setUser(user: User | null) {
-    if (user) {
-      user.getIdTokenResult()
-      .then((idTokenResult) => {
-        idTokenResult.claims // how to access user claims
-      })
-    }
-
     this.user.next(user);
   }
 
 
-  constructor(private router: Router, private afAuth: AngularFireAuth) { }
+  constructor(
+    private router: Router,
+    private afAuth: AngularFireAuth,
+    private http: HttpClient
+  ) { }
 
   private setToken() {
     this.afAuth.idToken.pipe(first()).subscribe(token =>{
@@ -68,6 +67,13 @@ export class AuthService {
   login(): void {
     this.setToken();
     this.router.navigate(['/']);
+  }
+
+  register(id: string): void {
+
+    this.http.put(environment.apiBase + environment.serverApiUrls.registerFirebaseUser + `/${id}`, null)
+    .subscribe(resp => console.log('Register called successfully', resp), error => console.log(error));
+
   }
 
 

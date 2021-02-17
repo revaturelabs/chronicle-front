@@ -30,6 +30,8 @@ export const environment = {
     getNotesByTag: '/notes/tags/',
     getNoteById: '/notes/id/',
     getFirebaseUsers: 'firebase',
+    updateWhitelist: '/whitelist/',
+    registerFirebaseUser: '/firebase/register'
   }
 };
 
