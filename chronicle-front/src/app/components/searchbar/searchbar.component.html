@@ -7,7 +7,9 @@
         [selectable]="selectable"
         [removable]="removable"
         (removed)="remove(tag)">
-        {{tag.value}}
+        <span [attr.aria-label]="tag.value + '; press backspace to delete'">
+          {{tag.value}}
+        </span>
         <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
       </mat-chip>
       <input

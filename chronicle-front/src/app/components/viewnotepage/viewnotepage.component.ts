@@ -6,6 +6,8 @@ import { MediaTransferService } from 'src/app/services/media-transfer.service';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { Tag } from 'src/app/models/Tag';
 import { TagColorService } from 'src/app/services/tag-color.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-viewnotepage',
@@ -22,8 +24,17 @@ export class ViewnotepageComponent implements OnInit {
   topics?: Tag[];
   batch?: string;
   public errorMsg? : String = undefined;
+  admin: boolean = false;
+  currentUser: any = null;
 
-  constructor(private transfer : MediaTransferService, private mediaService : MediaRetrievalService, private route: ActivatedRoute, public colorService : TagColorService) { }
+  constructor(
+    private transfer : MediaTransferService,
+    private mediaService : MediaRetrievalService,
+    private route: ActivatedRoute,
+    public colorService : TagColorService,
+    private aAuth: AngularFireAuth,
+    private userAuth: AuthService
+  ) { }
 
   searchTag(tag : Tag) {
     this.mediaService.searchNoteTag(tag)
@@ -34,13 +45,14 @@ export class ViewnotepageComponent implements OnInit {
       this.note = this.transfer.note;
       this.transfer.note = undefined;
       this.topics = this.mediaService.filterTags(this.note.tags, 'Topic');
-      this.batch = this.mediaService.filterTags(this.note.tags, 'Batch')[0].value;
+      let batchTags = this.mediaService.filterTags(this.note.tags, 'Batch');
+      if (batchTags.length)
+        this.batch = batchTags[0].value;
     } else {
       let id = this.route.snapshot.paramMap.get('id');
-      console.log(id);
       if (id == null) {
         this.errorMsg = "Note Not Found";
-        console.log("Note url not valid");
+
 
       } else {
 
@@ -53,6 +65,22 @@ export class ViewnotepageComponent implements OnInit {
         });
       }
     }
+
+    this.aAuth.idTokenResult.subscribe(resp => {
+        if(resp?.claims.role && resp.claims.role.includes("ROLE_ADMIN")){
+          this.admin = true;
+        } else {
+          this.admin =false;
+        }
+
+    })
+
+    this.userAuth.User.subscribe(user => {
+      this.currentUser = user;
+    })
+
+
   }
+
 
 }

@@ -27,9 +27,9 @@ export class SearchbarComponent implements OnInit {
 
   @Input()
   tags: Tag[] = this.mediaRetrievalService.selectedTags;
-  
+
   topicTags: Tag[] = [];
-  
+
 
   @ViewChild('tagInput') tagInput?: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete?: MatAutocomplete;
@@ -40,13 +40,14 @@ export class SearchbarComponent implements OnInit {
     //Retrieves all tags from the db
     this.mediaRetrievalService.getAllTags().subscribe(resp => {
       // Filters tags to be only ones with a key of "topic"
-      this.topicTags = resp.filter(tag => tag.name == 'Topic');
+      this.topicTags = resp.filter(tag => tag.type == 'Topic');
+
 
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
         startWith(null),
-        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.topicTags.slice()));  
+        map((tagValue: string | null) => tagValue ? this._filterTag(tagValue) : this.topicTags.slice()));
     });
-    
+
   }
 
     //Allows a user to remove a selected tag
@@ -55,19 +56,18 @@ export class SearchbarComponent implements OnInit {
     if (index != -1) {
       this.mediaRetrievalService.selectedTags.splice(index, 1);
       if (this.topicTags.indexOf(tag) == -1) {
-        
+
         this.topicTags.push(tag);
       }
     }
   }
   // Adds selected tags to the search bar in the form of 'chips'
   selected(event: MatAutocompleteSelectedEvent): void {
-    
+
     this.mediaRetrievalService.selectedTags.push(event.option.value);
      // removes a tag from the list if it has already been selected
-    
     this.topicTags.splice(this.topicTags.indexOf(event.option.value), 1);
-    
+
     if (this.tagInput)
     this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
@@ -75,6 +75,8 @@ export class SearchbarComponent implements OnInit {
 
   //filters typed text to match with a tag from the list of tags
   private _filterTag(tagValue: string): Tag[] {
+
+
     if(tagValue) {
       let filterValue = tagValue.toString().toLowerCase();
       return this.topicTags.filter(tag => tag.value.toLowerCase().indexOf(filterValue) === 0);
@@ -83,5 +85,5 @@ export class SearchbarComponent implements OnInit {
     }
   }
 
-  
+
 }

@@ -9,6 +9,9 @@ Angular application for Chronicle application
 - [Firebase](https://firebase.google.com/docs)
 * * *
 
+## Information
+Chronicle is an application in which users are able to share and view educational material. Users are able to upload media files and restrict viewing to specific users, or keep them private for themselves. Admins are able to view all media files and update privacy settings.   
+
 ## Getting Started / Contributing
 The below can be used with any IDE. IDE Specific instructions will be marked as such. If additional instrucations are necessary or if you find any errors, please reach out to Cassie.
 

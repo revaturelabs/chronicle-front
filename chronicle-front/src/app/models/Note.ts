@@ -6,6 +6,9 @@ export interface Note {
     title: string;
     date: string;
     userId: string;
+    displayName: string;
     url: string;
     tags: Tag[];
+    whitelist: any[];
+    private: boolean;
 }

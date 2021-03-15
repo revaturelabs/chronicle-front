@@ -8,7 +8,7 @@ import { MediaRetrievalService } from 'src/app/services/media-retrieval.service'
   styleUrls: ['./videopage.component.css']
 })
 export class VideopageComponent implements OnInit {
-  
+
   videos?: Video[];
 
   @Input()
@@ -17,11 +17,12 @@ export class VideopageComponent implements OnInit {
   constructor(private mediaRetrievalService: MediaRetrievalService) {  }
 
   ngOnInit(): void {
-    
+
   }
- 
+
     // Recieves the tags selected by the user in the search bar and finds videos with those tags
   onSearch(): void {
+
     this.noResults = false;
     this.mediaRetrievalService.allTags = [];
     this.videos = [];
@@ -32,7 +33,6 @@ export class VideopageComponent implements OnInit {
       for(let i in this.mediaRetrievalService.selectedTags){
         this.mediaRetrievalService.allTags.push(this.mediaRetrievalService.selectedTags[i])
       }
-      console.log("All tags", this.mediaRetrievalService.allTags)
       if (this.mediaRetrievalService.allTags.length > 0) {
         this.mediaRetrievalService.getVideosByTag(this.mediaRetrievalService.allTags).subscribe(resp => {
           if (resp.length == 0){
@@ -45,11 +45,11 @@ export class VideopageComponent implements OnInit {
             }
           } else {
             this.videos = resp;
-            console.log("Get Videos by Tag", resp)
           }
         });
       } else {
         this.mediaRetrievalService.getAllVideos().subscribe(resp => {
+
           if(this.mediaRetrievalService.date){
             this.videos = resp.filter(video =>video.date == this.mediaRetrievalService.date)
             if (this.videos.length == 0){
@@ -62,7 +62,7 @@ export class VideopageComponent implements OnInit {
             }
           }
         })
-      } 
+      }
     } else {
       this.mediaRetrievalService.getAllVideos().subscribe(resp => {
         this.videos = resp;

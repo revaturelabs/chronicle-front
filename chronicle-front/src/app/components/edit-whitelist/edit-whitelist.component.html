@@ -1,0 +1,5 @@
+<app-whitelist-select
+  (whitelist)="setUserList($event)"
+  [existingWhitelist]="media?.whitelist"
+  [exemptUserId]="media?.userId"></app-whitelist-select>
+<button class="upload-button" mat-flat-button color="primary" (click)="update()">Update</button>

@@ -16,10 +16,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {MatCheckbox} from '@angular/material/checkbox';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
-import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
+// import { SatDatepickerModule, SatNativeDateModule, DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from 'saturn-datepicker';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -43,22 +44,29 @@ import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { environment } from '../environments/environment';
 
 
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AttributionComponent } from './components/attribution/attribution.component';
 import { UploadpageComponent } from './components/uploadpage/uploadpage.component';
 import { UploadService } from './services/upload.service';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 import { FilterComponent } from './components/filter/filter.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ResponseInterceptorService } from './services/response-interceptor.service';
+import { WhitelistSelectComponent } from './components/whitelist-select/whitelist-select.component';
+
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { EditWhitelistComponent } from './components/edit-whitelist/edit-whitelist.component';
+
 
 
 
 
 /**
- * This renders the firebaseUI based on configuration. 
+ * This renders the firebaseUI based on configuration.
  * Currently only set for email authentication.
  * Refer to firebaseUI documentation on how to display other forms of auth
- * 
+ *
  * */
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -88,6 +96,8 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FilterComponent,
     AttributionComponent,
     UploadpageComponent,
+    WhitelistSelectComponent,
+    EditWhitelistComponent,
   ],
   imports: [
     HttpClientModule,
@@ -110,20 +120,35 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatGridListModule,
     MatAutocompleteModule,
     FlexLayoutModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatInputModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMatFileInputModule,
     NgxDocViewerModule,
-    SatDatepickerModule,
-    SatNativeDateModule
+    // SatDatepickerModule,
+    // SatNativeDateModule
+    MatDatepickerModule
+
   ],
   providers: [
     UploadService,
-    MediaRetrievalService],
+    MediaRetrievalService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptorService,
+      multi: true
+    }
+  ],
+
   bootstrap: [AppComponent]
 })
 
