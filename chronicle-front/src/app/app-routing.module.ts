@@ -9,6 +9,9 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { ViewvideopageComponent } from './components/viewvideopage/viewvideopage.component';
 import { AttributionComponent } from './components/attribution/attribution.component';
 import { ViewnotepageComponent } from './components/viewnotepage/viewnotepage.component';
+import { TicketAddComponent } from './components/ticket-add/ticket-add.component';
+import { TicketViewComponent } from './components/ticket-view/ticket-view.component';
+import { TicketApprovalComponent } from './components/ticket-approval/ticket-approval.component';
 
 
 
@@ -37,6 +40,15 @@ const routes: Routes = [{
 }, {
   path:'notes/:id',
   component: ViewnotepageComponent, canActivate: [AngularFireAuthGuard]
+},{
+  path:'ticket/submit',
+  component: TicketAddComponent, canActivate: [AngularFireAuthGuard]
+},{
+  path:'ticket/view',
+  component: TicketViewComponent, canActivate: [AngularFireAuthGuard]
+},{
+  path:'ticket/approval',
+  component: TicketApprovalComponent, canActivate: [AngularFireAuthGuard]
 }];
 
 @NgModule({

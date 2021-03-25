@@ -57,6 +57,9 @@ import { WhitelistSelectComponent } from './components/whitelist-select/whitelis
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { EditWhitelistComponent } from './components/edit-whitelist/edit-whitelist.component';
+import { TicketAddComponent } from './components/ticket-add/ticket-add.component';
+import { TicketViewComponent } from './components/ticket-view/ticket-view.component';
+import { TicketApprovalComponent } from './components/ticket-approval/ticket-approval.component';
 
 
 
@@ -98,6 +101,9 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     UploadpageComponent,
     WhitelistSelectComponent,
     EditWhitelistComponent,
+    TicketAddComponent,
+    TicketViewComponent,
+    TicketApprovalComponent,
   ],
   imports: [
     HttpClientModule,
