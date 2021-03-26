@@ -11,6 +11,20 @@ export class TicketService {
   constructor(private httpClient:HttpClient) { }
 
   findAllPendingTickets():Observable<Ticket[]>{
-    return this.httpClient.post('',"") as Observable<Ticket[]>
+    return this.httpClient.get('') as Observable<Ticket[]>
   }
+
+  findUnderReviewTickets():Observable<Ticket[]>{
+    return this.httpClient.get('') as Observable<Ticket[]>
+  }
+
+  findAllSubmittedTickets():Observable<Ticket[]>{
+    return this.httpClient.get('') as Observable<Ticket[]>
+  }
+
+  updateTicketStatus(status:String):Observable<any>{
+    return this.httpClient.post('',status) as Observable<any>
+  }
+
+  
 }
