@@ -26,5 +26,9 @@ export class TicketService {
     return this.httpClient.post('',status) as Observable<any>
   }
 
+  random()
+  {
+    
+  }
   
 }
