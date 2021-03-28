@@ -17,7 +17,9 @@ export class TicketViewComponent implements OnInit {
   }
 
   allPendingTickets: Ticket[] = [];
-  allAcknowledgedTickets: Ticket[] = [];
+  allMyTickets: Ticket[] = [];
+
+  tempTicket:Ticket = new Ticket(0,0,0,"", "", "", "","", "", 0, "", "", "");
 
   findAllPendingTickets(){
     this.ticketService.findAllPendingTickets().subscribe(
@@ -30,10 +32,52 @@ export class TicketViewComponent implements OnInit {
     )
   }
 
-  findAllAcknowledgedTickets(){
-    this.ticketService.findAllPendingTickets().subscribe(
+  findAllMyTickets(){
+    this.ticketService.findAllTicketsByEditor().subscribe(
       (data) => {
-        this.allPendingTickets = data;
+        this.allMyTickets = data;
+      },
+      () => {
+
+      }
+    )
+  }
+
+  updateTicketStatusToAcknowledged(ticket:Ticket){
+    ticket.ticketStatus = "ACKNOWLEDGED"
+    this.tempTicket = ticket;
+
+    this.ticketService.updateTicketStatus(ticket).subscribe(
+      (data) => {
+        console.log("ticket has been updated"+data)
+      },
+      () => {
+
+      }
+    )
+  }
+
+  updateTicketStatusToInProgress(ticket:Ticket){
+    ticket.ticketStatus = "IN_PROGRESS"
+    this.tempTicket = ticket;
+
+    this.ticketService.updateTicketStatus(ticket).subscribe(
+      (data) => {
+        console.log("ticket has been updated"+data)
+      },
+      () => {
+
+      }
+    )
+  }
+
+  updateTicketStatusToUnderReview(ticket:Ticket){
+    ticket.ticketStatus = "UNDER_REVIEW"
+    this.tempTicket = ticket;
+
+    this.ticketService.updateTicketStatus(ticket).subscribe(
+      (data) => {
+        console.log("ticket has been updated"+data)
       },
       () => {
 
