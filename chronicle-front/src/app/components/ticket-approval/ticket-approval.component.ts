@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Ticket } from 'src/app/models/Ticket';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-ticket-approval',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketApprovalComponent implements OnInit {
 
-  constructor() { }
+  underReviewTickets:Ticket[] =[]
+
+  constructor(private ticketService: TicketService) { }
 
   ngOnInit(): void {
+    this.findUnderReviewTickets()
   }
 
+  findUnderReviewTickets(){
+    this.ticketService.findUnderReviewTickets().subscribe(
+      (data) =>{
+        this.underReviewTickets = data;
+      },
+      () =>{
+        console.log("error in ticket approval component")
+      }
+
+    )
+  }
 }
