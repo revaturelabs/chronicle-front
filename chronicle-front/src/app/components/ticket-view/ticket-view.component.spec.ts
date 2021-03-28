@@ -9,9 +9,19 @@ import { TicketViewComponent } from './ticket-view.component';
 export class MockTicketService extends TicketService{
   findAllPendingTickets():Observable<Ticket[]>
   {
-    let mockTickets:Observable<Ticket[]> = of([new Ticket(1,1,100,"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "pending", "CR 2/26/2021", ""),
-    new Ticket(3,5,100,"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "pending", "CR 2/26/2021", ""),
-    new Ticket(3,5,100,"java class", "4 of 10", "01:45:56", "01:55:56","https://123", "11331345", 234, "pending", "CR 2/26/2021", "")]);
+    let mockTickets:Observable<Ticket[]> = of([
+      new Ticket(1,1,100,"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "PENDING", "CR 2/26/2021", ""),
+      new Ticket(3,5,100,"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "PENDING", "CR 2/26/2021", ""),
+      new Ticket(3,5,100,"java class", "4 of 10", "01:45:56", "01:55:56","https://123", "11331345", 234, "PENDING", "CR 2/26/2021", "")
+    ]);
+    return mockTickets;
+  }
+
+  findAllAcknowledgedTickets(){
+    let mockTickets:Observable<Ticket[]> = of([
+      new Ticket(1,1,100,"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", ""),
+      new Ticket(3,5,100,"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "")
+    ])
     return mockTickets;
   }
 }
@@ -39,14 +49,17 @@ describe('TicketViewComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display pending tickets', () =>{
-    
+  it('should find PENDING tickets', () =>{
     component.findAllPendingTickets();
     expect(component.allPendingTickets.length).toEqual(3);
 
   });
 
-  it('should display accepted tickets')
+  it('should find ACKNOWLEDGED tickets', () =>{
+    component.findAllAcknowledgedTickets();
+    expect(component.allAcknowledgedTickets.length).toEqual(2);
+
+  });
 
   it('should acquire a list of videos uploaded up that user')
 
@@ -56,16 +69,5 @@ describe('TicketViewComponent', () => {
 
   it('should change the status of a ticket to UNDER_REVIEW')
 
-  //ticket approval page
-
-  it('should display all wait_for_approval tickets')
-
-  it('should display all other tickets that the user submited')
-
-  it('should change the status of a ticket to approved')
-
-  it('should change the status of a ticket to in_progress')
-
-  
 
 });

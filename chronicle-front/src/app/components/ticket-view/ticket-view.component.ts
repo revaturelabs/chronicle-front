@@ -16,9 +16,21 @@ export class TicketViewComponent implements OnInit {
     this.findAllPendingTickets();
   }
 
-  allPendingTickets: Ticket[] = []
+  allPendingTickets: Ticket[] = [];
+  allAcknowledgedTickets: Ticket[] = [];
 
   findAllPendingTickets(){
+    this.ticketService.findAllPendingTickets().subscribe(
+      (data) => {
+        this.allPendingTickets = data;
+      },
+      () => {
+
+      }
+    )
+  }
+
+  findAllAcknowledgedTickets(){
     this.ticketService.findAllPendingTickets().subscribe(
       (data) => {
         this.allPendingTickets = data;
