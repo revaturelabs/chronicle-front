@@ -12,7 +12,7 @@ private _zoomURL:string ='';
 private _topicCount:number = 0;
 private topicName:string = '';
 private _tickets:Ticket[] = [];
-private _newTicket:Ticket = new Ticket(0,0,0,"", "", "", "","", "", 0, "", "", "","");
+private _newTicket:Ticket = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
 private _returnTickets:Ticket[] = [];
 
 public get topicCountGetter() {
