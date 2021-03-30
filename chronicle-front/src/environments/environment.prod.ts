@@ -10,7 +10,7 @@
 export const environment = {
   production: true,
   // apiBase: 'http://localhost:8080/myapp',
-  apiBase: 'http://3.236.46.62/api/myapp',
+  apiBase: 'http://34.204.199.170/api/myapp',
   isSignedIn: false,
   firebaseConfig: {
     apiKey: 'AIzaSyC4sxZlT-McTildwtxa8LV1lj7ZQhzOrs0',
