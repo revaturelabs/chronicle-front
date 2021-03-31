@@ -11,7 +11,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 })
 export class TicketAddComponent implements OnInit {
  _zoomURL:string ='';
- _topicCount:number = 1;
+ _topicCount:number = 2;
  topicName:string = '';
  _tickets:Ticket[] = [];
  _newTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(), "", "", "", "","", "", 0, "", "", "","");
@@ -23,11 +23,12 @@ startTime: string = '';
 endTime: string = '';
 description: string = '';
 
-visibility:boolean = true;
+
 
 //Sofia
 ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
 tickets:Ticket[] = [this.ticket];
+visibility:boolean = true;
 
 public get topicCountGetter() {
   return this._topicCount;
@@ -48,7 +49,7 @@ public get returnTicketGetter() {
 
   onZoomUrlWritten(event:any):boolean{
     console.log(event);
-    return this.zoomUrlValidator(event.value);
+    return this.zoomUrlValidator(event.input);
   }
 
 

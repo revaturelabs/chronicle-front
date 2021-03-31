@@ -43,46 +43,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="topic">Topic</mat-label>
-                                    <input matInput type="text" id="topic" name="topic" [(ngModel)]="topic">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="startTime">Starting Time</mat-label>
-                                    <input matInput type="text" id="startTime" name="startTime" [(ngModel)]="startTime">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="endTime">Ending Time</mat-label>
-                                    <input matInput type="text" id="endTime" name="endTime" [(ngModel)]="endTime">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="description">Description</mat-label>
-                                    <input matInput type="text" id="description" name="description" [(ngModel)]="description">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                      
-
-                </tr>
 
                 <!-- ADDING NEW ROW -->
-                <!--*ngFor= (ticket t: tickets)-->
-                <!--*ngFor="(let i=0; i < _topicCount; i++)-->
                 <tr *ngFor="let t of tickets">
                     <td>
                         <div fxLayoutAlign="center" fxFlexFill>
@@ -169,7 +131,8 @@
                             
                         </ng-template>
             </div>
-            <p>You reached tickets limit</p>
+            <p style="color:red" [hidden]="visibility" >You reached tickets limit</p>
+           <br><br>
             <!-- SUBMIT BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <button class="upload-button"
