@@ -10,13 +10,13 @@ import { TicketNotificationComponent } from './ticket-notification.component';
 
 export class MockNotificationService extends NotificationService{
   submitNotification(notification:TicketNotification):Observable<TicketNotification>{
-    let mockTicket = new Ticket(1,'1','100',"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","");
+    let mockTicket = new Ticket(1,'1','100',new Date(),new Date(),"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","");
     let mockNotification:Observable<TicketNotification> = of (new TicketNotification(1,'1','2', mockTicket, new Date(0), 'note'))
     return mockNotification;
   }
 
   findAllByReciever():Observable<TicketNotification[]>{
-    let mockTicket = new Ticket(1,'1','100',"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","");
+    let mockTicket = new Ticket(1,'1','100',new Date(),new Date(),"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","");
     let mockNotifications:Observable<TicketNotification[]> = of ([new TicketNotification(1,'1','2', mockTicket, new Date(0), 'note'),
     new TicketNotification(1,'2','3', mockTicket, new Date(0), 'demo'),
     new TicketNotification(1,'3','4', mockTicket, new Date(0), 'test')]) ;
