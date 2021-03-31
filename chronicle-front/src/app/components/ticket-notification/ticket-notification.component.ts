@@ -10,7 +10,7 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./ticket-notification.component.css']
 })
 export class TicketNotificationComponent implements OnInit {
-  tempTicket = new Ticket(1456789,'','',"", "", "", "","", '', 234, "", "", "","");
+  tempTicket = new Ticket(1456789,'','',new Date(),new Date(),"", "", "", "","", '', 234, "", "", "","");
   tempNotification = (new TicketNotification(145678,'','', this.tempTicket, new Date(0), ''))
   constructor(private notificationService:NotificationService) { }
 

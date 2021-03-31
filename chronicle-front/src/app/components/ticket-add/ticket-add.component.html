@@ -43,52 +43,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="topic">Topic</mat-label>
-                                    <input matInput type="text" id="topic" name="topic" [(ngModel)]="topic">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="startTime">Starting Time</mat-label>
-                                    <input matInput type="text" id="startTime" name="startTime" [(ngModel)]="startTime">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="endTime">Ending Time</mat-label>
-                                    <input matInput type="text" id="endTime" name="endTime" [(ngModel)]="endTime">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                        <td>
-                            <div fxLayoutAlign="center" fxFlexFill>
-                                <mat-form-field appearance="outline" class="input-field">
-                                    <mat-label for="description">Description</mat-label>
-                                    <input matInput type="text" id="description" name="description" [(ngModel)]="description">
-                                </mat-form-field>
-                            </div>
-                        </td>
-                      
-
-                </tr>
 
                 <!-- ADDING NEW ROW -->
-                <!--*ngFor= (ticket t: tickets)-->
-                <!--*ngFor="(let i=0; i < _topicCount; i++)-->
-                <tr  >
+                <tr *ngFor="let t of tickets">
                     <td>
                         <div fxLayoutAlign="center" fxFlexFill>
                             <mat-form-field appearance="outline" class="input-field">
                                 <mat-label for="topic">Topic</mat-label>
-                                <input matInput type="text" id="topic" name="topic" [(ngModel)]="topic">
+                                <input matInput type="text" id="topic" name="topic" [(ngModel)]="t.topic">
                             </mat-form-field>
                         </div>
                     </td>
@@ -96,7 +58,7 @@
                         <div fxLayoutAlign="center" fxFlexFill>
                             <mat-form-field appearance="outline" class="input-field">
                                 <mat-label for="startTime">Starting Time</mat-label>
-                                <input matInput type="text" id="startTime" name="startTime" [(ngModel)]="startTime">
+                                <input matInput type="text" id="startTime" name="startTime" [(ngModel)]="t.startTime">
                             </mat-form-field>
                         </div>
                     </td>
@@ -104,7 +66,7 @@
                         <div fxLayoutAlign="center" fxFlexFill>
                             <mat-form-field appearance="outline" class="input-field">
                                 <mat-label for="endTime">Ending Time</mat-label>
-                                <input matInput type="text" id="endTime" name="endTime" [(ngModel)]="endTime">
+                                <input matInput type="text" id="endTime" name="endTime" [(ngModel)]="t.endTime">
                             </mat-form-field>
                         </div>
                     </td>
@@ -112,7 +74,7 @@
                         <div fxLayoutAlign="center" fxFlexFill>
                             <mat-form-field appearance="outline" class="input-field">
                                 <mat-label for="description">Description</mat-label>
-                                <input matInput type="text" id="description" name="description" [(ngModel)]="description">
+                                <input matInput type="text" id="description" name="description" [(ngModel)]="t.description">
                             </mat-form-field>
                         </div>
                     </td>
@@ -162,14 +124,15 @@
             <div fxLayoutAlign="center" fxFlexFill>
                 <button class="upload-button"
                         mat-flat-button color="primary"
-                       
+                       (click)="topicCountIncrementor()"
                         
                         >Add More</button>
                         <ng-template #elseBlock>No more to add.
                             
                         </ng-template>
             </div>
-            <p>You reached tickets limit</p>
+            <p style="color:red" [hidden]="visibility" >You reached tickets limit</p>
+           <br><br>
             <!-- SUBMIT BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <button class="upload-button"

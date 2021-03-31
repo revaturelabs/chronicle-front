@@ -9,8 +9,8 @@ import { TicketAddComponent } from './ticket-add.component';
 export class MockTicketService extends TicketService{
   submitTickets(tickets:Ticket[]):Observable<Ticket[]>{
     let mockTickets:Observable<Ticket[]> = of([
-      new Ticket(1,'1','100',"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "",""),
-      new Ticket(3,'5','100',"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","")
+      new Ticket(1,'1','100',new Date(),new Date(),"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "",""),
+      new Ticket(3,'5','100',new Date(),new Date(),"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","")
     
     ])
     return mockTickets;
