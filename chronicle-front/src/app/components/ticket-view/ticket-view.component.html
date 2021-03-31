@@ -18,16 +18,16 @@
     </thead>
     <tbody>
         <tr class="active-row" *ngFor= "let r of allPendingTickets">              
-            <td>{{r.ticketID}}<input name="r.ticketID" [(ngModel)]="r.ticketID" type="hidden"></td>
-            <td>{{r.issuerID}}<br><input *ngIf="loggedInPerson.isbreeder===false"  [(ngModel)]="r.issuerID"> </td>
-            <td>{{r.dateIssued}}<br><input *ngIf="loggedInPerson.isbreeder===false"  [(ngModel)]="r.breed"></td>
-            
-            <td>{{r.dateissued}}<input name="r.dateissued" [(ngModel)]="r.dateissued" type="hidden"></td>
-            
-            <td>{{r.requeststatus}}<input name="r.requeststatus" [(ngModel)]="r.requeststatus" type="hidden"></td>
-
-            <td>{{r.buyerid.personid}}<input name="r.buyerid.personid" [(ngModel)]="r.buyerid.personid" type="hidden"></td>
-            <td><button *ngIf="loggedInPerson.isbreeder===false" (click)="edit(r)">Edit</button><button *ngIf="visibility===true" (click)="accept(r)">Accept</button></td>
+            <td>{{r.ticketID}}</td>
+            <td>{{r.issuerID}}<br> </td>
+            <td>{{r.dateIssued}}<br></td>
+            <td>{{r.identifier}}</td>
+            <td>{{r.zoompasscode}}</td>
+            <td>{{r.topic}}</td>
+            <td>{{r.Description}}</td>
+            <td>{{r.startTime}}</td>
+            <td>{{r.endTime}}</td>
+            <button (click)="updateTicketStatusToAcknowledged(r)">Accepte</button>
         </tr>
     </tbody>
 </table>
