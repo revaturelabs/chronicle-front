@@ -64,7 +64,7 @@ export class TicketViewComponent implements OnInit {
         console.log("ticket has been updated"+data)
       },
       () => {
-
+        console.log("Ticket Update Failed")
       }
     )
   }
@@ -78,7 +78,7 @@ export class TicketViewComponent implements OnInit {
         console.log("ticket has been updated"+data)
       },
       () => {
-
+        console.log("Ticket Update Failed")
       }
     )
   }

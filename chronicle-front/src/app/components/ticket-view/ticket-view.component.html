@@ -64,7 +64,10 @@
             <td>{{r.startTime}}</td>
             <td>{{r.endTime}}</td>
             <td>{{r.clipID}}</td>
-            <td>{{r.ticketStatus}}</td>
+            <td>{{r.ticketStatus}}<select >
+            <option (onChange)="updateTicketStatusToAcknowledged(r)" >ACKNOWLEDGED</option>
+            <option (onChange)="updateTicketStatusToInProgress(r)">IN PROGRESS</option>
+            </select></td>
             <td>{{r.rejectComment}}</td>
             <td><button (click)="updateTicketStatusToUnderReview(r)">Submit for Review</button></td>
             <td><button (click)="updateTicketStatusToUnderReview(r)">Deactivate</button></td>
