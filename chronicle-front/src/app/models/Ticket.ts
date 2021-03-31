@@ -2,6 +2,8 @@ export class Ticket{
     ticketID: number;
     issuerID: string;
     editorID: string;
+    dateIssued:Date;
+    dateAccepted:Date;
     topic:string;
     description:string;
     startTime: string;
@@ -17,6 +19,8 @@ export class Ticket{
     constructor(ticketID: number,
         issuerID: string,
         editorID: string,
+        dateIssued:Date,
+        dateAccepted:Date,
         topic:string,
         description:string,
         startTime: string,
@@ -32,6 +36,8 @@ export class Ticket{
             this.ticketID = ticketID;
             this.issuerID = issuerID;
             this.editorID = editorID;
+            this.dateAccepted = dateAccepted;
+            this.dateIssued = dateIssued;
             this.topic = topic;
             this.description = description;
             this.startTime = startTime;
