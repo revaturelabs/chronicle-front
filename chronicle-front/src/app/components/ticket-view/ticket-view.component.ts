@@ -19,7 +19,14 @@ export class TicketViewComponent implements OnInit {
   allPendingTickets: Ticket[] = [];
   allMyTickets: Ticket[] = [];
 
-  tempTicket:Ticket = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
+  tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
+
+  displayPending:boolean = true;
+
+  toggleDisplayPending(){
+    this.displayPending = !this.displayPending;
+    console.log("displayPending toggled")
+  }
 
   findAllPendingTickets(){
     this.ticketService.findAllPendingTickets().subscribe(
