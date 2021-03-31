@@ -12,7 +12,7 @@ export class TicketApprovalComponent implements OnInit {
   underReviewTickets:Ticket[] =[]
   allSubmittedTickets:Ticket[]=[]
 
-  tempTicket:Ticket = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
+  tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
   rejectComment:string = "";
 
   constructor(private ticketService: TicketService) { }
