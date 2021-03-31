@@ -24,7 +24,15 @@
                         <tr *ngFor = "let ticket of underReviewTickets">
                             <td> {{ticket.ticketID}} </td>
                             <td> {{ticket.editorID}} </td>
-                            <td> {{ticket.editorID}} </td>
+                            <td> {{ticket.dateIssued}} </td>
+                            <td> {{ticket.dateAccepted}} </td>
+                            <td> {{ticket.zoomlink}} </td>
+                            <td> {{ticket.topic}} </td>
+                            <td> {{ticket.description}} </td>
+                            <td> {{ticket.clipUrl}} </td>
+                            <td><button>Approve</button></td>
+                            <td><button>Reject with comment</button></td>
+                            <td><form placeholder = "comment"></form></td>
                         </tr>
                     </tbody>
                 </thead>
