@@ -2,18 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/models/Ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 
+
+
 @Component({
   selector: 'app-ticket-add',
   templateUrl: './ticket-add.component.html',
   styleUrls: ['./ticket-add.component.css']
 })
 export class TicketAddComponent implements OnInit {
-private _zoomURL:string ='';
-private _topicCount:number = 0;
-private topicName:string = '';
-private _tickets:Ticket[] = [];
-private _newTicket:Ticket = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
-private _returnTickets:Ticket[] = [];
+ _zoomURL:string ='';
+ _topicCount:number = 1;
+ topicName:string = '';
+ _tickets:Ticket[] = [];
+ _newTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(), "", "", "", "","", "", 0, "", "", "","");
+ _returnTickets:Ticket[] = [];
+passcode: string = '';
+identifier: string = '';
+topic: string = '';
+startTime: string = '';
+endTime: string = '';
+description: string = '';
+
+visibility:boolean = true;
+
+//Sofia
+ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
+tickets:Ticket[] = [this.ticket];
 
 public get topicCountGetter() {
   return this._topicCount;
@@ -31,6 +45,12 @@ public get returnTicketGetter() {
 
   ngOnInit(): void {
   }
+
+  onZoomUrlWritten(event:any):boolean{
+    console.log(event);
+    return this.zoomUrlValidator(event.value);
+  }
+
 
   zoomUrlValidator(zoomUrl:string):boolean {
     return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
@@ -55,8 +75,16 @@ public get returnTicketGetter() {
   }
 
   topicCountIncrementor() {
-    this._topicCount++;
+    if (this.topicCountValidator()) {
+      this.tickets.push(this.ticket)
+    this._topicCount++;} else {
+      this.visibility = false;
+    }
   }
+   //array of tickets
+   //f-n(){
+     //adding new tiket to array
+  // }
 
   topicCountValidator():boolean{
     if(this._topicCount > 10) return false;
