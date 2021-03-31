@@ -23,17 +23,25 @@
                     </thead>
                     <tbody>
                         <tr *ngFor = "let ticket of underReviewTickets">
-                            <td> {{ticket.ticketID}} </td>
-                            <td> {{ticket.editorID}} </td>
-                            <td> {{ticket.dateIssued}} </td>
-                            <td> {{ticket.dateAccepted}} </td>
-                            <td> {{ticket.zoomlink}} </td>
-                            <td> {{ticket.topic}} </td>
-                            <td> {{ticket.description}} </td>
-                            <td> {{ticket.clipUrl}} </td>
-                            <td><button>Approve</button></td>
-                            <td><button>Reject with comment</button></td>
-                            <td><form placeholder = "comment"></form></td>
+                            <td> {{ticket.ticketID}} <input name="ticket.ticketID" [(ngModel)]="ticket.ticketID" type="hidden"></td>
+                            <td> {{ticket.editorID}} <input name="ticket.editorID" [(ngModel)]="ticket.editorID" type="hidden"></td>
+                            <td> {{ticket.dateIssued}} <input name="ticket.dateIssued" [(ngModel)]="ticket.dateIssued" type="hidden"></td>
+                            <td> {{ticket.dateAccepted}} <input name="ticket.dateAccepted" [(ngModel)]="ticket.dateAccepted" type="hidden"></td>
+                            <td> {{ticket.zoomlink}} <input name="ticket.zoomlink" [(ngModel)]="ticket.zoomlink" type="hidden"></td>
+                            <td> {{ticket.topic}} <input name="ticket.topic" [(ngModel)]="ticket.topic" type="hidden"></td>
+                            <td> {{ticket.description}} <input name="ticket.description" [(ngModel)]="ticket.description" type="hidden"></td>
+                            <td> {{ticket.clipUrl}} <input name="ticket.clipUrl" [(ngModel)]="ticket.clipUrl" type="hidden"></td>
+                            <td><button (click)="approveTicket(ticket)">Approve</button></td>
+
+                            <td>
+                                <form id="comment-form">
+                                    <input name = "rejectComment" placeholder="comment" [(ngModel)]="ticket.rejectComment" required/>
+                                    <button type="submit" (click)="rejectTicket(ticket)">Reject with comment</button>
+                                </form>
+                            </td>
+
+                            <!-- <td><button>Reject with comment</button></td>
+                            <td><input name="ticket.rejectComment" [(ngModel)]="ticket.rejectComment"></form></td> -->
                         </tr>
                     </tbody>
                     </table>
