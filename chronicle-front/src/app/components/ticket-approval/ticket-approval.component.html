@@ -20,6 +20,7 @@
                         <td>Reject</td>
                         <td>Comments</td>
                     </tr>
+                    </thead>
                     <tbody>
                         <tr *ngFor = "let ticket of underReviewTickets">
                             <td> {{ticket.ticketID}} </td>
@@ -35,7 +36,7 @@
                             <td><form placeholder = "comment"></form></td>
                         </tr>
                     </tbody>
-                </thead>
+                    </table>
         </div>
     </div>
 </div>
