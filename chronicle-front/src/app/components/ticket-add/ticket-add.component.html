@@ -78,8 +78,41 @@
                             </mat-form-field>
                         </div>
                     </td>
+                    <!--Hidden forms-->
+                    <div [hidden]=true>
+                        <div fxLayoutAlign="center" fxFlexFill>
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label for="zoomlink">Zoom link </mat-label>
+                                <input matInput type="text" value = "{{_zoomURL}}" id="zoomlink" name="zoomlink" [(ngModel)]="t.zoomlink" (change)="onZoomUrlWritten($event)">
+                            </mat-form-field>
+                        </div>
+                
+                        <div fxLayoutAlign="center" fxFlexFill>
+                            <mat-form-field appearance="outline" class="input-field">
+                                <mat-label for="passcode">Zoom passcode</mat-label>
+                                <input matInput type="text" value="{{passcode}}" id="passcode" name="passcode" [(ngModel)]="t.zoompasscode">
+                            </mat-form-field>
+                         </div>
+
+                         <div fxLayoutAlign="center" fxFlexFill>
+                            <mat-form-field appearance="outline" class="input-field">
+                                 <mat-label for="identifier">Identifier</mat-label>
+                                <input matInput type="text" value={{identifier}} id="identifier" name="identifier" [(ngModel)]="t.identifier">
+                            </mat-form-field>
+                         </div>
+                        </div>
+                    <!-- ............................................ -->
+                    <td>
+                        <div fxLayoutAlign="center" fxFlexFill>
+                            <button class="upload-button"
+                                    mat-flat-button color="primary"
+                                    (click)=" deleteTopic(t)">X
+                            </button>
+                        </div>
+                    </td>
 
                 </tr>
+               
 
                 </tbody>
                 
@@ -124,21 +157,22 @@
             <div fxLayoutAlign="center" fxFlexFill>
                 <button class="upload-button"
                         mat-flat-button color="primary"
-                       (click)="topicCountIncrementor()"
-                        
-                        >Add More</button>
-                        <ng-template #elseBlock>No more to add.
-                            
-                        </ng-template>
+                       (click)="topicCountIncrementor()" >Add More
+                 </button>          
             </div>
+
+            <br><br>
+
+            <!--An error message-->
             <p style="color:red" [hidden]="visibility" >You reached tickets limit</p>
-           <br><br>
+
             <!-- SUBMIT BUTTON -->
             <div fxLayoutAlign="center" fxFlexFill>
                 <button class="upload-button"
                         mat-flat-button color="primary"
-                        
-                        >Submit</button>
+                        (click)="submitTickets()"
+                        >Submit
+                </button>
             </div>
         </div>
     </div>
