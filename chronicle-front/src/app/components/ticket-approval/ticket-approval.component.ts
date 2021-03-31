@@ -76,17 +76,23 @@ export class TicketApprovalComponent implements OnInit {
     this.tempTicket = ticket;
     this.rejectComment = ticket.rejectComment;
 
-    this.ticketService.updateTicketStatus(ticket).subscribe(
-      (data)=>{
-        console.log("ticket has been updated" +data)
-        //will only work once DB connection is working
-        this.findUnderReviewTickets();
-        //maybe add in alert or message saying the ticket was rejected
-      },
-      ()=>{
-        
-      }
-    )
+    if(ticket.rejectComment==""){
+      alert("Must Enter A Rejection Comment");
+
+    }else{
+      this.ticketService.updateTicketStatus(ticket).subscribe(
+        (data)=>{
+          console.log("ticket has been updated" +data)
+          //will only work once DB connection is working
+          this.findUnderReviewTickets();
+          //maybe add in alert or message saying the ticket was rejected
+        },
+        ()=>{
+          
+        }
+      )
+    }
+
   }
 
 }
