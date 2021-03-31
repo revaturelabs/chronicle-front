@@ -14,7 +14,7 @@ export class TicketAddComponent implements OnInit {
  _topicCount:number = 1;
  topicName:string = '';
  _tickets:Ticket[] = [];
- _newTicket:Ticket = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
+ _newTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(), "", "", "", "","", "", 0, "", "", "","");
  _returnTickets:Ticket[] = [];
 passcode: string = '';
 identifier: string = '';
@@ -26,7 +26,7 @@ description: string = '';
 visibility:boolean = true;
 
 //Sofia
-ticket:Ticket  = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
+ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
 tickets:Ticket[] = [this.ticket];
 
 public get topicCountGetter() {
