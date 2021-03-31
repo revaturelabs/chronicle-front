@@ -2,7 +2,7 @@
     <button (click)="toggleDisplayPending()">Pendings</button> <button (click)="toggleDisplayPending()">Accepted</button>
 </div>
 
-<table>
+<table *ngIf = "displayPending">
     <thead>
         <tr>
             <th>Ticket ID</th>
@@ -17,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="active-row" *ngFor= "let r of allPendingTickets">              
+        <tr class="active-row" *ngFor= "let r of allPendingTickets" >              
             <td>{{r.ticketID}}</td>
             <td>{{r.issuerID}}<br> </td>
             <td>{{r.dateIssued}}<br></td>
@@ -27,7 +27,47 @@
             <td>{{r.description}}</td>
             <td>{{r.startTime}}</td>
             <td>{{r.endTime}}</td>
-            <button (click)="updateTicketStatusToAcknowledged(r)">Accepte</button>
+            <button (click)="updateTicketStatusToAcknowledged(r)">Accept</button>
+        </tr>
+    </tbody>
+</table>
+
+<table *ngIf = "!displayPending">
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Issuer ID</th>
+            <th>Date Issued</th>
+            <th>Date Accepted</th>
+            <th>Video</th>
+            <th>Passcode</th>
+            <th>Topic</th>
+            <th>Description</th>
+            <th>Starting Time</th>
+            <th>Ending Time</th>
+            <th>Edited Video</th>
+            <th>Status</th>
+            <th>Reason for Rejection</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="active-row" *ngFor= "let r of allPendingTickets" >              
+            <td>{{r.ticketID}}</td>
+            <td>{{r.issuerID}}<br> </td>
+            <td>{{r.dateIssued}}<br></td>
+            <td>{{r.dateAccepted}}<br></td>
+            <td>{{r.identifier}}</td>
+            <td>{{r.zoompasscode}}</td>
+            <td>{{r.topic}}</td>
+            <td>{{r.description}}</td>
+            <td>{{r.startTime}}</td>
+            <td>{{r.endTime}}</td>
+            <td>{{r.clipID}}</td>
+            <td>{{r.ticketStatus}}</td>
+            <td>{{r.rejectComment}}</td>
+            <td><button (click)="updateTicketStatusToUnderReview(r)">Submit for Review</button></td>
+            <td><button (click)="updateTicketStatusToUnderReview(r)">Deactivate</button></td>
         </tr>
     </tbody>
 </table>
