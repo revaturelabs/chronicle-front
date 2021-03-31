@@ -12,8 +12,8 @@ export class TicketApprovalComponent implements OnInit {
   underReviewTickets:Ticket[] =[]
   allSubmittedTickets:Ticket[]=[]
 
-  tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
-  rejectComment:string = "";
+  tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"ticket", "", "", "","", "", 0, "", "", "","");
+  rejectComment:string = "ghgh";
 
   constructor(private ticketService: TicketService) { }
 
@@ -28,6 +28,7 @@ export class TicketApprovalComponent implements OnInit {
       },
       () =>{
         console.log("error in ticket approval component")
+        //this is just for test purposes instead of hitting database
         this.underReviewTickets = [new Ticket(1,'1','100',new Date(),new Date(),"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "under review", "CR 2/26/2021", "",""),
         new Ticket(3,'5','100',new Date(),new Date(),"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "under review", "CR 2/26/2021", "",""),
         new Ticket(3,'5','100',new Date(),new Date(),"java class", "4 of 10", "01:45:56", "01:55:56","https://123", "11331345", 234, "under review", "CR 2/26/2021", "","")];
@@ -52,25 +53,35 @@ export class TicketApprovalComponent implements OnInit {
     ticket.ticketStatus = "APPROVED";
     this.tempTicket = ticket;
 
+    console.log(ticket);
+
     this.ticketService.updateTicketStatus(ticket).subscribe(
       (data)=>{
         console.log("ticket has been updated" +data)
+        //will only work once DB connection is working
+        this.findUnderReviewTickets();
+        //maybe add in alert or message saying ticket was approved
       },
       ()=>{
-
+        console.log("error in approving ticket")
       }
     )
   }
 
-  rejectTicket(ticket:Ticket,rejectComment:string){
+  rejectTicket(ticket:Ticket){
+    console.log(ticket);
+    console.log("Comment "+ticket.rejectComment);
     ticket.ticketStatus = "IN_PROGRESS";
-    ticket.rejectComment = rejectComment;
+    //ticket.rejectComment = ticket.rejectComment;
     this.tempTicket = ticket;
-    this.rejectComment = rejectComment;
+    this.rejectComment = ticket.rejectComment;
 
     this.ticketService.updateTicketStatus(ticket).subscribe(
       (data)=>{
         console.log("ticket has been updated" +data)
+        //will only work once DB connection is working
+        this.findUnderReviewTickets();
+        //maybe add in alert or message saying the ticket was rejected
       },
       ()=>{
         
