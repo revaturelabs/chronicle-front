@@ -25,6 +25,10 @@ description: string = '';
 
 visibility:boolean = true;
 
+//Sofia
+ticket:Ticket  = new Ticket(0,'0','0',"", "", "", "","", "", 0, "", "", "","");
+tickets:Ticket[] = [this.ticket];
+
 public get topicCountGetter() {
   return this._topicCount;
 }
@@ -72,10 +76,15 @@ public get returnTicketGetter() {
 
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
+      this.tickets.push(this.ticket)
     this._topicCount++;} else {
       this.visibility = false;
     }
   }
+   //array of tickets
+   //f-n(){
+     //adding new tiket to array
+  // }
 
   topicCountValidator():boolean{
     if(this._topicCount > 10) return false;
