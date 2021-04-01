@@ -18,17 +18,21 @@ export class TicketViewComponent implements OnInit {
 
   allPendingTickets: Ticket[] = [];
   allMyTickets: Ticket[] = [];
-
   tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
-
   displayPending:boolean = true;
+  pendings_nav_color = "orange";
+  accepted_nav_color = "grey";
 
   toggleDisplayPending(b:boolean){
     this.displayPending = b;
     if(b){
       this.findAllPendingTickets();
+      this.pendings_nav_color = "orange";
+      this.accepted_nav_color = "grey"
     }else{
       this.findAllMyTickets();
+      this.pendings_nav_color =  "grey";
+      this.accepted_nav_color = "orange"
     }
   }
 

@@ -1,8 +1,10 @@
+<div class="page">
+
 <div class="nav_div" fxLayout="row" fxLayoutAlign="center">
     <nav mat-tab-nav-bar class="shadow">
-        <a class="mini_nav" (click)="toggleDisplayPending(true)">Pendings</a> 
+        <a class="mini_nav" [style.color]="pendings_nav_color" (click)="toggleDisplayPending(true)">Pendings</a> 
         <a class="mini_nav">|</a>
-        <a class="mini_nav" (click)="toggleDisplayPending(false)">Accepted</a>
+        <a class="mini_nav" [style.color]="accepted_nav_color" (click)="toggleDisplayPending(false)">Accepted</a>
     </nav>
 </div>
 
@@ -23,17 +25,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr class="active-row" *ngFor= "let r of allPendingTickets" >              
-            <td>{{r.ticketID}}</td>
-            <td>{{r.issuerID}}<br> </td>
-            <td>{{r.dateIssued | date:shortDate}}<br></td>
-            <td>{{r.identifier}}</td>
-            <td>{{r.zoompasscode}}</td>
-            <td>{{r.topic}}</td>
-            <td>{{r.description}}</td>
-            <td>{{r.startTime}}</td>
-            <td>{{r.endTime}}</td>
-            <button mat-flat-button color="primary" (click)="updateTicketStatusToAcknowledged(r)">Accept</button>
+        <tr class="active-row" *ngFor= "let t of allPendingTickets" >              
+            <td>{{t.ticketID}}</td>
+            <td>{{t.issuerID}}<br> </td>
+            <td>{{t.dateIssued | date: 'shortDate'}}<br></td>
+            <td><a href="{{t.zoomlink}}" target="_blank">{{t.identifier}}</a></td>
+            <td>{{t.zoompasscode}}</td>
+            <td>{{t.topic}}</td>
+            <td>{{t.description}}</td>
+            <td>{{t.startTime}}</td>
+            <td>{{t.endTime}}</td>
+            <button mat-flat-button color="primary" (click)="updateTicketStatusToAcknowledged(t)">Accept</button>
         </tr>
     </tbody>
 </table>
@@ -60,26 +62,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="active-row" *ngFor= "let r of allMyTickets" >              
-                <td>{{r.ticketID}}</td>
-                <td>{{r.issuerID}}<br> </td>
-                <td>{{r.dateIssued | date:shortDate}}<br></td>
-                <td>{{r.dateAccepted | date:shortDate}}<br></td>
-                <td>{{r.identifier}}</td>
-                <td>{{r.zoompasscode}}</td>
-                <td>{{r.topic}}</td>
-                <td>{{r.description}}</td>
-                <td>{{r.startTime}}</td>
-                <td>{{r.endTime}}</td>
-                <td>{{r.clipID}}</td>
+            <tr class="active-row" *ngFor= "let t of allMyTickets" >              
+                <td>{{t.ticketID}}</td>
+                <td>{{t.issuerID}}<br> </td>
+                <td>{{t.dateIssued | date: 'shortDate'}}<br></td>
+                <td>{{t.dateAccepted | date: 'shortDate'}}<br></td>
+                <td><a href="{{t.zoomlink}}" target="_blank">{{t.identifier}}</a></td>
+                <td>{{t.zoompasscode}}</td>
+                <td>{{t.topic}}</td>
+                <td>{{t.description}}</td>
+                <td>{{t.startTime}}</td>
+                <td>{{t.endTime}}</td>
+                <td>{{t.clipID}}</td>
                 <td>
-                    <input type="checkbox" *ngIf="r.ticketStatus != 'IN_PROGRESS'" (click)="updateTicketStatusToInProgress(r)">
-                    <p *ngIf="r.ticketStatus == 'IN_PROGRESS'">Yes</p>
+                    <input type="checkbox" *ngIf="t.ticketStatus != 'IN_PROGRESS'" (click)="updateTicketStatusToInProgress(t)">
+                    <input type="checkbox" *ngIf="t.ticketStatus == 'IN_PROGRESS'" (click)="updateTicketStatusToAcknowledged(t)" checked=true>
                 </td>
-                <td>{{r.rejectComment}}</td>
-                <td><button mat-flat-button color="primary" (click)="updateTicketStatusToUnderReview(r)">Submit for Review</button></td>
-                <td><button (click)="updateTicketStatusToUnderReview(r)">Deactivate</button></td>
+                <td>{{t.rejectComment}}</td>
+                <td><button mat-flat-button color="primary" (click)="updateTicketStatusToUnderReview(t)">Submit for Review</button></td>
+                <td><button (click)="updateTicketStatusToUnderReview(t)">Deactivate</button></td>
             </tr>
         </tbody>
     </table>
+</div>
+
 </div>
