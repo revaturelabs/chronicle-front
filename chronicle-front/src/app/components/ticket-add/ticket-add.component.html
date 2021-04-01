@@ -1,133 +1,192 @@
 <div class="page">
-    <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
-        <!-- Title of the page  -->
-        <h1 class="page-title">Submit Ticket</h1>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
+    <!-- Title of the page  -->
+    <h1 class="page-title">Submit Ticket</h1>
 
-        <!-- Form fields -->
-        <div id="ticket-form">
+    <!-- Form fields -->
+    <div id="ticket-form">
+      <!-- LINK -->
+      <div fxLayoutAlign="center" fxFlexFill>
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label for="file-title">Zoom link </mat-label>
+          <input
+            matInput
+            type="text"
+            id="zoom-link"
+            name="zoom-link"
+            [(ngModel)]="_zoomURL"
+            (change)="onZoomUrlWritten($event)"
+          />
+        </mat-form-field>
+      </div>
 
-            <!-- LINK -->
-            <div fxLayoutAlign="center" fxFlexFill>
+      <!-- PASSCODE -->
+      <div fxLayoutAlign="center" fxFlexFill>
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label for="passcode">Zoom passcode</mat-label>
+          <input
+            matInput
+            type="text"
+            id="passcode"
+            name="passcode"
+            [(ngModel)]="passcode"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- Identifier -->
+      <div fxLayoutAlign="center" fxFlexFill>
+        <mat-form-field appearance="outline" class="input-field">
+          <mat-label for="identifier">Video Name</mat-label>
+          <input
+            matInput
+            type="text"
+            id="identifier"
+            name="identifier"
+            [(ngModel)]="identifier"
+          />
+        </mat-form-field>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Starting Time</th>
+            <th>Enhing Time</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ADDING NEW ROW -->
+          <tr *ngFor="let t of tickets">
+            <td>
+              <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
-                    <mat-label for="file-title">Zoom link </mat-label>
-                    <input matInput type="text" id="zoom-link" name="zoom-link" [(ngModel)]="_zoomURL" (change)="onZoomUrlWritten($event)"
-                    >
+                  <mat-label for="topic">Topic</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    id="topic"
+                    name="topic"
+                    [(ngModel)]="t.topic"
+                  />
                 </mat-form-field>
-            </div>
-            
-
-            <!-- PASSCODE -->
-            <div fxLayoutAlign="center" fxFlexFill>
+              </div>
+            </td>
+            <td>
+              <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
-                    <mat-label for="passcode">Zoom passcode</mat-label>
-                    <input matInput type="text" id="passcode" name="passcode" [(ngModel)]="passcode">
+                  <mat-label for="startTime">Starting Time</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    id="startTime"
+                    name="startTime"
+                    [(ngModel)]="t.startTime"
+                  />
                 </mat-form-field>
-            </div>
-
-            
-            <!-- Identifier -->
-            <div fxLayoutAlign="center" fxFlexFill>
+              </div>
+            </td>
+            <td>
+              <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
-                    <mat-label for="identifier">Identifier</mat-label>
-                    <input matInput type="text" id="identifier" name="identifier" [(ngModel)]="identifier">
+                  <mat-label for="endTime">Ending Time</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    id="endTime"
+                    name="endTime"
+                    [(ngModel)]="t.endTime"
+                  />
                 </mat-form-field>
+              </div>
+            </td>
+            <td>
+              <div fxLayoutAlign="center" fxFlexFill>
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label for="description">Description</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    id="description"
+                    name="description"
+                    [(ngModel)]="t.description"
+                  />
+                </mat-form-field>
+              </div>
+            </td>
+            <!--Hidden forms-->
+            <div [hidden]="true">
+              <div fxLayoutAlign="center" fxFlexFill>
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label for="zoomlink">Zoom link </mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    value="{{ _zoomURL }}"
+                    id="zoomlink"
+                    name="zoomlink"
+                    [(ngModel)]="t.zoomlink"
+                    (change)="onZoomUrlWritten($event)"
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxLayoutAlign="center" fxFlexFill>
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label for="passcode">Zoom passcode</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    value="{{ passcode }}"
+                    id="passcode"
+                    name="passcode"
+                    [(ngModel)]="t.zoompasscode"
+                  />
+                </mat-form-field>
+              </div>
+
+              <div fxLayoutAlign="center" fxFlexFill>
+                <mat-form-field appearance="outline" class="input-field">
+                  <mat-label for="identifier">Identifier</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    value="{{ identifier }}"
+                    id="identifier"
+                    name="identifier"
+                    [(ngModel)]="t.identifier"
+                  />
+                </mat-form-field>
+              </div>
             </div>
+            <!-- ............................................ -->
+            <td>
+              <div fxLayoutAlign="center" fxFlexFill>
+                <button
+                  class="upload-button"
+                  mat-flat-button
+                  color="primary"
+                  (click)="deleteTopic(t)"
+                >
+                  X
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
-            <table>
-                <thead>
-                  <tr>
-                        <th>Topic</th>
-                        <th>Starting Time</th>
-                        <th>Enhing Time</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                <!-- ADDING NEW ROW -->
-                <tr *ngFor="let t of tickets">
-                    <td>
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                <mat-label for="topic">Topic</mat-label>
-                                <input matInput type="text" id="topic" name="topic" [(ngModel)]="t.topic">
-                            </mat-form-field>
-                        </div>
-                    </td>
-                    <td>
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                <mat-label for="startTime">Starting Time</mat-label>
-                                <input matInput type="text" id="startTime" name="startTime" [(ngModel)]="t.startTime">
-                            </mat-form-field>
-                        </div>
-                    </td>
-                    <td>
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                <mat-label for="endTime">Ending Time</mat-label>
-                                <input matInput type="text" id="endTime" name="endTime" [(ngModel)]="t.endTime">
-                            </mat-form-field>
-                        </div>
-                    </td>
-                    <td>
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                <mat-label for="description">Description</mat-label>
-                                <input matInput type="text" id="description" name="description" [(ngModel)]="t.description">
-                            </mat-form-field>
-                        </div>
-                    </td>
-                    <!--Hidden forms-->
-                    <div [hidden]=true>
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                <mat-label for="zoomlink">Zoom link </mat-label>
-                                <input matInput type="text" value = "{{_zoomURL}}" id="zoomlink" name="zoomlink" [(ngModel)]="t.zoomlink" (change)="onZoomUrlWritten($event)">
-                            </mat-form-field>
-                        </div>
-                
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                <mat-label for="passcode">Zoom passcode</mat-label>
-                                <input matInput type="text" value="{{passcode}}" id="passcode" name="passcode" [(ngModel)]="t.zoompasscode">
-                            </mat-form-field>
-                         </div>
-
-                         <div fxLayoutAlign="center" fxFlexFill>
-                            <mat-form-field appearance="outline" class="input-field">
-                                 <mat-label for="identifier">Identifier</mat-label>
-                                <input matInput type="text" value={{identifier}} id="identifier" name="identifier" [(ngModel)]="t.identifier">
-                            </mat-form-field>
-                         </div>
-                        </div>
-                    <!-- ............................................ -->
-                    <td>
-                        <div fxLayoutAlign="center" fxFlexFill>
-                            <button class="upload-button"
-                                    mat-flat-button color="primary"
-                                    (click)=" deleteTopic(t)">X
-                            </button>
-                        </div>
-                    </td>
-
-                </tr>
-               
-
-                </tbody>
-                
-
-            </table>
-
-            <!-- <div fxLayoutAlign="center" fxFlexFill>
+      <!-- <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
                     <mat-label for="identifier">Identifier</mat-label>
                     <input matInput type="text" id="identifier" name="identifier" [(ngModel)]="identifier">
                 </mat-form-field>
             </div>-->
 
-            <!-- TOPICS -->
-           <!-- <div fxLayoutAlign="center" fxFlexFill>
+      <!-- TOPICS -->
+      <!-- <div fxLayoutAlign="center" fxFlexFill>
                 <mat-form-field appearance="outline" class="input-field">
                     <mat-label>Topics</mat-label>
                     <mat-chip-list #chipList aria-label="Tag selection">
@@ -148,34 +207,40 @@
                 </mat-form-field>
             </div> -->
 
-
-       <!--(click) = "!topicCountValidator()? topicCountIncrementor(): elseBlock"
+      <!--(click) = "!topicCountValidator()? topicCountIncrementor(): elseBlock"
 -->
 
-            <br>
-            <!-- ADD NEW ROW BUTTON -->
-            <div fxLayoutAlign="center" fxFlexFill>
-                <button class="upload-button"
-                        mat-flat-button color="primary"
-                       (click)="topicCountIncrementor()" >Add More
-                 </button>          
-            </div>
+      <br />
+      <!-- ADD NEW ROW BUTTON -->
+      <div fxLayoutAlign="center" fxFlexFill>
+        <button
+          class="upload-button"
+          mat-flat-button
+          color="primary"
+          (click)="topicCountIncrementor()"
+        >
+          Add More
+        </button>
+      </div>
 
-            <br><br>
+      <br /><br />
 
-            <!--An error message-->
-            <p style="color:red" [hidden]="visibility" >You reached tickets limit</p>
+      <!--An error message-->
+      <p style="color: red" [hidden]="visibility">You reached tickets limit</p>
 
-            <!-- SUBMIT BUTTON -->
-            <div fxLayoutAlign="center" fxFlexFill>
-                <button class="upload-button"
-                        mat-flat-button color="primary"
-                        (click)="submitTickets()"
-                        >Submit
-                </button>
-            </div>
-        </div>
+      <!-- SUBMIT BUTTON -->
+      <div fxLayoutAlign="center" fxFlexFill>
+        <button
+          class="upload-button"
+          mat-flat-button
+          color="primary"
+          (click)="submitTickets()"
+        >
+          Submit
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 <!-- [class.spinner]="sending"
                         [disabled]="sending || !selectedFiles || !batch "  -->
