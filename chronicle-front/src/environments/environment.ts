@@ -26,7 +26,8 @@ export const environment = {
     getNoteById: '/notes/id/',
     getFirebaseUsers: '/firebase',
     updateWhitelist: '/whitelist/',
-    registerFirebaseUser: '/firebase/register'
+    registerFirebaseUser: '/firebase/register',
+    getPendingTickets: '/ticket/pendingTickets'
   }
 };
 
