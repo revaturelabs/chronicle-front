@@ -23,9 +23,13 @@ export class TicketViewComponent implements OnInit {
 
   displayPending:boolean = true;
 
-  toggleDisplayPending(){
-    this.displayPending = !this.displayPending;
-    console.log("displayPending toggled")
+  toggleDisplayPending(b:boolean){
+    this.displayPending = b;
+    if(b){
+      this.findAllPendingTickets();
+    }else{
+      this.findAllMyTickets();
+    }
   }
 
   findAllPendingTickets(){
@@ -50,7 +54,12 @@ export class TicketViewComponent implements OnInit {
         this.allMyTickets = data;
       },
       () => {
-
+        let mockTickets:Ticket[] = [
+          new Ticket(6,'1','100',new Date(),new Date(),"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "IN_PROGRESS", "CR 2/26/2021", "",""),
+          new Ticket(7,'5','100',new Date(),new Date(),"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "",""),
+          new Ticket(8,'5','100',new Date(),new Date(),"java class", "4 of 10", "01:45:56", "01:55:56","https://123", "11331345", 234, "ACKNOWLEDGED", "CR 2/26/2021", "","")
+        ];
+        this.allMyTickets = mockTickets;
       }
     )
   }
