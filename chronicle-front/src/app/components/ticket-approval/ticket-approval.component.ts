@@ -11,6 +11,10 @@ export class TicketApprovalComponent implements OnInit {
 
   underReviewTickets:Ticket[] =[]
   allSubmittedTickets:Ticket[]=[]
+  displayWaitingForReview:boolean = true;
+  waitingForReview_nav_color = "orange";
+  inProgress_nav_color = "grey";
+
 
   tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"ticket", "", "", "","", "", 0, "", "", "","");
   rejectComment:string = "ghgh";
@@ -20,6 +24,20 @@ export class TicketApprovalComponent implements OnInit {
   ngOnInit(): void {
     this.findUnderReviewTickets()
   }
+
+  toggleDisplayPending(b:boolean){
+    this.displayWaitingForReview = b;
+    if(b){
+      this.findUnderReviewTickets();
+      this.waitingForReview_nav_color = "orange";
+      this.inProgress_nav_color = "grey"
+    }else{
+      this.findAllSubmittedTickets();
+      this.waitingForReview_nav_color =  "grey";
+      this.inProgress_nav_color = "orange"
+    }
+  }
+
 
   findUnderReviewTickets(){
     this.ticketService.findUnderReviewTickets().subscribe(
