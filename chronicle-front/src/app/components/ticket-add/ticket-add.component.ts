@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/models/Ticket';
+import { AuthService } from 'src/app/services/auth.service';
 import { TicketService } from 'src/app/services/ticket.service';
 
 
@@ -22,7 +23,7 @@ topic: string = '';
 startTime: string = '';
 endTime: string = '';
 description: string = '';
-
+user:any;
 
 
 //Sofia
@@ -42,9 +43,16 @@ public get returnTicketGetter() {
   return this._returnTickets;
 }
 
-  constructor(private ticketService:TicketService) { }
+  constructor(private ticketService:TicketService, private authService:AuthService) { }
+
+ 
 
   ngOnInit(): void {
+    this.authService.User.subscribe(user1 => {
+      this.user = user1;
+    });
+    this.ticket.editorID = this.user.uid;
+    console.log(this.user.uid);
   }
 
   onZoomUrlWritten(event:any):boolean{
@@ -77,7 +85,7 @@ public get returnTicketGetter() {
 
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
-      this.tickets.push(new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,1,"",this.identifier,"",""))
+      this.tickets.push(new Ticket(0,'0',this.user.uid,new Date(),new Date(),"","","","",this._zoomURL,this.passcode,1,"",this.identifier,"",""))
     this._topicCount++;} else {
       this.visibility = false;
     }
