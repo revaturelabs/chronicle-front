@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ticket } from 'src/app/models/Ticket';
+import { AuthService } from 'src/app/services/auth.service';
 import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
@@ -10,12 +11,17 @@ import { TicketService } from 'src/app/services/ticket.service';
 })
 export class TicketViewComponent implements OnInit {
 
-  constructor(private ticketService: TicketService) { }
-
+  constructor(private ticketService: TicketService, private authService:AuthService) { }
   ngOnInit(): void {
     this.findAllPendingTickets();
+    this.authService.User.subscribe(user1 => {
+      this.user = user1;
+    });
+
+    console.log(this.user.uid)
   }
 
+  user: any;
   allPendingTickets: Ticket[] = [];
   allMyTickets: Ticket[] = [];
   tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"", "", "", "","", "", 0, "", "", "","");
@@ -79,6 +85,21 @@ export class TicketViewComponent implements OnInit {
       },
       () => {
         console.log("Ticket Update Failed")
+      }
+    )
+  }
+
+  acceptTicket(ticket:Ticket){
+    ticket.ticketStatus = "ACKNOWLEDGED"
+    //handeled by back end?
+    //ticket.editorID = this.user.uid;
+    this.ticketService.updateTicketStatus(ticket).subscribe(
+      (data) => {
+
+        console.log(this.user.uid)
+      },
+      () => {
+        console.log("Ticket accept Failed")
       }
     )
   }
