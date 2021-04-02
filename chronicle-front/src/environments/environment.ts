@@ -27,14 +27,14 @@ export const environment = {
     getFirebaseUsers: '/firebase',
     updateWhitelist: '/whitelist/',
     registerFirebaseUser: '/firebase/register',
-    getPendingTickets: '/ticket/pendingTickets',
-    getunderReviewTickets: '/ticket/underReviewTickets',
-    getAcceptedTickets: '/ticket/ticketsForEditor',
-    saveAllTickets: '/ticket/saveall',
-    updateTicket: '/ticket/update',
-    rejectTicket: '/ticket/reject',
-    approveTicket: '/ticket/accept',
-    deactivateTicket: '/ticket/deactivate'
+    getPendingTickets: '/ticket/pending',
+    getunderReviewTickets: '/ticket/under-review',
+    getAcceptedTickets: '/ticket/for-editor',
+    saveAllTickets: '/ticket/saved',
+    updateTicket: '/ticket/updated',
+    rejectTicket: '/ticket/rejected',
+    approveTicket: '/ticket/accepted',
+    deactivateTicket: '/ticket/deactivated'
   }
 };
 
