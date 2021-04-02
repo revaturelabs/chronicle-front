@@ -29,7 +29,7 @@ export class TicketService {
 
   //for trainers
   findAllSubmittedTickets():Observable<Ticket[]>{
-    return this.httpClient.get('') as Observable<Ticket[]>
+    return this.httpClient.get(environment.apiBase + environment.serverApiUrls.getSubmittedTickets) as Observable<Ticket[]>
   }
 
   //for both
