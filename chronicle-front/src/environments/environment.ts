@@ -30,6 +30,7 @@ export const environment = {
     getPendingTickets: '/ticket/pending',
     getunderReviewTickets: '/ticket/under-review',
     getAcceptedTickets: '/ticket/for-editor',
+    getSubmittedTickets: '/ticket/submitted',
     saveAllTickets: '/ticket/saved',
     updateTicket: '/ticket/updated',
     rejectTicket: '/ticket/rejected',

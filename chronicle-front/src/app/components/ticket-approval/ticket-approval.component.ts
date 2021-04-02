@@ -73,7 +73,8 @@ export class TicketApprovalComponent implements OnInit {
 
     console.log(ticket);
 
-    this.ticketService.updateTicketStatus(ticket).subscribe(
+    //backend changed so we need to call approve ticket
+    this.ticketService.approveTicket(ticket).subscribe(
       (data)=>{
         console.log("ticket has been updated" +data)
         //will only work once DB connection is working
@@ -98,7 +99,8 @@ export class TicketApprovalComponent implements OnInit {
       alert("Must Enter A Rejection Comment");
 
     }else{
-      this.ticketService.updateTicketStatus(ticket).subscribe(
+      //backednc ahnged so we need to call rejectTicket
+      this.ticketService.rejectTicket(ticket).subscribe(
         (data)=>{
           console.log("ticket has been updated" +data)
           //will only work once DB connection is working
