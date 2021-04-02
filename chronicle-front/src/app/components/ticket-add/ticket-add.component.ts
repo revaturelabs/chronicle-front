@@ -51,8 +51,8 @@ public get returnTicketGetter() {
     this.authService.User.subscribe(user1 => {
       this.user = user1;
     });
-    this.ticket.editorID = this.user.uid;
-    console.log(this.user.uid);
+    this.ticket.issuerID = this.user.uid;
+    console.log(this.user.displayName);
   }
 
   onZoomUrlWritten(event:any):boolean{
@@ -85,7 +85,7 @@ public get returnTicketGetter() {
 
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
-      this.tickets.push(new Ticket(0,'0',this.user.uid,new Date(),new Date(),"","","","",this._zoomURL,this.passcode,1,"",this.identifier,"",""))
+      this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,1,"",this.identifier,"",""))
     this._topicCount++;} else {
       this.visibility = false;
     }
