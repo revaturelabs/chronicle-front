@@ -43,14 +43,10 @@ export class TicketApprovalComponent implements OnInit {
     this.ticketService.findUnderReviewTickets().subscribe(
       (data) =>{
         this.underReviewTickets = data;
+        console.log(data);
       },
       () =>{
         console.log("error in ticket approval component")
-        //this is just for test purposes instead of hitting database
-        this.underReviewTickets = [new Ticket(1,'1','100',new Date(),new Date(),"java primitives", "1 of 10", "00:45:56", "00:55:56","https://123", "11331345", 234, "under review", "CR 2/26/2021", "",""),
-        new Ticket(3,'5','100',new Date(),new Date(),"java interface", "3 of 10", "01:05:56", "01:20:56","https://123", "11331345", 234, "under review", "CR 2/26/2021", "",""),
-        new Ticket(3,'5','100',new Date(),new Date(),"java class", "4 of 10", "01:45:56", "01:55:56","https://123", "11331345", 234, "under review", "CR 2/26/2021", "","")];
- 
       }
 
     )
