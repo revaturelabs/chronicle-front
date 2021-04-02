@@ -1,1 +1,27 @@
-<p>ticket-notification works!</p>
+<div class="page">
+     <!-- Title of the page  -->
+     <h1 class="page-title" fxLayoutAlign="center">Notifications</h1>
+   
+
+
+<div fxLayout="row" fxLayoutAlign="center">
+ 
+    <table>
+        <thead>
+        <tr class="shadow" >
+            <th style="width:30%">Date</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="shadow" *ngFor= "let n of notifications" >              
+            <td style="width:30%" >{{n.senddate | date: 'shortDate'}}</td>
+            <td>{{n.note}}</td>       
+        </tr>
+    </tbody>
+</table>
+<!-- <div *ngFor= "let n of notifications" style="width:70%" >
+<div class="shadow"  fxLayoutAlign="center" style="display:block"> something</div><br /><br /> -->
+<!-- </div> -->
+</div>
+</div>
