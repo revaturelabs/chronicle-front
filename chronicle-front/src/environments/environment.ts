@@ -34,7 +34,8 @@ export const environment = {
     updateTicket: '/ticket/updated',
     rejectTicket: '/ticket/rejected',
     approveTicket: '/ticket/accepted',
-    deactivateTicket: '/ticket/deactivated'
+    deactivateTicket: '/ticket/deactivated',
+    findAllByReciever: '/ticket/notifications'
   }
 };
 
