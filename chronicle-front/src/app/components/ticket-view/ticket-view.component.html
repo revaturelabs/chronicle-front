@@ -28,9 +28,9 @@
         <tr class="active-row" *ngFor= "let t of allPendingTickets" >              
             <td>{{t.ticketID}}</td>
             <td>{{t.dateIssued | date: 'shortDate'}}<br></td>
-            <td><a href="{{t.zoomlink}}" target="_blank">Download</a></td>
+            <td><a href="{{t.zoomLink}}" target="_blank">{{t.zoomLink}}</a></td>
             <td>{{t.identifier}}</td>
-            <td>{{t.zoompasscode}}</td>
+            <td>{{t.zoomPasscode}}</td>
             <td>{{t.topic}}</td>
             <td>{{t.description}}</td>
             <td>{{t.startTime}}</td>
