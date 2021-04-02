@@ -46,6 +46,7 @@ export class TicketViewComponent implements OnInit {
     this.ticketService.findAllPendingTickets().subscribe(
       (data) => {
         this.allPendingTickets = data;
+        console.log(data)
         console.log("pending request was successful.");
       },
       () => {
