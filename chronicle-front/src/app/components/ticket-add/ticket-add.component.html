@@ -18,18 +18,22 @@
             [(ngModel)]="_zoomURL"
             required
             minlength="4"
-            #name="ngModel"
+            appZoomUrlValidator="https://revature.zoom.us/rec/share"
+            #aZoom="ngModel"
           />
-          <div
-            *ngIf="name.invalid && (name.dirty || name.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="name.errors?.required">Link is required.</div>
-            <div *ngIf="name.errors?.minlength">
-              Link must be at least 4 characters long.
-            </div>
-          </div>
         </mat-form-field>
+        <div
+          *ngIf="aZoom.invalid && (aZoom.dirty || aZoom.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="aZoom.errors?.required">Link is required.</div>
+          <div *ngIf="aZoom.errors?.minlength">
+            Link must be at least 4 characters long.
+          </div>
+          <div *ngIf="aZoom.errors?.appZoomUrlValidator">
+            Please provide a Zoom link.
+          </div>
+        </div>
       </div>
 
       <!-- PASSCODE -->
@@ -44,18 +48,18 @@
             [(ngModel)]="passcode"
             required
             minlength="4"
-            #name1="ngModel"
+            #aPasscode="ngModel"
           />
-          <div
-            *ngIf="name1.invalid && (name1.dirty || name1.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="name1.errors?.required">Passcode is required.</div>
-            <div *ngIf="name1.errors?.minlength">
-              Passcode must be at least 4 characters long.
-            </div>
-          </div>
         </mat-form-field>
+        <div
+          *ngIf="aPasscode.invalid && (aPasscode.dirty || aPasscode.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="aPasscode.errors?.required">Passcode is required.</div>
+          <div *ngIf="aPasscode.errors?.minlength">
+            Passcode must be at least 4 characters long.
+          </div>
+        </div>
       </div>
 
       <!-- Identifier -->
@@ -70,26 +74,26 @@
             [(ngModel)]="identifier"
             required
             minlength="4"
-            #name2="ngModel"
+            #aBatch="ngModel"
           />
-          <div
-            *ngIf="name2.invalid && (name2.dirty || name2.touched)"
-            class="alert alert-danger"
-          >
-            <div *ngIf="name2.errors?.required">Batch is required.</div>
-            <div *ngIf="name2.errors?.minlength">
-              Batch must be at least 4 characters long.
-            </div>
-          </div>
         </mat-form-field>
+        <div
+          *ngIf="aBatch.invalid && (aBatch.dirty || aBatch.touched)"
+          class="alert alert-danger"
+        >
+          <div *ngIf="aBatch.errors?.required">Batch is required.</div>
+          <div *ngIf="aBatch.errors?.minlength">
+            Batch must be at least 4 characters long.
+          </div>
+        </div>
       </div>
 
       <table>
         <thead>
           <tr>
             <th>Topic</th>
-            <th>Starting Time</th>
-            <th>Enhing Time</th>
+            <th>Start Time</th>
+            <th>End Time</th>
             <th>Description</th>
           </tr>
         </thead>
@@ -270,6 +274,7 @@
           class="upload-button"
           mat-flat-button
           color="primary"
+          [disabled]="!_zoomURL || !identifier || !passcode"
           (click)="submitTickets()"
         >
           Submit
