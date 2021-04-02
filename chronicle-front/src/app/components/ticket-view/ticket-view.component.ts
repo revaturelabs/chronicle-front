@@ -19,6 +19,7 @@ export class TicketViewComponent implements OnInit {
     });
 
     console.log(this.user.uid)
+    
   }
 
   user: any;
@@ -28,6 +29,8 @@ export class TicketViewComponent implements OnInit {
   displayPending:boolean = true;
   pendings_nav_color = "orange";
   accepted_nav_color = "grey";
+  errorMessage:string = "Please make sure the ticket is 'In progress' and have a edited video.";
+  hasError:boolean = false;
 
   toggleDisplayPending(b:boolean){
     this.displayPending = b;
@@ -46,7 +49,6 @@ export class TicketViewComponent implements OnInit {
     this.ticketService.findAllPendingTickets().subscribe(
       (data) => {
         this.allPendingTickets = data;
-        console.log(data)
         console.log("pending request was successful.");
       },
       () => {
@@ -64,6 +66,7 @@ export class TicketViewComponent implements OnInit {
     this.ticketService.findAllTicketsByEditor().subscribe(
       (data) => {
         this.allMyTickets = data;
+        console.log(data)
       },
       () => {
         let mockTickets:Ticket[] = [
@@ -83,23 +86,24 @@ export class TicketViewComponent implements OnInit {
     this.ticketService.updateTicketStatus(ticket).subscribe(
       (data) => {
         console.log("ticket has been updated"+data)
+        this.findAllMyTickets();
       },
       () => {
         console.log("Ticket Update Failed")
+        this.findAllMyTickets();
       }
     )
   }
 
   acceptTicket(ticket:Ticket){
     ticket.ticketStatus = "ACKNOWLEDGED"
-    //handeled by back end?
-    //ticket.editorID = this.user.uid;
     this.ticketService.updateTicketStatus(ticket).subscribe(
       (data) => {
-
+        this.findAllPendingTickets()
         console.log(this.user.uid)
       },
       () => {
+        this.findAllPendingTickets()
         console.log("Ticket accept Failed")
       }
     )
@@ -112,39 +116,39 @@ export class TicketViewComponent implements OnInit {
     this.ticketService.updateTicketStatus(ticket).subscribe(
       (data) => {
         console.log("ticket has been updated"+data)
+        this.findAllMyTickets();
       },
       () => {
         console.log("Ticket Update Failed")
+        this.findAllMyTickets();
       }
     )
   }
 
   updateTicketStatusToUnderReview(ticket:Ticket){
-    ticket.ticketStatus = "UNDER_REVIEW"
+    
     this.tempTicket = ticket;
-
-    this.ticketService.updateTicketStatus(ticket).subscribe(
-      (data) => {
-        console.log("ticket has been updated"+data)
-      },
-      () => {
-
-      }
-    )
+    
+    if(ticket.ticketStatus == 'IN_PROGRESS' && ticket.clipID != null){
+      this.displayError(false);
+      ticket.ticketStatus = "UNDER_REVIEW"
+      this.ticketService.updateTicketStatus(ticket).subscribe(
+        (data) => {
+          console.log("ticket has been updated"+data)
+          this.findAllMyTickets();
+        },
+        () => {
+          this.findAllMyTickets();
+        }
+      )
+    }else{
+      this.displayError(true);
+    }
+    
   }
 
-  updateTicketStatusToDeactivated(ticket:Ticket){
-    ticket.ticketStatus = "DEACTIVATED"
-    this.tempTicket = ticket;
-
-    this.ticketService.updateTicketStatus(ticket).subscribe(
-      (data) => {
-        console.log("ticket has been updated"+data)
-      },
-      () => {
-
-      }
-    )
+  displayError(b:boolean){
+    this.hasError = b;
   }
 
 }
