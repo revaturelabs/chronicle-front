@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Directive, Input, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { Ticket } from 'src/app/models/Ticket';
 import { AuthService } from 'src/app/services/auth.service';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -128,4 +128,26 @@ public get returnTicketGetter() {
     }
   }
 
+}
+
+@Directive({
+  selector: '[appZoomUrlValidator]',
+  providers: [{provide: NG_VALIDATORS, useExisting: ZoomUrlValidatorDirective, multi: true}]
+})
+export class ZoomUrlValidatorDirective implements Validator {
+  @Input('appZoomUrlValidator') validatedUrl!: string;
+  zoomUrlValidator(zoomUrl:string):boolean {
+    return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    return !this.validatedUrl ? this.urlValidator(this.validatedUrl)(control): null;
+  }
+
+  urlValidator(url:string): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const allowedUrl:boolean = control.value.startsWith(url);
+    return !allowedUrl ? {forbiddenName: {value: control.value}} : null;
+  };
+}
 }
