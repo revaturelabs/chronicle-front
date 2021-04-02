@@ -9,14 +9,26 @@
       <div fxLayoutAlign="center" fxFlexFill>
         <mat-form-field appearance="outline" class="input-field">
           <mat-label for="file-title">Zoom link </mat-label>
+
           <input
             matInput
             type="text"
             id="zoom-link"
             name="zoom-link"
             [(ngModel)]="_zoomURL"
-            (change)="onZoomUrlWritten($event)"
+            required
+            minlength="4"
+            #name="ngModel"
           />
+          <div
+            *ngIf="name.invalid && (name.dirty || name.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="name.errors?.required">Link is required.</div>
+            <div *ngIf="name.errors?.minlength">
+              Link must be at least 4 characters long.
+            </div>
+          </div>
         </mat-form-field>
       </div>
 
@@ -27,10 +39,22 @@
           <input
             matInput
             type="text"
-            id="passcode"
+            id="passcode1"
             name="passcode"
             [(ngModel)]="passcode"
+            required
+            minlength="4"
+            #name1="ngModel"
           />
+          <div
+            *ngIf="name1.invalid && (name1.dirty || name1.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="name1.errors?.required">Passcode is required.</div>
+            <div *ngIf="name1.errors?.minlength">
+              Passcode must be at least 4 characters long.
+            </div>
+          </div>
         </mat-form-field>
       </div>
 
@@ -41,10 +65,22 @@
           <input
             matInput
             type="text"
-            id="identifier"
+            id="identifier1"
             name="identifier"
             [(ngModel)]="identifier"
+            required
+            minlength="4"
+            #name2="ngModel"
           />
+          <div
+            *ngIf="name2.invalid && (name2.dirty || name2.touched)"
+            class="alert alert-danger"
+          >
+            <div *ngIf="name2.errors?.required">Batch is required.</div>
+            <div *ngIf="name2.errors?.minlength">
+              Batch must be at least 4 characters long.
+            </div>
+          </div>
         </mat-form-field>
       </div>
 

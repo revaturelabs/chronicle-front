@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Ticket } from 'src/app/models/Ticket';
 import { AuthService } from 'src/app/services/auth.service';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -14,8 +15,6 @@ export class TicketAddComponent implements OnInit {
  _zoomURL:string ='';
  _topicCount:number = 2;
  topicName:string = '';
- _tickets:Ticket[] = [];
- _newTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(), "", "", "", "","", "", 0, "", "", "","");
  _returnTickets:Ticket[] = [];
 passcode: string = '';
 identifier: string = '';
@@ -30,6 +29,7 @@ user:any;
 ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,1,"",this.identifier,"","");
 tickets:Ticket[] = [this.ticket];
 visibility:boolean = true;
+ 
 
 public get topicCountGetter() {
   return this._topicCount;
@@ -53,7 +53,9 @@ public get returnTicketGetter() {
     });
     this.ticket.issuerID = this.user.uid;
     console.log(this.user.displayName);
+
   }
+
 
   onZoomUrlWritten(event:any):boolean{
     console.log(event);
@@ -105,13 +107,13 @@ public get returnTicketGetter() {
   }
 
   submitTickets() {
-    this.ticketService.submitTickets(this._tickets).subscribe(
+    this.ticketService.submitTickets(this.tickets).subscribe(
       (data) => {
         this._returnTickets = data;
         console.log('Successfully submitted tickets.');
       },
       () => {
-        console.log('Failure in submitted tickets.');
+        console.log('Failure in submitting tickets.');
       }
     )
   }
