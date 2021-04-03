@@ -14,9 +14,9 @@
         <thead>
             <tr>
             <th>Ticket ID</th>
-            <th>Issuer ID</th>
             <th>Date Issued</th>
             <th>Video</th>
+            <th>Batch</th>
             <th>Passcode</th>
             <th>Topic</th>
             <th>Description</th>
@@ -27,15 +27,15 @@
     <tbody>
         <tr class="active-row" *ngFor= "let t of allPendingTickets" >              
             <td>{{t.ticketID}}</td>
-            <td>{{t.issuerID}}<br> </td>
             <td>{{t.dateIssued | date: 'shortDate'}}<br></td>
-            <td><a href="{{t.zoomlink}}" target="_blank">{{t.identifier}}</a></td>
-            <td>{{t.zoompasscode}}</td>
+            <td><a href="{{t.zoomLink}}" target="_blank">{{t.zoomLink}}</a></td>
+            <td>{{t.identifier}}</td>
+            <td>{{t.zoomPasscode}}</td>
             <td>{{t.topic}}</td>
             <td>{{t.description}}</td>
             <td>{{t.startTime}}</td>
             <td>{{t.endTime}}</td>
-            <button mat-flat-button color="primary" (click)="updateTicketStatusToAcknowledged(t)">Accept</button>
+            <button mat-flat-button color="primary" (click)="acceptTicket(t)">Accept</button>
         </tr>
     </tbody>
 </table>
@@ -46,7 +46,6 @@
         <thead>
             <tr>
                 <th>Ticket ID</th>
-                <th>Issuer ID</th>
                 <th>Date Issued</th>
                 <th>Date Accepted</th>
                 <th>Video</th>
@@ -64,11 +63,10 @@
         <tbody>
             <tr class="active-row" *ngFor= "let t of allMyTickets" >              
                 <td>{{t.ticketID}}</td>
-                <td>{{t.issuerID}}<br> </td>
                 <td>{{t.dateIssued | date: 'shortDate'}}<br></td>
                 <td>{{t.dateAccepted | date: 'shortDate'}}<br></td>
-                <td><a href="{{t.zoomlink}}" target="_blank">{{t.identifier}}</a></td>
-                <td>{{t.zoompasscode}}</td>
+                <td><a href="{{t.zoomLink}}" target="_blank">{{t.identifier}}</a></td>
+                <td>{{t.zoomPasscode}}</td>
                 <td>{{t.topic}}</td>
                 <td>{{t.description}}</td>
                 <td>{{t.startTime}}</td>
