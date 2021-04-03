@@ -247,9 +247,10 @@
 
       <br /><br />
 
-      <!--An error message-->
-      <p style="color: red" [hidden]="visibility">You reached tickets limit</p>
-
+      <!--An error message after you reach limit of 30 clips-->
+      <div fxLayoutAlign="center" fxFlexFill>
+      <p class="alert" [hidden]="visibility">You reached tickets limit</p>
+    </div>
       <!-- SUBMIT BUTTON -->
       <div fxLayoutAlign="center" fxFlexFill>
         <button
@@ -262,6 +263,11 @@
           Submit
         </button>
       </div>
+      <br/> <br/>
+    <!-- Message on success-->
+      <div [hidden]="submitted" style="color:orange;text-align: center;"> 
+        Ticket(s) submitted successfully.
+    </div>
     </div>
   </div>
 </div>
