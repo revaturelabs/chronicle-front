@@ -37,9 +37,9 @@ public set topicCount(count:number) {
   this._topicCount = count;
 }
 
-// public get returnTicketGetter() {
-//   return this._returnTickets;
-// }
+public get returnTicketGetter() {
+  return this._returnTickets;
+}
 
   constructor(private ticketService:TicketService, private authService:AuthService) { }
 
@@ -57,7 +57,6 @@ public set topicCount(count:number) {
     console.log(event);
     return this.zoomUrlValidator(event.target);
   }
-
 
   zoomUrlValidator(zoomUrl:string):boolean {
     return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
