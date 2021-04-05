@@ -15,28 +15,28 @@
         <div fxLayout="row" fxLayoutAlign="center" id = waitingForReview>
         <table *ngIf = "displayWaitingForReview">
                 <thead>
-                    <tr>
-                        <td>Ticket ID</td>
-                        <td>Date Issued</td>
-                        <td>Date Accepted</td>
-                        <td>Original Video</td>
-                        <td>Topics</td>
-                        <td>Description</td>
-                        <td>Edited Video</td>
-                        <td>Approve</td>
-                        <td>Reject</td>
+                    <tr class="shadow">
+                        <th>Ticket ID</th>
+                        <th>Date Issued</th>
+                        <th>Date Accepted</th>
+                        <th>Original Video</th>
+                        <th>Topics</th>
+                        <th>Description</th>
+                        <th>Edited Video</th>
+                        <th>Approve</th>
+                        <th>Reject</th>
                     </tr>
                     </thead>
                     <tbody>
-                        <tr class="active-row" *ngFor = "let ticket of underReviewTickets">
+                        <tr class="shadow" *ngFor = "let ticket of underReviewTickets; let i = index">
                             <td> {{ticket.ticketID}} <input name="ticket.ticketID" [(ngModel)]="ticket.ticketID" type="hidden"></td>
                             <td> {{ticket.dateIssued | date: 'shortDate'}} <input name="ticket.dateIssued" [(ngModel)]="ticket.dateIssued" type="hidden"></td>
                             <td> {{ticket.dateAccepted | date: 'shortDate'}} <input name="ticket.dateAccepted" [(ngModel)]="ticket.dateAccepted" type="hidden"></td>
                             <td> <a href = "{{ticket.zoomLink}}" target="_blank">{{ticket.zoomLink}}</a> <input name="ticket.zoomLink" [(ngModel)]="ticket.zoomLink" type="hidden"></td>
                             <td> {{ticket.topic}} <input name="ticket.topic" [(ngModel)]="ticket.topic" type="hidden"></td>
                             <td> {{ticket.description}} <input name="ticket.description" [(ngModel)]="ticket.description" type="hidden"></td>
-                            <td> <a href = "{{ticket.clipUrl}}" target="_blank">{{ticket.clipUrl}}</a> <input name="ticket.clipUrl" [(ngModel)]="ticket.clipUrl" type="hidden"></td>
-                            <td> <button mat-flat-button color="primary" (click)="approveTicket(ticket)">Approve</button></td>
+                            <td> <a href = "{{ticket.clipUrl}}" target="_blank" (click)="linkedClick(i)">{{ticket.clipUrl}}</a> <input name="ticket.clipUrl" [(ngModel)]="ticket.clipUrl" type="hidden"></td>
+                            <td> <button mat-flat-button color="primary" (click)="approveTicket(ticket,i)">Approve</button></td>
 
                             <td>
                                 <form id="comment-form">
@@ -61,18 +61,18 @@
         <div fxLayout="row" fxLayoutAlign="center" >
             <table *ngIf = "!displayWaitingForReview">
                     <thead>
-                        <tr>
-                            <td>Ticket ID</td>
-                            <td>Date Issued</td>
-                            <td>Date Accepted</td>
-                            <td>Original Video</td>
-                            <td>Topics</td>
-                            <td>Description</td>
-                            <td>Status</td>
+                        <tr class="shadow">
+                            <th>Ticket ID</th>
+                            <th>Date Issued</th>
+                            <th>Date Accepted</th>
+                            <th>Original Video</th>
+                            <th>Topics</th>
+                            <th>Description</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr class="active-row" *ngFor = "let ticket of underReviewTickets">
+                            <tr class="shadow" *ngFor = "let ticket of allSubmittedTickets">
                                 <td> {{ticket.ticketID}} <input name="ticket.ticketID" [(ngModel)]="ticket.ticketID" type="hidden"></td>
                                 <td> {{ticket.dateIssued | date: 'shortDate'}} <input name="ticket.dateIssued" [(ngModel)]="ticket.dateIssued" type="hidden"></td>
                                 <td> {{ticket.dateAccepted | date: 'shortDate'}} <input name="ticket.dateAccepted" [(ngModel)]="ticket.dateAccepted" type="hidden"></td>

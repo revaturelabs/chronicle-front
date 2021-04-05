@@ -27,7 +27,8 @@ ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zo
 tickets:Ticket[] = [this.ticket];
 visibility:boolean = true;
 submitted:boolean = true;
- 
+globalTimeFormat:boolean = false;
+globalTopic:boolean = false;
 
 public get topicCountGetter() {
   return this._topicCount;
@@ -37,9 +38,9 @@ public set topicCount(count:number) {
   this._topicCount = count;
 }
 
-// public get returnTicketGetter() {
-//   return this._returnTickets;
-// }
+public get returnTicketGetter() {
+  return this._returnTickets;
+}
 
   constructor(private ticketService:TicketService, private authService:AuthService) { }
 
@@ -49,7 +50,6 @@ public set topicCount(count:number) {
       this.user = user1;
     });
     this.ticket.issuerID = this.user.uid;
-    console.log(this.user.displayName);
 
   }
 
@@ -58,16 +58,15 @@ public set topicCount(count:number) {
     return this.zoomUrlValidator(event.target);
   }
 
-
   zoomUrlValidator(zoomUrl:string):boolean {
     return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
   }
 
-  timeStampFormatValidator(startTime:string, endTime:string):boolean {
+  timeStampFormatValidator(time:string):void {
     let regexp = new RegExp('[0-9]{2}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}');
     //check if both timestamps are valid
-    if(!(regexp.test(startTime) && regexp.test(endTime))) return false;
-    else return true;
+    if(regexp.test(time)){ this.globalTimeFormat = true}
+    else this.globalTimeFormat = false;
   }
 
   timeStampOrderValidator(startTime:string, endTime:string):boolean {
@@ -79,6 +78,13 @@ public set topicCount(count:number) {
     if(x > y) return false;
     //return a true value
     else return true;
+  }
+
+  topicValidator(topic:string):void {
+
+    //check if both timestamps are valid
+    if(topic.length>3){ this.globalTopic = true}
+    else this.globalTopic = false;
   }
 
   topicCountIncrementor() {
