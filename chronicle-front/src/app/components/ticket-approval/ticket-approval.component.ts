@@ -9,8 +9,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class TicketApprovalComponent implements OnInit {
 
+  //Empty arrays to be populated
   underReviewTickets:Ticket[] =[]
   allSubmittedTickets:Ticket[]=[]
+
   displayWaitingForReview:boolean = true;
   waitingForReview_nav_color = "orange";
   inProgress_nav_color = "grey";
@@ -21,6 +23,7 @@ export class TicketApprovalComponent implements OnInit {
   rejectComment:string = "";
 
 
+  //Messages for snackbar
   approveMessage:string = "Must watch Edited Clip Before Approving Ticket";
   rejectMessage:string = "Must enter a comment to reject ticket";
   action:string = "Close";
@@ -31,9 +34,11 @@ export class TicketApprovalComponent implements OnInit {
     this.findUnderReviewTickets()
   }
 
+
+
   toggleDisplayPending(b:boolean){
     this.displayWaitingForReview = b;
-    if(b){
+    if(this.displayWaitingForReview){
       this.findUnderReviewTickets();
       this.waitingForReview_nav_color = "orange";
       this.inProgress_nav_color = "grey"
@@ -45,6 +50,7 @@ export class TicketApprovalComponent implements OnInit {
   }
 
 
+  //Finds all the tickets that are under review and populates the underReviewTickets array
   findUnderReviewTickets(){
     this.ticketService.findUnderReviewTickets().subscribe(
       (data) =>{
@@ -60,6 +66,7 @@ export class TicketApprovalComponent implements OnInit {
     )
   }
 
+  //Finds all submitted tickets and populates allSubmittedTickets array
    findAllSubmittedTickets(){
      this.ticketService.findAllSubmittedTickets().subscribe(
        (data)=>{
@@ -71,47 +78,41 @@ export class TicketApprovalComponent implements OnInit {
      )
    } 
 
+  //Function called and only call the service when the link is clicked
   approveTicket(ticket:Ticket,i:number){
     ticket.ticketStatus = "APPROVED";
-    this.tempTicket = ticket;
-
-    console.log(ticket);
-
+    
+    //This checks to see if link is clicked
     if(this.clicked[i]){
-       //backend changed so we need to call approve ticket
       this.ticketService.approveTicket(ticket).subscribe(
       (data)=>{
-        console.log("ticket has been updated" +data)
-        //will only work once DB connection is working
+        console.log("ticket has been updated")
         this.findUnderReviewTickets();
-        //maybe add in alert or message saying ticket was approved
       },
       ()=>{
         console.log("error in approving ticket")
       }
     )
-    this.clicked[i] =false;
+    this.clicked[i] =false; 
     }else{
+      //if trainer doesnt click link snackbar message is sent
       this.openApproveSnackBar(this.approveMessage,this.action);
     }
   }
 
+  //Function called and only calls the service if there is a comment in the comment box
   rejectTicket(ticket:Ticket){
     ticket.ticketStatus = "IN_PROGRESS";
-    //ticket.rejectComment = ticket.rejectComment;
-    this.tempTicket = ticket;
-    this.rejectComment = ticket.rejectComment;
 
-    if(ticket.rejectComment==null){
+
+    //Checks to see if comment box is empty else trainer gets a sandbar message
+    if(ticket.rejectComment==""){
       this.openRejectSnackBar(this.rejectMessage,this.action);
     }else{
-      //backednc ahnged so we need to call rejectTicket
       this.ticketService.rejectTicket(ticket).subscribe(
         (data)=>{
-          console.log("ticket has been updated" +data)
-          //will only work once DB connection is working
+          console.log("ticket has been updated")
           this.findUnderReviewTickets();
-          //maybe add in alert or message saying the ticket was rejected
         },
         ()=>{
           
