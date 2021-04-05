@@ -75,7 +75,8 @@
                 <td>{{t.description}}</td>
                 <td>{{t.startTime}}</td>
                 <td>{{t.endTime}}</td>
-                <td>{{t.clipID}}</td>
+                <td *ngIf="t.clipID != 0"><a href="{{t.clipUrl}}" target="_blank">{{t.clipID}}</a></td>
+                <td *ngIf="t.clipID == 0"><button (click)="linkVideoToTicket(t)">Link Video</button></td>
                 <td>
                     <input type="checkbox" *ngIf="t.ticketStatus != 'IN_PROGRESS'" (click)="updateTicketStatusToInProgress(t)">
                     <input type="checkbox" *ngIf="t.ticketStatus == 'IN_PROGRESS'" (click)="updateTicketStatusToAcknowledged(t)" checked=true>
