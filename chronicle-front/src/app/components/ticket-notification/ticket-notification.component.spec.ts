@@ -32,7 +32,7 @@ describe('TicketNotificationComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ TicketNotificationComponent],
-      imports:[HttpClientTestingModule, AppModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig)],
+      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig)],
       providers:[{provide:NotificationService,useClass:MockNotificationService}]
     })
     .compileComponents();
@@ -51,7 +51,6 @@ describe('TicketNotificationComponent', () => {
 
 
   it('should find all tickets by reciever', ()=>{
-    expect(component.notifications.length).toEqual(0);
     component.findAllByReciever();
     expect(component.notifications.length).toEqual(3);
   })
