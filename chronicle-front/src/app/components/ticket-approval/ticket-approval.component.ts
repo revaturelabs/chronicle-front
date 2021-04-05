@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/models/Ticket';
 import { TicketService } from 'src/app/services/ticket.service';
-
+import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-ticket-approval',
   templateUrl: './ticket-approval.component.html',
@@ -15,11 +15,17 @@ export class TicketApprovalComponent implements OnInit {
   waitingForReview_nav_color = "orange";
   inProgress_nav_color = "grey";
 
+  clicked:boolean[] = [];
 
   tempTicket:Ticket = new Ticket(0,'0','0',new Date(),new Date(),"ticket", "", "", "","", "", 0, "", "", "","");
-  rejectComment:string = "ghgh";
+  rejectComment:string = "";
 
-  constructor(private ticketService: TicketService) { }
+
+  approveMessage:string = "Must watch Edited Clip Before Approving Ticket";
+  rejectMessage:string = "Must enter a comment to reject ticket";
+  action:string = "Close";
+
+  constructor(private ticketService: TicketService,private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.findUnderReviewTickets()
@@ -43,7 +49,9 @@ export class TicketApprovalComponent implements OnInit {
     this.ticketService.findUnderReviewTickets().subscribe(
       (data) =>{
         this.underReviewTickets = data;
-        console.log(data);
+        for(let i=0; i<this.underReviewTickets.length; i++){
+          this.clicked.push(false);
+        }
       },
       () =>{
         console.log("error in ticket approval component")
@@ -63,14 +71,15 @@ export class TicketApprovalComponent implements OnInit {
      )
    } 
 
-  approveTicket(ticket:Ticket){
+  approveTicket(ticket:Ticket,i:number){
     ticket.ticketStatus = "APPROVED";
     this.tempTicket = ticket;
 
     console.log(ticket);
 
-    //backend changed so we need to call approve ticket
-    this.ticketService.approveTicket(ticket).subscribe(
+    if(this.clicked[i]){
+       //backend changed so we need to call approve ticket
+      this.ticketService.approveTicket(ticket).subscribe(
       (data)=>{
         console.log("ticket has been updated" +data)
         //will only work once DB connection is working
@@ -81,19 +90,20 @@ export class TicketApprovalComponent implements OnInit {
         console.log("error in approving ticket")
       }
     )
+    this.clicked[i] =false;
+    }else{
+      this.openApproveSnackBar(this.approveMessage,this.action);
+    }
   }
 
   rejectTicket(ticket:Ticket){
-    console.log(ticket);
-    console.log("Comment "+ticket.rejectComment);
     ticket.ticketStatus = "IN_PROGRESS";
     //ticket.rejectComment = ticket.rejectComment;
     this.tempTicket = ticket;
     this.rejectComment = ticket.rejectComment;
 
-    if(ticket.rejectComment==""){
-      alert("Must Enter A Rejection Comment");
-
+    if(ticket.rejectComment==null){
+      this.openRejectSnackBar(this.rejectMessage,this.action);
     }else{
       //backednc ahnged so we need to call rejectTicket
       this.ticketService.rejectTicket(ticket).subscribe(
@@ -111,4 +121,18 @@ export class TicketApprovalComponent implements OnInit {
 
   }
 
+  linkedClick(i:number){
+    this.clicked[i] = true;
+  }
+
+  openRejectSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+  openApproveSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
 }
