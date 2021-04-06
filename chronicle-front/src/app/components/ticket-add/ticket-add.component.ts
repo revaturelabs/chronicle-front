@@ -1,5 +1,5 @@
 import { Component, Directive, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormsModule, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Ticket } from 'src/app/models/Ticket';
 import { AuthService } from 'src/app/services/auth.service';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -26,11 +26,14 @@ user:any;
 ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"pending",this.identifier,"","");
 tickets:Ticket[] = [this.ticket];
 visibility:boolean = true;
-submitted:boolean = true;
 globalTimeFormat:boolean = false;
 globalTimeFormat2:boolean = false;
 globalTopic:boolean = false;
 globalZoomUrl:boolean = false;
+globalTimeStampOrder:boolean = false;
+success:string ="Ticket submitted successfully";
+error:string ="Could not submit ticket"
+action:string = "close";
 
 public get topicCountGetter() {
   return this._topicCount;
@@ -44,7 +47,7 @@ public get returnTicketGetter() {
   return this._returnTickets;
 }
 
-  constructor(private ticketService:TicketService, private authService:AuthService) { }
+  constructor(private ticketService:TicketService, private authService:AuthService,private _snackBar: MatSnackBar) { }
 
 
   ngOnInit(): void {
@@ -55,6 +58,24 @@ public get returnTicketGetter() {
 
   }
 
+  onDeleteTopicClick() {
+    for(let ticket of this.tickets){
+      this.timeStampFormatValidator(ticket.startTime);
+      this.timeStampFormatValidator2(ticket.endTime);
+      this.topicValidator(ticket.topic);
+      this.timeStampOrderValidator(ticket.startTime, ticket.endTime);
+      if(!this.globalTimeFormat || !this.globalTimeFormat2 || !this.globalTopic || !this.globalTimeStampOrder) break;
+          }
+  }
+  
+
+  onStartEndTimeChange() {
+    for(let ticket of this.tickets){
+      this.timeStampOrderValidator(ticket.startTime, ticket.endTime);
+      if(!this.globalTimeStampOrder) break;
+          }
+  }
+
   zoomUrlValidator():void {
     let regexp = new RegExp('https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)');
     if(regexp.test(this._zoomURL)) {this.globalZoomUrl = true}
@@ -62,7 +83,7 @@ public get returnTicketGetter() {
   }
 
 
-
+// Validate format of Starting time
   timeStampFormatValidator(time:string):void {
     let regexp = new RegExp('[0-9]{2}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}');
     //check if both timestamps are valid
@@ -70,6 +91,7 @@ public get returnTicketGetter() {
     else this.globalTimeFormat = false;
   }
 
+  // Validate format of Ending time
   timeStampFormatValidator2(time:string):void {
     let regexp = new RegExp('[0-9]{2}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}');
     //check if both timestamps are valid
@@ -77,44 +99,54 @@ public get returnTicketGetter() {
     else this.globalTimeFormat2 = false;
   }
 
-  timeStampOrderValidator(startTime:string, endTime:string):boolean {
+  //Making sure that Ending time is going after Starting time
+  timeStampOrderValidator(startTime:string, endTime:string):void {
     //parse the timestamp into numbers
     let x:number = parseInt(startTime.replace(":","").replace(":",""));
     let y:number = parseInt(endTime.replace(":","").replace(":",""));
 
     //check if the starting time is earlier 
-    if(x > y) return false;
+    if(x > y) {
+      this.globalTimeStampOrder = false;
+      }
     //return a true value
-    else return true;
+    else {
+      this.globalTimeStampOrder = true;
+      }
   }
 
-  topicValidator(topic:string):void {
+  //Validate topic input
+  topicValidator(topic:string):boolean {
 
     //check if both timestamps are valid
-    if(topic.length>3){ this.globalTopic = true}
-    else this.globalTopic = false;
+    if(topic.length>3){ 
+      this.globalTopic = true;
+      return true;
+    }
+    else {
+      this.globalTopic = false;
+      return false;
+    }
   }
 
+  //Count quantity of clips
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
       this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"pending",this.identifier,"",""))
       this._topicCount++;
-      this.globalTopic = false;
-      this.globalTimeFormat = false;
-      this.globalTimeFormat2 = false;
    } else {
       this.visibility = false;
     }
 
   }
+  topicCountDecrementor() {
+    this._topicCount--;
+  }
 
+  //Set limit of clips
   topicCountValidator():boolean{
     if(this._topicCount > 30) return false;
     else return true;
-  }
-
-  topicCountDecrementor() {
-    this._topicCount--;
   }
 
   //Make sure that each clip got last entered link , passcode and batch
@@ -134,26 +166,28 @@ public get returnTicketGetter() {
     });
   }
 
+  // Submit ticket button
   submitTickets() {
     this.checkLink();
     this.checkPasscode();
     this.checkBatch();
 
-  
     this.ticketService.submitTickets(this.tickets).subscribe(
       (data) => {
         this.tickets = data;
-        console.log('Successfully submitted tickets.');
-        //refresh page after succsess
-        this.submitted = false;
-        window.location.reload(),5000;
+        //display message and refresh page after succsess 
+        setTimeout(location.reload.bind(location), 5000);
+        this.openSnackBar(this.success,this.action);
       },
       () => {
-        console.log('Failure in submitting tickets.');
+        //display an error message
+        this.openSnackBar(this.success,this.action);
+       
       }
     )
   }
 
+  //button for delete individual clip
   deleteTopic(ticket:Ticket) {
     if(this.tickets.includes(ticket)) {
       const index = this.tickets.indexOf(ticket, 0);
@@ -165,27 +199,13 @@ public get returnTicketGetter() {
 
     }
   }
-
-}
-
-@Directive({
-  selector: '[appZoomUrlValidator]',
-  providers: [{provide: NG_VALIDATORS, useExisting: ZoomUrlValidatorDirective, multi: true}]
-})
-export class ZoomUrlValidatorDirective implements Validator {
-  @Input('appZoomUrlValidator') validatedUrl!: string;
-  // zoomUrlValidator(zoomUrl:string):boolean {
-  //   return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
-  // }
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    return !this.validatedUrl ? this.urlValidator(this.validatedUrl)(control): null;
+// Pop up message 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 5000,
+    });
   }
 
-  urlValidator(url:string): ValidatorFn {
-  return (control: AbstractControl): {[key: string]: any} | null => {
-    const allowedUrl:boolean = control.value.startsWith(url);
-    return !allowedUrl ? {forbiddenName: {value: control.value}} : null;
-  };
 }
-}
+
+
