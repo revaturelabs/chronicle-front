@@ -7,6 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TicketAddComponent } from './ticket-add.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 export class MockTicketService extends TicketService{
   submitTickets(tickets:Ticket[]):Observable<Ticket[]>{
@@ -28,7 +30,7 @@ describe('TicketAddComponent', () => {
     
     await TestBed.configureTestingModule({
       declarations: [ TicketAddComponent ],
-      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig)],
+      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig), MatSnackBarModule],
       providers:[{provide: TicketService, useClass:MockTicketService}]
     })
     .compileComponents();
