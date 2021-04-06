@@ -31,6 +31,7 @@ globalTimeFormat:boolean = false;
 globalTimeFormat2:boolean = false;
 globalTopic:boolean = false;
 globalZoomUrl:boolean = false;
+globalTimeStampOrder:boolean = false;
 
 public get topicCountGetter() {
   return this._topicCount;
@@ -55,6 +56,24 @@ public get returnTicketGetter() {
 
   }
 
+  onDeleteTopicClick() {
+    for(let ticket of this.tickets){
+      this.timeStampFormatValidator(ticket.startTime);
+      this.timeStampFormatValidator2(ticket.endTime);
+      this.topicValidator(ticket.topic);
+      this.timeStampOrderValidator(ticket.startTime, ticket.endTime);
+      if(!this.globalTimeFormat || !this.globalTimeFormat2 || !this.globalTopic || !this.globalTimeStampOrder) break;
+          }
+  }
+  
+
+  onStartEndTimeChange() {
+    for(let ticket of this.tickets){
+      this.timeStampOrderValidator(ticket.startTime, ticket.endTime);
+      if(!this.globalTimeStampOrder) break;
+          }
+  }
+
   zoomUrlValidator():void {
     let regexp = new RegExp('https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)');
     if(regexp.test(this._zoomURL)) {this.globalZoomUrl = true}
@@ -77,31 +96,38 @@ public get returnTicketGetter() {
     else this.globalTimeFormat2 = false;
   }
 
-  timeStampOrderValidator(startTime:string, endTime:string):boolean {
+  timeStampOrderValidator(startTime:string, endTime:string):void {
     //parse the timestamp into numbers
     let x:number = parseInt(startTime.replace(":","").replace(":",""));
     let y:number = parseInt(endTime.replace(":","").replace(":",""));
 
     //check if the starting time is earlier 
-    if(x > y) return false;
+    if(x > y) {
+      this.globalTimeStampOrder = false;
+      }
     //return a true value
-    else return true;
+    else {
+      this.globalTimeStampOrder = true;
+      }
   }
 
-  topicValidator(topic:string):void {
+  topicValidator(topic:string):boolean {
 
     //check if both timestamps are valid
-    if(topic.length>3){ this.globalTopic = true}
-    else this.globalTopic = false;
+    if(topic.length>3){ 
+      this.globalTopic = true;
+      return true;
+    }
+    else {
+      this.globalTopic = false;
+      return false;
+    }
   }
 
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
       this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"pending",this.identifier,"",""))
       this._topicCount++;
-      this.globalTopic = false;
-      this.globalTimeFormat = false;
-      this.globalTimeFormat2 = false;
    } else {
       this.visibility = false;
     }
