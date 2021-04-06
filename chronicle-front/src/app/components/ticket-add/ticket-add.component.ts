@@ -1,5 +1,5 @@
 import { Component, Directive, Input, OnInit } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormsModule, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 import { Ticket } from 'src/app/models/Ticket';
 import { AuthService } from 'src/app/services/auth.service';
 import { TicketService } from 'src/app/services/ticket.service';
@@ -28,12 +28,14 @@ tickets:Ticket[] = [this.ticket];
 visibility:boolean = true;
 submitted:boolean = true;
 globalTimeFormat:boolean = false;
+globalTimeFormat2:boolean = false;
 globalTopic:boolean = false;
+globalZoomUrl:boolean = false;
 
 public get topicCountGetter() {
   return this._topicCount;
 }
-
+/*Setter sets topic count.*/
 public set topicCount(count:number) {
   this._topicCount = count;
 }
@@ -53,20 +55,26 @@ public get returnTicketGetter() {
 
   }
 
-  onZoomUrlWritten(event:any):boolean{
-    console.log(event);
-    return this.zoomUrlValidator(event.target);
+  zoomUrlValidator():void {
+    let regexp = new RegExp('https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)');
+    if(regexp.test(this._zoomURL)) {this.globalZoomUrl = true}
+    else this.globalZoomUrl = false;
   }
 
-  zoomUrlValidator(zoomUrl:string):boolean {
-    return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
-  }
+
 
   timeStampFormatValidator(time:string):void {
     let regexp = new RegExp('[0-9]{2}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}');
     //check if both timestamps are valid
     if(regexp.test(time)){ this.globalTimeFormat = true}
     else this.globalTimeFormat = false;
+  }
+
+  timeStampFormatValidator2(time:string):void {
+    let regexp = new RegExp('[0-9]{2}:[0-5]{1}[0-9]{1}:[0-5]{1}[0-9]{1}');
+    //check if both timestamps are valid
+    if(regexp.test(time)){ this.globalTimeFormat2 = true}
+    else this.globalTimeFormat2 = false;
   }
 
   timeStampOrderValidator(startTime:string, endTime:string):boolean {
@@ -91,9 +99,13 @@ public get returnTicketGetter() {
     if (this.topicCountValidator()) {
       this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"pending",this.identifier,"",""))
       this._topicCount++;
+      this.globalTopic = false;
+      this.globalTimeFormat = false;
+      this.globalTimeFormat2 = false;
    } else {
       this.visibility = false;
     }
+
   }
 
   topicCountValidator():boolean{
@@ -162,9 +174,9 @@ public get returnTicketGetter() {
 })
 export class ZoomUrlValidatorDirective implements Validator {
   @Input('appZoomUrlValidator') validatedUrl!: string;
-  zoomUrlValidator(zoomUrl:string):boolean {
-    return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
-  }
+  // zoomUrlValidator(zoomUrl:string):boolean {
+  //   return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
+  // }
 
   validate(control: AbstractControl): ValidationErrors | null {
     return !this.validatedUrl ? this.urlValidator(this.validatedUrl)(control): null;

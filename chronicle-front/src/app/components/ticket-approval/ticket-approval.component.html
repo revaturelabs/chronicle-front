@@ -49,9 +49,6 @@
                                    <br> <button mat-flat-button color="primary" type="submit" (click)="rejectTicket(ticket)">Reject with comment</button>
                                 </form>
                             </td>
-
-                            <!-- <td><button>Reject with comment</button></td>
-                            <td><input name="ticket.rejectComment" [(ngModel)]="ticket.rejectComment"></form></td> -->
                         </tr>
                     </tbody>
                     </table>
@@ -80,10 +77,6 @@
                                 <td> {{ticket.topic}} <input name="ticket.topic" [(ngModel)]="ticket.topic" type="hidden"></td>
                                 <td> {{ticket.description}} <input name="ticket.description" [(ngModel)]="ticket.description" type="hidden"></td>
                                 <td> {{ticket.ticketStatus}} <input name="ticket.ticketStatus" [(ngModel)]="ticket.ticketStatus" type="hidden"></td> 
-                                  
-    
-                                <!-- <td><button>Reject with comment</button></td>
-                                <td><input name="ticket.rejectComment" [(ngModel)]="ticket.rejectComment"></form></td> -->
                             </tr>
                         </tbody>
                         </table>
