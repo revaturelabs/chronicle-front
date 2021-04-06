@@ -45,8 +45,9 @@ describe('TicketAddComponent', () => {
   });
 
   it('should validate Zoom URL', () => {
-    let url:string = 'https://revature.zoom.us/rec/share/thdhdehdethyjyj';
-    expect(component.zoomUrlValidator(url)).toBeTruthy();
+    component._zoomURL = 'https://revature.zoom.us/rec/share/thdhdehdethyjyj';
+    component.zoomUrlValidator();
+    expect(component.globalZoomUrl).toBeTruthy();
   });
 
   it('should validate time stamps by order', () => {
@@ -58,7 +59,7 @@ describe('TicketAddComponent', () => {
   it('should validate time stamps by format', () => {
     let startTimeTest:string = '99:54:99';
     let endTimeTest:string = '00:06:43';
-    expect(component.timeStampFormatValidator(startTimeTest,endTimeTest)).toBeFalsy();
+    expect(component.timeStampFormatValidator(startTimeTest)).toBeFalsy();
   });
 
   it('should increment row count through add more button click', () => {
