@@ -17,10 +17,10 @@
             name="zoom-link"
             [(ngModel)]="_zoomURL"
             required
-            maxlength="80"
+            maxlength="120"
             pattern="https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)"
             #aZoom="ngModel"
-            (change)="zoomUrlValidator()"
+            (keyup)="zoomUrlValidator()"
           />
         </mat-form-field>
         <div style="position: absolute; top: 123px">
@@ -30,7 +30,7 @@
           >
             <div *ngIf="aZoom.errors?.required">Link is required.</div>
             <div *ngIf="aZoom.errors?.maxlength">
-              Link must be less than 80 characters long.
+              Link must be less than 120 characters long.
             </div>
             <div *ngIf="aZoom.errors?.pattern">
               Please provide a valid Zoom link.
