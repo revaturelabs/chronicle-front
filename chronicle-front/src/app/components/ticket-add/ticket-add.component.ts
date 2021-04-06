@@ -56,7 +56,7 @@ public get returnTicketGetter() {
   }
 
   zoomUrlValidator():void {
-    let regexp = new RegExp('^(http|https)://revature.zoom.us');
+    let regexp = new RegExp('https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)');
     if(regexp.test(this._zoomURL)) {this.globalZoomUrl = true}
     else this.globalZoomUrl = false;
   }

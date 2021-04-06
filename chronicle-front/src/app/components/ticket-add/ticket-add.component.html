@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-      <!-- Batch -->
+      <!-- BATCH -->
       <div fxLayoutAlign="center" fxFlexFill>
         <mat-form-field appearance="outline" class="input-field">
           <mat-label for="identifier">Batch</mat-label>
@@ -112,6 +112,7 @@
           <tbody>
             <!-- ADDING NEW ROW -->
             <tr *ngFor="let t of tickets">
+              <!--TOPIC-->
               <td>
                 <div fxLayoutAlign="center" fxFlexFill>
                   <mat-form-field appearance="outline" class="input-field">
@@ -127,20 +128,19 @@
                       #aTopic="ngModel"
                       (keyup)="topicValidator(t.topic)"
                     />
-                  </mat-form-field>
-                  <div>
+                    <!--Error messages-->
                     <div
-                      *ngIf="aTopic.invalid && (aTopic.dirty || aTopic.touched)"
-                      class="alert alert-danger"
-                    >
-                      <div *ngIf="aTopic.errors?.required">
-                        Topic is required.
-                      </div>
-                      <div *ngIf="aTopic.errors?.minlength">
-                        Topic must be at least 4 characters long.
-                      </div>
+                    *ngIf="aTopic.invalid && (aTopic.dirty || aTopic.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="aTopic.errors?.required">
+                      Topic is required.
+                    </div>
+                    <div *ngIf="aTopic.errors?.minlength">
+                      Topic must be at least 4 characters long.
                     </div>
                   </div>
+
+                  </mat-form-field>
                 </div>
               </td>
               <td>
@@ -158,22 +158,22 @@
                       #start="ngModel"
                       (keyup)="timeStampFormatValidator(t.startTime)"
                     />
-                  </mat-form-field>
-                  <div>
-                    <div
-                      *ngIf="start.invalid && (start.dirty || start.touched)"
-                      class="alert alert-danger"
-                    >
-                      <div *ngIf="start.errors?.required">
-                        Starting time is required.
-                      </div>
-                      <div *ngIf="start.errors?.pattern">
-                        Please use hh:mm:ss format
-                      </div>
-                    </div>
-                  </div>
+                       <!--Error messages-->
+                       <div
+                       *ngIf="start.invalid && (start.dirty || start.touched)"
+                       class="alert alert-danger">
+                       <div *ngIf="start.errors?.required">
+                         Starting time is required.
+                       </div>
+                       <div *ngIf="start.errors?.pattern">
+                         Please use hh:mm:ss format
+                       </div>
+                     </div>
+
+                  </mat-form-field>           
                 </div>
               </td>
+              <!--END TIME-->
               <td>
                 <div fxLayoutAlign="center" fxFlexFill>
                   <mat-form-field appearance="outline" class="input-field">
@@ -189,22 +189,22 @@
                       #end="ngModel"
                       (keyup)="timeStampFormatValidator2(t.endTime)"
                     />
+                    <!--Error messages-->
+                      <div
+                        *ngIf="end.invalid && (end.dirty || end.touched)"
+                        class="alert alert-danger">
+                        <div *ngIf="end.errors?.required">
+                          Ending time is required.
+                        </div>
+                        <div *ngIf="end.errors?.pattern">
+                          Please use hh:mm:ss format
+                        </div>
+                      </div>
+                   
                   </mat-form-field>
-                  <div>
-                    <div
-                      *ngIf="end.invalid && (end.dirty || end.touched)"
-                      class="alert alert-danger"
-                    >
-                      <div *ngIf="end.errors?.required">
-                        Ending time is required.
-                      </div>
-                      <div *ngIf="end.errors?.pattern">
-                        Please use hh:mm:ss format
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </td>
+              <!--DESCRIPTION-->
               <td>
                 <div fxLayoutAlign="center" fxFlexFill>
                   <mat-form-field appearance="outline" class="input-field">
@@ -219,50 +219,7 @@
                   </mat-form-field>
                 </div>
               </td>
-              <!--Hidden forms-->
-              <div [hidden]="true">
-                <div fxLayoutAlign="center" fxFlexFill>
-                  <mat-form-field appearance="outline" class="input-field">
-                    <mat-label for="zoomLink">Zoom link </mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      value="{{ _zoomURL }}"
-                      id="zoomLink"
-                      name="zoomLink"
-                      [(ngModel)]="t.zoomLink"
-                    />
-                  </mat-form-field>
-                </div>
-
-                <div fxLayoutAlign="center" fxFlexFill>
-                  <mat-form-field appearance="outline" class="input-field">
-                    <mat-label for="passcode">Zoom passcode</mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      value="{{ passcode }}"
-                      id="passcode"
-                      name="passcode"
-                      [(ngModel)]="t.zoomPasscode"
-                    />
-                  </mat-form-field>
-                </div>
-
-                <div fxLayoutAlign="center" fxFlexFill>
-                  <mat-form-field appearance="outline" class="input-field">
-                    <mat-label for="identifier">Identifier</mat-label>
-                    <input
-                      matInput
-                      type="text"
-                      value="{{ identifier }}"
-                      id="identifier"
-                      name="identifier"
-                      [(ngModel)]="t.identifier"
-                    />
-                  </mat-form-field>
-                </div>
-              </div>
+             
               <!-- Button to delete individual ticket -->
               <td>
                 <div fxLayoutAlign="center" fxFlexFill>
