@@ -56,7 +56,7 @@ public get returnTicketGetter() {
   }
 
   zoomUrlValidator():void {
-    let regexp = new RegExp('https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)');
+    let regexp = new RegExp('^(http|https)://revature.zoom.us');
     if(regexp.test(this._zoomURL)) {this.globalZoomUrl = true}
     else this.globalZoomUrl = false;
   }
@@ -174,9 +174,9 @@ public get returnTicketGetter() {
 })
 export class ZoomUrlValidatorDirective implements Validator {
   @Input('appZoomUrlValidator') validatedUrl!: string;
-  zoomUrlValidator(zoomUrl:string):boolean {
-    return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
-  }
+  // zoomUrlValidator(zoomUrl:string):boolean {
+  //   return zoomUrl.startsWith('https://revature.zoom.us/rec/share');
+  // }
 
   validate(control: AbstractControl): ValidationErrors | null {
     return !this.validatedUrl ? this.urlValidator(this.validatedUrl)(control): null;

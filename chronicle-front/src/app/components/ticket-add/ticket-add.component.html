@@ -17,9 +17,8 @@
             name="zoom-link"
             [(ngModel)]="_zoomURL"
             required
-            minlength="4"
-            maxlength="50"
-            pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)"
+            maxlength="80"
+            pattern="https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)"
             #aZoom="ngModel"
             (change)="zoomUrlValidator()"
           />
@@ -30,11 +29,8 @@
             class="alert alert-danger"
           >
             <div *ngIf="aZoom.errors?.required">Link is required.</div>
-            <div *ngIf="aZoom.errors?.minlength">
-              Link must be at least 4 characters long.
-            </div>
             <div *ngIf="aZoom.errors?.maxlength">
-              Link must be less than 50 characters long.
+              Link must be less than 80 characters long.
             </div>
             <div *ngIf="aZoom.errors?.pattern">
               Please provide a valid Zoom link.
