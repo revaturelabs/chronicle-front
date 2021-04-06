@@ -97,6 +97,7 @@ https://stackoverflow.com/questions/52311779/usage-of-the-typescript-compiler-ar
 If you are able to use a more recent version of saturn-datepicker or angular material, it may be worth it to try removing the "skipLibCheck": true setting and trying ng build. If you receive no errors, then this bug will have been fixed.
 
 ### Iteration-3 Dev-Ops
-https://docs.google.com/document/d/1yS1B6yJTXlus4jB5eVr14JWeVVyMZACEmCzwt_6T2Io/edit
+Documentation regarding iteration-3 DevOps can be found [here]
+(https://docs.google.com/document/d/1yS1B6yJTXlus4jB5eVr14JWeVVyMZACEmCzwt_6T2Io/edit)
 * * *
 
