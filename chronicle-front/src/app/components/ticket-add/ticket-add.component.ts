@@ -35,7 +35,7 @@ globalZoomUrl:boolean = false;
 public get topicCountGetter() {
   return this._topicCount;
 }
-
+/*Setter sets topic count.*/ 
 public set topicCount(count:number) {
   this._topicCount = count;
 }
