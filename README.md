@@ -95,5 +95,8 @@ To solve this issue, we could have edited the node_module file by hand, but that
 https://stackoverflow.com/questions/52311779/usage-of-the-typescript-compiler-argument-skiplibcheck
 
 If you are able to use a more recent version of saturn-datepicker or angular material, it may be worth it to try removing the "skipLibCheck": true setting and trying ng build. If you receive no errors, then this bug will have been fixed.
+
+###Iteration-3 Dev-Ops
+https://docs.google.com/document/d/1yS1B6yJTXlus4jB5eVr14JWeVVyMZACEmCzwt_6T2Io/edit
 * * *
 
