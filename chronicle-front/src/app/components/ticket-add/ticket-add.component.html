@@ -207,6 +207,13 @@
                         Please use hh:mm:ss format
                       </div>
                     </div>
+                    <!--an error for end time being before start time-->
+                    <div *ngIf="globalTimeFormat && globalTimeFormat2"
+                    class="alert alert-danger"
+                    [hidden]="globalTimeStampOrder">
+                      Can not be before starting time
+                    </div>
+                  
                   </mat-form-field>
                 </div>
               </td>
@@ -287,10 +294,6 @@
       </div>
       <br />
       <br />
-      <!-- Message on success-->
-      <div [hidden]="submitted" style="color: orange; text-align: center">
-        Ticket(s) submitted successfully.
-      </div>
     </div>
   </div>
 </div>
