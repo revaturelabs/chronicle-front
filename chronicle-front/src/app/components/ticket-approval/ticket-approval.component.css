@@ -1,0 +1,31 @@
+a.mini_nav {
+    font-size: large;
+    padding: 1em;
+    color: gray;
+    
+}
+
+div.nav_div {
+    margin-bottom: 2em;
+}
+
+table {
+    text-align: center;
+    color: #383838;
+}
+
+td {
+    padding: 0.5em;
+}
+
+th {
+    padding: 0.5em;
+}
+
+.page-title {
+    text-align: center;
+  }
+
+button.deactivate{
+    margin : 2px;
+}
