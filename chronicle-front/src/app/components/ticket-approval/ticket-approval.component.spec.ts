@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable, of } from 'rxjs';
 import { Ticket } from 'src/app/models/Ticket';
@@ -44,7 +45,7 @@ describe('TicketApprovalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ TicketApprovalComponent ],
-      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig)],
+      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig), MatSnackBarModule],
       providers:[{provide: TicketService, useClass:MockTicketService}]
     })
     .compileComponents();
@@ -83,4 +84,5 @@ describe('TicketApprovalComponent', () => {
     expect(component.tempTicket.ticketStatus).toEqual("IN_PROGRESS");
     expect(component.rejectComment).toEqual("bad clip");
   })
+  //The tests are failing because of the MatSnackBar module, if we remove the MatSnackBar module the tests should pass.
 });

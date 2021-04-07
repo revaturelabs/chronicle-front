@@ -58,6 +58,7 @@ public get returnTicketGetter() {
 
   }
 
+//This happens when we delede 
   onDeleteTopicClick() {
     for(let ticket of this.tickets){
       this.timeStampFormatValidator(ticket.startTime);
@@ -68,7 +69,7 @@ public get returnTicketGetter() {
           }
   }
   
-
+//Validate order of Starting and Ending time for each clip
   onStartEndTimeChange() {
     for(let ticket of this.tickets){
       this.timeStampOrderValidator(ticket.startTime, ticket.endTime);
@@ -76,6 +77,7 @@ public get returnTicketGetter() {
           }
   }
 
+  //Validate zoom URL input
   zoomUrlValidator():void {
     let regexp = new RegExp('https?://(www.)?revature.zoom.us/rec/share/([-a-zA-Z0-9()@:%_+.~#?&//=]*)');
     if(regexp.test(this._zoomURL)) {this.globalZoomUrl = true}
@@ -176,8 +178,9 @@ public get returnTicketGetter() {
       (data) => {
         this.tickets = data;
         //display message and refresh page after succsess 
-        setTimeout(location.reload.bind(location), 5000);
         this.openSnackBar(this.success,this.action);
+        setTimeout(location.reload.bind(location), 5000);
+       
       },
       () => {
         //display an error message
