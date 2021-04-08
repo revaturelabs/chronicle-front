@@ -1,4 +1,4 @@
-import { Component, Directive, Input, OnInit } from '@angular/core';
+import { Component, Directive, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/app/models/Ticket';
@@ -46,13 +46,14 @@ public set topicCount(count:number) {
 }
 
 public get returnTicketGetter() {
-  return this._returnTickets;
+  return this.tickets;
 }
 
   constructor(private ticketService:TicketService, private authService:AuthService,private _snackBar: MatSnackBar, private router: Router) { }
 
 
   ngOnInit(): void {
+    //this may cause refresh page problems. See app.component.ts
     this.authService.User.subscribe(user1 => {
       this.user = user1;
     });
@@ -179,7 +180,7 @@ public get returnTicketGetter() {
     this.ticketService.submitTickets(this.tickets).subscribe(
       (data) => {
         this.tickets = data;
-        //display message and redirect to main page
+        //display message and redirect to main page, redirect may cause Karma browser refresh.
         this.openSnackBar(this.success,this.action);
         this.router.navigate(['']);
        
@@ -213,4 +214,8 @@ public get returnTicketGetter() {
 
 }
 
-
+@Directive({
+  selector: '[attr]',
+  exportAs: 'ngModel'
+})
+export class ngModel { }
