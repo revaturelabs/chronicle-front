@@ -1,6 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Ticket } from 'src/app/models/Ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,6 +9,8 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
+import { DisplayUser } from 'src/app/models/display-user';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 export class MockTicketService extends TicketService{
@@ -23,6 +25,17 @@ export class MockTicketService extends TicketService{
   
 }
 
+export class MockAuthService {
+  //this solves the null user.uid for Jasmine tests.
+  get User(): Observable<DisplayUser> {
+    let testUser:Observable<DisplayUser> = of(new DisplayUser());
+    
+    return testUser;
+  }
+  
+}
+
+
 describe('TicketAddComponent', () => {
   let component: TicketAddComponent;
   let fixture: ComponentFixture<TicketAddComponent>;
@@ -31,10 +44,15 @@ describe('TicketAddComponent', () => {
     
     await TestBed.configureTestingModule({
       declarations: [ TicketAddComponent ],
-      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig), MatSnackBarModule],
-      providers:[{provide: TicketService, useClass:MockTicketService}]
+      imports:[HttpClientTestingModule, RouterTestingModule, AngularFireModule.initializeApp(environment.firebaseConfig), MatSnackBarModule, FormsModule],
+      providers:[{ provide: AuthService, useClass: MockAuthService }, {provide: TicketService, useClass:MockTicketService}]
     })
     .compileComponents();
+    TestBed.overrideComponent(
+      TicketAddComponent,
+      { set: { providers: [{ provide: AuthService, useClass: MockAuthService }, { provide: TicketService, useClass:MockTicketService }] } }
+  );
+
   });
 
   beforeEach(() => {
@@ -43,55 +61,54 @@ describe('TicketAddComponent', () => {
     fixture.detectChanges();
   });
 
-  //disabled
-  xit('should create', () => {
+  
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  //disabled
-  xit('should validate Zoom URL', () => {
+  
+  it('should validate Zoom URL', () => {
     component._zoomURL = 'https://revature.zoom.us/rec/share/thdhdehdethyjyj';
     component.zoomUrlValidator();
     expect(component.globalZoomUrl).toBeTruthy();
   });
 
-  //disabled
-  xit('should validate time stamps by order', () => {
-    let startTimeTest:string = '00:44:00';
-    let endTimeTest:string = '00:45:00';
-    expect(component.timeStampOrderValidator(startTimeTest,endTimeTest)).toBeTruthy();
+
+  it('should validate time stamps by order', () => {
+    component.startTime = '00:44:00';
+    component.endTime = '00:45:00';
+    component.timeStampOrderValidator(component.startTime,component.endTime);
+    expect(component.globalTimeStampOrder).toBeTruthy();
   });
 
-  //disabled
-  xit('should validate time stamps by format', () => {
+
+  it('should validate time stamps by format', () => {
     let startTimeTest:string = '99:54:99';
-    let endTimeTest:string = '00:06:43';
     expect(component.timeStampFormatValidator(startTimeTest)).toBeFalsy();
   });
 
-  //disabled
-  xit('should increment row count through add more button click', () => {
+
+  it('should increment row count through add more button click', () => {
     component.topicCount = 10;
     component.topicCountIncrementor();
     expect(component.topicCountGetter).toEqual(11);
   });
 
-  //disabled
-  xit('should validate the row count to reach a limit', () => {
-    component.topicCount = 10;
+  
+  it('should validate the row count to reach a limit', () => {
+    component._topicCount = 30;
     component.topicCountIncrementor();
     expect(component.topicCountValidator()).toBeFalsy();
   });
 
-  //disabled
-  xit('should decrease row count through delete button click', () => {
+  
+  it('should decrease row count through delete button click', () => {
     component.topicCount = 10;
     component.topicCountDecrementor();
     expect(component.topicCountGetter).toEqual(9);
   });
 
-  //disabled
-  xit('should call ticket service upon submit button click', () => {
+  it('should call ticket service upon submit button click', () => {
     component.submitTickets();
     expect(component.returnTicketGetter.length).toEqual(2);
   });
