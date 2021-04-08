@@ -22,9 +22,10 @@ topic: string = '';
 startTime: string = '';
 endTime: string = '';
 description: string = '';
+status: string = 'PENDING'
 user:any;
 
-ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"PENDING",this.identifier,"","");
+ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,this.status,this.identifier,"","");
 tickets:Ticket[] = [this.ticket];
 visibility:boolean = true;
 globalTimeFormat:boolean = false;
@@ -135,7 +136,7 @@ public get returnTicketGetter() {
   //Count quantity of clips
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
-      this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"pending",this.identifier,"",""))
+      this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,this.status,this.identifier,"",""))
       this._topicCount++;
    } else {
       this.visibility = false;
