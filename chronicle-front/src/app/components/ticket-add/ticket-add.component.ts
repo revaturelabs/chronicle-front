@@ -1,4 +1,4 @@
-import { Component, Directive, Input, OnInit } from '@angular/core';
+import { Component, Directive, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Ticket } from 'src/app/models/Ticket';
@@ -22,9 +22,10 @@ topic: string = '';
 startTime: string = '';
 endTime: string = '';
 description: string = '';
+status: string = 'PENDING'
 user:any;
 
-ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"PENDING",this.identifier,"","");
+ticket:Ticket  = new Ticket(0,'0','0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,this.status,this.identifier,"","");
 tickets:Ticket[] = [this.ticket];
 visibility:boolean = true;
 globalTimeFormat:boolean = false;
@@ -45,13 +46,14 @@ public set topicCount(count:number) {
 }
 
 public get returnTicketGetter() {
-  return this._returnTickets;
+  return this.tickets;
 }
 
   constructor(private ticketService:TicketService, private authService:AuthService,private _snackBar: MatSnackBar, private router: Router) { }
 
 
   ngOnInit(): void {
+    //this may cause refresh page problems. See app.component.ts
     this.authService.User.subscribe(user1 => {
       this.user = user1;
     });
@@ -135,7 +137,7 @@ public get returnTicketGetter() {
   //Count quantity of clips
   topicCountIncrementor() {
     if (this.topicCountValidator()) {
-      this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,"pending",this.identifier,"",""))
+      this.tickets.push(new Ticket(0,this.user.uid,'0',new Date(),new Date(),"","","","",this._zoomURL,this.passcode,0,this.status,this.identifier,"",""))
       this._topicCount++;
    } else {
       this.visibility = false;
@@ -178,7 +180,7 @@ public get returnTicketGetter() {
     this.ticketService.submitTickets(this.tickets).subscribe(
       (data) => {
         this.tickets = data;
-        //display message and redirect to main page
+        //display message and redirect to main page, redirect may cause Karma browser refresh.
         this.openSnackBar(this.success,this.action);
         this.router.navigate(['']);
        
@@ -212,4 +214,8 @@ public get returnTicketGetter() {
 
 }
 
-
+@Directive({
+  selector: '[attr]',
+  exportAs: 'ngModel'
+})
+export class ngModel { }
